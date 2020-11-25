@@ -1,0 +1,32 @@
+{
+  "name": "chype",
+  "version": "1.0.0",
+  "description": "A Global chat Application which translate the chat into user's locale built using socket.io, express and MongoDb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bhagatabhijeet/chype.git"
+  },
+  "keywords": [
+    "Chat",
+    "Translate",
+    "Chat-Rooms",
+    "Chat-App"
+  ],
+  "author": "Abhijeet, Setare, Son",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bhagatabhijeet/chype/issues"
+  },
+  "homepage": "https://github.com/bhagatabhijeet/chype#readme",
+  "dependencies": {
+    "http": "0.0.1-security",
+    "mailer": "^0.6.7",
+    "mongoose": "^5.10.15",
+    "passport": "^0.4.1",
+    "socket.io": "^3.0.3"
+  }
+}
