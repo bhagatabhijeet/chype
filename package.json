@@ -4,7 +4,8 @@
   "description": "A Global chat Application which translate the chat into user's locale built using socket.io, express and MongoDb",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "react-scripts start"
   },
   "repository": {
     "type": "git",
