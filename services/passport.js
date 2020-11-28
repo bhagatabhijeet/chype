@@ -1,76 +1,57 @@
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const JwtStrategy = require("passport-jwt").Strategy;
-const ExtractJwt = require("passport-jwt").ExtractJwt;
+const passport = require('passport');
+const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
+const LocalStrategy = require('passport-local');
+const User = require('../models/User');
 
-const {
-  comparePassword,
-  fetchUserByUsernameFromDb,
-  fetchUserByIdFromDb,
-} = require("../model/userOrm");
-// Done is similar
-// takes 2 parameters
-// the 1st is an error or an error object
-// the 2nd is the user you found or null if you dont find one
-const localStrategy = new LocalStrategy(async (username, password, done) => {
-  //  Find a user with some given criteria
-  //   if an error happened when you tried to find that user
-  //   call done like this done(err, null);
-  let user;
-  try {
-    user = await fetchUserByUsernameFromDb(username);
-  } catch (e) {
-    return done(e, null);
-  }
-  //   if you do find a user, check the users credentials
-  //   if the users credentials match, call done like this done(null, userWeFound);
-  //   What passport will do if we pass a user as the 2nd param to done
-  //   on the next request that the middleware applied
-  if (user) {
-    const doesPasswordMatch = await comparePassword(password, user.password);
-    if (doesPasswordMatch) {
-      console.log(doesPasswordMatch);
-      return done(null, user);
-    }
-    console.log("happening");
-    return done(null, false);
-  } else {
-    console.log("happening");
-    return done(null, false);
-  }
-  //   if no user was found call done like return done(null, false);
-});
-
+// Setup options for JwT
 const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromHeader("authorization"),
-  secretOrKey: process.env.JWT_SECRET,
+  // Look specifically from the header where it's called authorization
+  jwtFromRequest: ExtractJwt.fromHeader('authorization'),
+  secretOrKey: process.env.SECRET,
 };
 
-const jwtStrategy = new JwtStrategy(jwtOptions, async (jwtToken, done) => {
-  console.log(jwtToken);
-  // { sub: idOfTheUser, iat: timeThatThisTokenWasCreated }
-  let user;
-
+// Create JWT Strategy for handling JWT
+// This strategy is for authenticating users on each request
+const jwtLogin = new JwtStrategy(jwtOptions, async (payload, done) => {
+  // See if the user ID in the payload exists in our database
+  //  If it does, call 'done' with that user
+  //  otherwise, call done without a user object
   try {
-    user = await fetchUserByIdFromDb(jwtToken.sub);
-  } catch (e) {
-    return done(e, null);
-  }
-
-  if (!user) {
-    return done(null, false);
-  } else {
-    // take the user that is being passed as the 2nd parameter
-    // and attach it to req.user on the next request
+    const user = await User.findById(payload.sub).select('-password');
+    if (!user) {
+      return done(null, false);
+    }
     return done(null, user);
+  } catch (e) {
+    return done(e, false);
   }
 });
 
-// All of the tokens will be coming in from the header
+// By default LocalStrategy is looking for username
+// However we are not using username, we are using an email address
+// So here we are saying, if you're looking for the username,
+// look for the email property from the request instead
+const localOptions = { usernameField: 'email' };
 
-// Hey passport we have declare a strategy named 'local'
-// if we tell you to authenticate using 'local'
-// run the localStrategy function that we gave to you
-passport.use("local", localStrategy);
-// passport.use("local-admin",localAdminStrategy);
-passport.use(jwtStrategy);
+// Create LocalStrategy for users to sign in using email and password
+const localLogin = new LocalStrategy(localOptions, async (email, password, done) => {
+  try {
+    // See if there's a user with this email
+    const user = await User.findOne({ email });
+    // If no user with this email, we pass null as there's no error
+    // We pass false as a 2nd arg because we didn't find a user
+    if (!user) { return done(null, false); }
+    // Compare the password given to the encrypted password in the database
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) { return done(null, false); }
+    // If we do find a match, return done with no error and the user we found
+    return done(null, user);
+  } catch (e) {
+    return done(e);
+  }
+});
+
+// Let's passport know that we have a 'jwt' strategy defined
+passport.use(jwtLogin);
+// Let's passport know that we have a 'local' strategy defined
+passport.use(localLogin);
