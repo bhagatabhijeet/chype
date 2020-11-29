@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUp";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignInPage from "./pages/SignInPage";
 
+
 ReactDOM.render(
   <StrictMode>
     <Router>
