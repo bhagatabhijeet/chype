@@ -1,5 +1,14 @@
-const app = require('express')();
+const express = require('express');
 const http = require('http');
+
+const app=express();
+//use clinet build in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 const PORT = process.env.PORT||3001;
 
