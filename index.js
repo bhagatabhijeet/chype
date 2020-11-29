@@ -1,3 +1,12 @@
+require('dotenv')
+.config();
+const express = require('express');
+const app = express();
+const http = require('http');
+const routes = require('./routes');
+const mongoose = require('mongoose');
+
+
 const express = require('express');
 const http = require('http');
 
@@ -11,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const PORT = process.env.PORT||3001;
+
 
 const server = http.createServer(app);
 
@@ -35,3 +45,4 @@ io.on('connection', socket => {
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 })
+

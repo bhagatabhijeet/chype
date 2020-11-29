@@ -51,6 +51,8 @@
     "validator": "^13.1.17"
   },
   "devDependencies": {
-    "concurrently": "^5.3.0"
+    "concurrently": "^5.3.0",
+    "if-env": "^1.0.4"
+
   }
 }
