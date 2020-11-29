@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "A Global chat Application which translate the chat into user's locale built using socket.io, express and MongoDb",
   "main": "index.js",
+  "proxy": "http://localhost:3001/",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node index.js",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
     "client": "cd client && npm run start",
-    "install": "npm install && cd client && npm install",
+    "install": "cd client && npm install",
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
@@ -34,6 +35,7 @@
     "axios": "^0.21.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "google-translate": "^3.0.0",
     "http": "0.0.1-security",
     "if-env": "^1.0.4",
@@ -51,5 +53,6 @@
   "devDependencies": {
     "concurrently": "^5.3.0",
     "if-env": "^1.0.4"
+
   }
 }
