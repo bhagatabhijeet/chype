@@ -6,11 +6,6 @@ const http = require('http');
 const routes = require('./routes');
 const mongoose = require('mongoose');
 
-
-const express = require('express');
-const http = require('http');
-
-const app=express();
 //use clinet build in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
@@ -18,6 +13,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(routes);
 
 const PORT = process.env.PORT||3001;
 
