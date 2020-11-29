@@ -2,9 +2,9 @@ const { Room, User } = require('../models/index');
 
 module.exports = {
     createRoom: async (data, cb) => {
-        const { roomName, userId } = data;
+        const {roomName, userId} = data;
         try {
-            const newRoom = await new Room({ text: roomName, creator: userId }).save();
+            const newRoom = await new Room({text: roomName, creator: userId}).save();
             cb([newRoom]);
         } catch (error) {
             throw error;
@@ -63,4 +63,4 @@ module.exports = {
             throw error;
         }
     },
-}
+};
