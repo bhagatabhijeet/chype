@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A Global chat Application which translate the chat into user's locale built using socket.io, express and MongoDb",
   "main": "index.js",
+  "proxy":"http://localhost:3001/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "react-scripts start"
@@ -24,10 +25,24 @@
   },
   "homepage": "https://github.com/bhagatabhijeet/chype#readme",
   "dependencies": {
+    "@google-cloud/translate": "^6.0.4",
+    "@sendgrid/mail": "^7.4.0",
+    "axios": "^0.21.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "google-translate": "^3.0.0",
     "http": "0.0.1-security",
+    "if-env": "^1.0.4",
+    "jwt-simple": "^0.5.6",
     "mailer": "^0.6.7",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.32",
     "mongoose": "^5.10.15",
     "passport": "^0.4.1",
-    "socket.io": "^3.0.3"
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "socket.io": "^3.0.3",
+    "validator": "^13.1.17"
   }
 }
