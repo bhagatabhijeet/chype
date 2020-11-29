@@ -2,7 +2,7 @@
   "name": "chype",
   "version": "1.0.0",
   "description": "A Global chat Application which translate the chat into user's locale built using socket.io, express and MongoDb",
-  "main": "index.js", 
+  "main": "index.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node index.js",
@@ -52,6 +52,5 @@
   "devDependencies": {
     "concurrently": "^5.3.0",
     "if-env": "^1.0.4"
-
   }
 }
