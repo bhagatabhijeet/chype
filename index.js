@@ -6,10 +6,6 @@ const http = require('http');
 const routes = require('./routes');
 const mongoose = require('mongoose');
 
-
-const express = require('express');
-const http = require('http');
-
 //use clinet build in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
