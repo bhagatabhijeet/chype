@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "description": "A Global chat Application which translate the chat into user's locale built using socket.io, express and MongoDb",
   "main": "index.js",
+  "proxy": "http://localhost:3001/",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node index.js",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
     "client": "cd client && npm run start",
+    "install": "cd client && npm install",
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
