@@ -1,7 +1,6 @@
 const { User } = require('../models/index');
 
 module.exports = {
-  
   getAllUserEmails: async (req, res) => {
     try {
       const userEmail = await User.findOne({ email: req.query.email }, 'email');
