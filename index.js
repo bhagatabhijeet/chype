@@ -1,5 +1,5 @@
 require('dotenv')
-.config();
+    .config();
 const express = require('express');
 const app = express();
 const http = require('http');
@@ -34,9 +34,27 @@ io.on('connection', socket => {
     })
 });
 
+// connect Mongoose to MongoDB -- TODO move to another file
+function connectToMongoDB() {
+    const dbUrl = process.env.MONGODB_URL || 'mongodb://localhost:27017/chype';
 
+    // mongoose.connection
+    //      .on('error', console.log)
+    //      .on('disconnected', connectToMongoDB)
+    //      .once('open', listen);
+    return mongoose.connect(dbUrl, {
+        keepAlive: 1,
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
+}
 
+connectToMongoDB();
+// end connect Mongoose to MongoDB
 
+app.use(express.json());
+
+app.use(routes);
 
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
