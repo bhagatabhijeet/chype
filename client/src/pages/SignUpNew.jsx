@@ -33,7 +33,7 @@ import 'react-intl-tel-input/dist/main.css';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -62,7 +62,7 @@ export default function SignUpNew() {
         {/* <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar> */}
-        <img src={ChypeLogoTrans} alt="LogoTransImage"/>
+        <img src={ChypeLogoTrans} alt="LogoTransImage" height="75px"/>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
