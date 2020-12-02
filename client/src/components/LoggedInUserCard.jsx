@@ -1,5 +1,6 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,withStyles } from '@material-ui/core/styles';
+import Badge from '@material-ui/core/Badge';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -12,17 +13,49 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 
+
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    backgroundColor: '#44b700',
+    color: '#44b700',
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    '&::after': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      animation: '$ripple 1.2s infinite ease-in-out',
+      border: '1px solid currentColor',
+      content: '""',
+    },
+  },
+  '@keyframes ripple': {
+    '0%': {
+      transform: 'scale(.8)',
+      opacity: 1,
+    },
+    '100%': {
+      transform: 'scale(2.4)',
+      opacity: 0,
+    },
+  },
+}))(Badge);
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
-    margin:theme.spacing(0)
+    width: 360,
+    height: 85,
+    fontSize: '1rem',
+    // margin:theme.spacing(0)
   },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
+  // media: {
+  //   height: 0,
+  //   paddingTop: '56.25%', // 16:9
+  // },
   expand: {
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
@@ -35,7 +68,14 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     backgroundColor: red[500],
+    marginBottom: '0',
   },
+  icon: {
+    marginBottom: '0',
+  },
+ header :{
+   fontSize: '10px',
+ }
 }));
 
 export default function LoggedInUserCard() {
@@ -47,27 +87,39 @@ export default function LoggedInUserCard() {
   // };
 
   return (
-    <Card className={classes.root}>
+    <div >
+      <Card style={{paddingBottom: '1px'}} className={classes.root}>
+      
       <CardHeader
+      className={classes.header}
         avatar={
+          <StyledBadge
+        overlap="circle"
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        variant="dot"
+      >
           <Avatar aria-label="recipe" className={classes.avatar}>
             R
           </Avatar>
+          </StyledBadge>
         }
         action={
-          <IconButton aria-label="settings">
+          <IconButton aria-label="settings" className={classes.icon}>
             <MoreHorizIcon />
           </IconButton>
         }
-        title="Abhijeet Bhagat"
-        subheader="This is my Status"
+        
+        title="Abhijeet Bhagat" 
+        subheader="This is my Status" 
       />
-      
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+       <Typography variant="subtitle1"  color="textSecondary"  style={{marginTop:'0',fontSize:'10px'}}>
          This is my last chat
-        </Typography>
-      </CardContent>      
+        </Typography> 
+        
     </Card>
+    </div>
   );
 }
