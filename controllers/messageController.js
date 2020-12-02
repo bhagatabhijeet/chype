@@ -1,4 +1,4 @@
-const { Room, User, Message } = require('../models/index');
+const { Room, Message } = require('../models/index');
 const axios = require('axios');
 
 module.exports = {
@@ -19,7 +19,6 @@ module.exports = {
             throw error;
         }
     },
-
     translateMessage: async (req, res) => {
         const {message, language} = req.body;
         try {
@@ -33,7 +32,6 @@ module.exports = {
             throw error;
         }
     },
-
     deleteMessage: async (data, cb) => {
         try {
             const currentRoom = await Room.findById(data.roomId);
