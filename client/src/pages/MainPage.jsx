@@ -29,30 +29,43 @@ const useStyles = makeStyles((theme) => ({
 export default function MainPage() {
   const classes = useStyles();
 
-  const [userData, setUserData] = useState({user: '', message: ''});
+  const [userData, setUserData] = useState({user: 'abhi', message: ''});
+  const [friendData, setFriendData] = useState({friend: 'son'});
+  const [roomData, setRoomData] = useState({room: ""});
   const [chat, setChat] = useState([])
 
-
-
   useEffect(() => {
-    console.log("I am firing in useeffect!!" );
-    socket.on("serverToClientMessage", ({user, message}) => {
-      setChat([...chat, {user, message}]);
-      console.log('inside of useEffect ', chat);
+    const {user} = userData;
+    const {friend} = friendData;
+    const participants = [user, friend].sort().join('')
+
+    socket.emit("clientToServerJoinRoom", {participants});
+
+    socket.on("serverToClientMessage", ({user, message, friend}) => {
+        setChat(chat => [...chat, {user, message}]);
     });
 
-  },[]);
+
+
+  },[userData.user, friendData.friend]);
 
   const onTextChange = e => {
     setUserData({...userData, [e.target.name]: e.target.value})
   };
 
+
   const onMessageSubmit = (e) => {
     e.preventDefault();
     const {user, message} = userData;
-    console.log('inside of on submit', chat)
-    socket.emit("clientToServerMessage", {user, message});
+    const {friend} = friendData;
+    const participants = [user, friend].sort().join('')
+    // console.log(participants)
+    // console.log('inside of on submit', chat)
+    // console.log(friend)
+    // socket.emit("clientToServerJoinRoom", {participants});
+    socket.emit("clientToServerMessage", {user, message, friend, participants});
     setUserData({user, message: ''});
+    setFriendData({...friendData})
   }
 
   const renderChat = () =>{
@@ -65,6 +78,11 @@ export default function MainPage() {
     ))
   }
 
+  // const onRoomChange =  (e) => {
+  //   const room = e.target.value;
+  //   setRoomData({...roomData, room: room})
+  //   socket.emit("clientToServerJoinRoom", {room})
+  // }
 
 
 
@@ -93,6 +111,22 @@ export default function MainPage() {
                       label = "Name"
                   />
                 </div>
+                <div className="name-field">
+                  <TextField
+                      name = 'friend'
+                      onChange = {e => setFriendData({...friendData, friend: e.target.value})}
+                      value = {friendData.friend}
+                      label = "Friend"
+                  />
+                </div>
+                <div className="name-field">
+                <TextField
+                    name = 'room'
+                    // onChange = {e => onRoomChange(e)}
+                    value = {roomData.room}
+                    label = "Room"
+                />
+            </div>
                 <div >
                   <TextField
                       name = 'message'
