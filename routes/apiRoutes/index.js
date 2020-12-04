@@ -8,6 +8,6 @@ const { getUser } = require("../../controllers/authController");
 router.use('/auth', authRoutes);
 router.use('/user', userRoutes);
 router.get("/getuser", requireAuth, getUser);
-router.use("/translate", messageRoutes);
+router.use("/message", messageRoutes);
 
 module.exports = router;

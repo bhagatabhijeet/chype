@@ -22,12 +22,13 @@ module.exports = {
     translateMessage: async (req, res) => {
         const {message, language} = req.body;
         try {
-            const apiRes = await axios.get(`https://translation.googleapis.com/language/translate/v2?target=${language}&q=${encodeURIComponent(message.text)}&key=${process.env.REACT_APP_API_KEY}`);
+            const apiRes = await axios.get(`https://translation.googleapis.com/language/translate/v2?target=${language}&q=${encodeURIComponent(message)}&key=${process.env.REACT_APP_API_KEY}`);
             const translation = apiRes.data.data.translations[0].translatedText;
-            const newMessage = message;
-            newMessage.text = translation;
+            const newMessage = {originalMessage: message};
+            newMessage.translatedMessage = translation;
             newMessage.originLanguage = apiRes.data.data.translations[0].detectedSourceLanguage;
-            return res.json({newMessage});
+            newMessage.targetLanguage = language;
+            return res.json(newMessage);
         } catch (error) {
             throw error;
         }
