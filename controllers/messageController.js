@@ -2,19 +2,19 @@ const { Room, Message } = require('../models/index');
 const axios = require('axios');
 
 module.exports = {
-    createMessage: async (data, cb) => {
+    createMessage: async (req, res) => {
         try {
             const newMessage = await new Message({
-                text: data.formValues.message,
-                userId: data.user._id,
-                firstName: data.user.firstName,
-                lastName: data.user.lastName
+                text: req.body.message,
+                userId: req.user._id,
+                firstName: req.user.firstName,
+                lastName: req.user.lastName
             }).save();
-            const currentRoom = await Room.findById(data.room._id);
+            const currentRoom = await Room.findById(req.room._id);
             currentRoom.messages.push(newMessage._id);
             await currentRoom.save();
-            const activeRoom = await Room.findById(data.room._id).populate("messages");
-            cb(activeRoom);
+            const activeRoom = await Room.findById(req.room._id).populate("messages");
+            res(activeRoom);
         } catch (error) {
             throw error;
         }
@@ -44,4 +44,4 @@ module.exports = {
             throw error;
         }
     }
-}
+};
