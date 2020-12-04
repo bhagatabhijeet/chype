@@ -1,13 +1,20 @@
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
+// import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
+// import CardMedia from '@material-ui/core/CardMedia';
+// import CardContent from '@material-ui/core/CardContent';
+// import CardActions from '@material-ui/core/CardActions';
+// import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-import MenuBar from './Menu';
+// import MenuBar from './Menu';
 
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -68,9 +75,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LoggedInUserCard() {
   const classes = useStyles();
+  // const [expanded, setExpanded] = React.useState(false);
+
+  // const handleExpandClick = () => {
+  //   setExpanded(!expanded);
+  // };
+
   return (
     <div >
       <Card style={{ paddingBottom: '1px' }} className={classes.root}>
+
         <CardHeader
           className={classes.header}
           avatar={
@@ -88,14 +102,19 @@ export default function LoggedInUserCard() {
             </StyledBadge>
           }
           action={
-            <MenuBar />
+            <IconButton aria-label="settings" className={classes.icon}>
+              <MoreHorizIcon />
+            </IconButton>
+
           }
+
           title="Abhijeet Bhagat"
           subheader="This is my Status"
         />
         <Typography variant="subtitle1" color="textSecondary" style={{ marginTop: '0', fontSize: '10px' }}>
           This is my last chat
         </Typography>
+
       </Card>
     </div>
   );
