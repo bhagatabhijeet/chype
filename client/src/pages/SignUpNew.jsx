@@ -132,7 +132,7 @@ export default function SignUpNew() {
                 id="phone"
                 autoComplete="phone"
               />
-              <LanguOption />
+              {/* <LanguOption /> */}
             </Grid> 
           </Grid>
           <Button
