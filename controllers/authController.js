@@ -54,5 +54,4 @@ module.exports = {
     const currentUser = await User.findById(req.user._id).select('-password');
     res.json({ user: currentUser });
   }
-    
 };

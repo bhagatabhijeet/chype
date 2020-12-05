@@ -34,20 +34,22 @@ export default function MainPage() {
   const [roomData, setRoomData] = useState({room: ""});
   const [chat, setChat] = useState([])
 
+  //can use props.useParams to get params form url, or props.history
   useEffect(() => {
-    const {user} = userData;
-    const {friend} = friendData;
-    const participants = [user, friend].sort().join('')
-
-    socket.emit("clientToServerJoinRoom", {participants});
+    // socket.emit("joinRoom", roomNumber);
 
     socket.on("serverToClientMessage", ({user, message, friend}) => {
+      console.log('recieved!!')
         setChat(chat => [...chat, {user, message}]);
+
+      // return function (){
+      //   socket.emit('leaveRoom', roomNumber)
+      // }
     });
 
 
 
-  },[userData.user, friendData.friend]);
+  },[]);
 
   const onTextChange = e => {
     setUserData({...userData, [e.target.name]: e.target.value})
@@ -58,14 +60,12 @@ export default function MainPage() {
     e.preventDefault();
     const {user, message} = userData;
     const {friend} = friendData;
-    const participants = [user, friend].sort().join('')
-    // console.log(participants)
-    // console.log('inside of on submit', chat)
-    // console.log(friend)
-    // socket.emit("clientToServerJoinRoom", {participants});
-    socket.emit("clientToServerMessage", {user, message, friend, participants});
+    const room = [user, friend].sort().join('')
+    console.log(room)
+    console.log('inside of on submit', chat)
+    console.log(friend)
+    socket.emit("clientToServerMessage", {user, message, friend, room});
     setUserData({user, message: ''});
-    setFriendData({...friendData})
   }
 
   const renderChat = () =>{
