@@ -6,6 +6,7 @@ import MainPage from "./pages/MainPage";
 import SignUpNew from "./pages/SignUpNew";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignInPage from "./pages/SignInPage";
+import SettingsPage from './pages/SettingsPage';
 
 
 ReactDOM.render(
@@ -15,6 +16,7 @@ ReactDOM.render(
         <Route exact path="/" component={SignInPage} />
         <Route path="/signup" component={SignUpNew} />
         <Route path="/main" component={MainPage} />
+        <Route path="/settings" component={SettingsPage} />
       </Switch>
     </Router>
   </StrictMode>,
