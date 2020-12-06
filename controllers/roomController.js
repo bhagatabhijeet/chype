@@ -1,11 +1,11 @@
 const { Room, User } = require('../models/index');
 
 module.exports = {
-    createRoom: async (data, cb) => {
-        const {roomName, userId} = data;
+    createRoom: async (req, res) => {
+        const {roomName, userId} = req.body;
         try {
             const newRoom = await new Room({text: roomName, creator: userId}).save();
-            cb([newRoom]);
+            res.json({newRoom});
         } catch (error) {
             throw error;
         }
@@ -27,7 +27,6 @@ module.exports = {
             throw error;
         }
     },
-
     getAllRooms: async (cb) => {
         try {
             const rooms = await Room.find().populate("messages");
@@ -39,7 +38,6 @@ module.exports = {
             throw error;
         }
     },
-
     getActiveRoom: async (data, cb) => {
         try {
             const activeRoom = await Room.findById(data.roomId).populate("messages");
@@ -51,7 +49,6 @@ module.exports = {
             throw error;
         }
     },
-
     getActiveRoomAfterDelete: async (data, cb) => {
         try {
             const activeRoom = await Room.findById(data.room._id).populate("messages");
