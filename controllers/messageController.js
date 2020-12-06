@@ -2,19 +2,19 @@ const { Room, Message } = require('../models/index');
 const axios = require('axios');
 
 module.exports = {
-    createMessage: async (data, cb) => {
+    createMessage: async (req, res) => {
         try {
             const newMessage = await new Message({
-                text: data.formValues.message,
-                userId: data.user._id,
-                firstName: data.user.firstName,
-                lastName: data.user.lastName
+                text: req.body.message,
+                userId: req.user._id,
+                firstName: req.user.firstName,
+                lastName: req.user.lastName
             }).save();
-            const currentRoom = await Room.findById(data.room._id);
+            const currentRoom = await Room.findById(req.room._id);
             currentRoom.messages.push(newMessage._id);
             await currentRoom.save();
-            const activeRoom = await Room.findById(data.room._id).populate("messages");
-            cb(activeRoom);
+            const activeRoom = await Room.findById(req.room._id).populate("messages");
+            res(activeRoom);
         } catch (error) {
             throw error;
         }
@@ -22,12 +22,13 @@ module.exports = {
     translateMessage: async (req, res) => {
         const {message, language} = req.body;
         try {
-            const apiRes = await axios.get(`https://translation.googleapis.com/language/translate/v2?target=${language}&q=${encodeURIComponent(message.text)}&key=${process.env.REACT_APP_API_KEY}`);
+            const apiRes = await axios.get(`https://translation.googleapis.com/language/translate/v2?target=${language}&q=${encodeURIComponent(message)}&key=${process.env.REACT_APP_API_KEY}`);
             const translation = apiRes.data.data.translations[0].translatedText;
-            const newMessage = message;
-            newMessage.text = translation;
+            const newMessage = {originalMessage: message};
+            newMessage.translatedMessage = translation;
             newMessage.originLanguage = apiRes.data.data.translations[0].detectedSourceLanguage;
-            return res.json({newMessage});
+            newMessage.targetLanguage = language;
+            return res.json(newMessage);
         } catch (error) {
             throw error;
         }
@@ -43,4 +44,4 @@ module.exports = {
             throw error;
         }
     }
-}
+};
