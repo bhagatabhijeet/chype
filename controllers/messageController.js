@@ -4,19 +4,20 @@ const axios = require('axios');
 module.exports = {
     createMessage: async (req, res) => {
         try {
+            let {message, room} = req.body;
             const newMessage = await new Message({
-                text: req.body.message,
+                text: message,
                 userId: req.user._id,
                 firstName: req.user.firstName,
                 lastName: req.user.lastName
             }).save();
-            const currentRoom = await Room.findById(req.room._id);
+            const currentRoom = await Room.findById(room._id);
             currentRoom.messages.push(newMessage._id);
             await currentRoom.save();
-            const activeRoom = await Room.findById(req.room._id).populate("messages");
-            res(activeRoom);
+            const activeRoom = await Room.findById(room._id).populate("messages");
+            res.json(activeRoom);
         } catch (error) {
-            throw error;
+            res.json({error: "Encountered error"});
         }
     },
     translateMessage: async (req, res) => {
