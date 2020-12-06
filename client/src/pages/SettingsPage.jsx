@@ -9,7 +9,7 @@ import {
 import {
     Drawer, List, ListItem,
     ListItemIcon, ListItemText,
-    Container, Typography,
+    Container, Typography,Divider
 } from "@material-ui/core";
 
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
     nested: {
         paddingLeft: theme.spacing(4),
     },
+    
 }))
 
 function SettingsPage(props) {
@@ -60,7 +61,7 @@ function SettingsPage(props) {
         <Router>
             <div style={{ display: 'flex' }} className={classes.root}>
                 <Drawer
-                    style={{ width: '220px' }}
+                    style={{ width: '270px' }}
                     variant="persistent"
                     anchor="left"
                     open={true}
@@ -72,11 +73,11 @@ function SettingsPage(props) {
                                 <ListItemIcon>
                                     <SettingsIcon />
                                 </ListItemIcon>
-                                <ListItemText primary={"settings"} />
+                                <ListItemText primary={"Settings"} />
                                 {open ? <ExpandLess /> : <ExpandMore />}
                             </ListItem>
                             <Collapse in={open} timeout="auto" unmountOnExit>
-                                <Link to="/account" className={classes.link}>
+                                <Link to="/account" className={classes.link} >
                                     <List component="div" disablePadding>
                                         <ListItem button className={classes.nested}>
                                             <ListItemIcon>
@@ -87,6 +88,7 @@ function SettingsPage(props) {
                                     </List>
                                 </Link>
                             </Collapse>
+                            <Divider variant="inset" component="li" />
                             <Collapse in={open} timeout="auto" unmountOnExit>
                                 <Link to="/general" className={classes.link}>
                                     <List component="div" disablePadding>
@@ -100,14 +102,16 @@ function SettingsPage(props) {
                                 </Link>
                             </Collapse>
                         </Link>
+                        <Divider variant="inset" component="li" />
                         <Link to="/signout" className={classes.link}>
                             <ListItem button>
                                 <ListItemIcon>
                                     <ExitToAppIcon />
                                 </ListItemIcon>
-                                <ListItemText primary={"signout"} />
+                                <ListItemText primary={"Signout"} />
                             </ListItem>
                         </Link>
+                        <Divider variant="inset" component="li" />
                     </List>
                 </Drawer>
                 <Switch>
