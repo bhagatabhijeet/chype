@@ -6,7 +6,7 @@ export default function MenuBar(props) {
 
 
     return (
-        <div>
+        <div >
             <SettingsPage />
 
         </div>
