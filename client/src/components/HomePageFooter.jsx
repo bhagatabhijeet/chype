@@ -196,14 +196,16 @@ export default function HomePageFooter() {
           <Grid
             item
             container
-            xs={6} 
-            // sm={10}
-            spacing={1}
-            // lg={10}
+            xs={12} 
+            sm={12}
+            lg={6}
+            spacing={1}            
             style={{
               flexDirection: "row",
               alignItems: "center",
               textAlign: "center",
+              justifyContent:'center',
+              flexWrap:'wrap'
             }}
           >
             <Grid item xs={3} lg={2}>
