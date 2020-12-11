@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
-import chypeTransLogo from "../assets/images/chypeLogo-trans.png";
-import y from "../assets/images/y.png";
+import chypeTransInverseLogo from "../assets/images/new_inverse_trans.png";
+import chypeTransLogo from "../assets/images/new_trans.png";
+// import y from "../assets/images/y.png";
 import {
   Typography,
   Grid,
@@ -9,11 +10,11 @@ import {
   Box,
   Link,
 } from "@material-ui/core";
+import   HomePageFooter  from "../components/HomePageFooter";
 import { makeStyles } from "@material-ui/core/styles";
 import {useSpring, animated,config,useTransition,Spring} from 'react-spring';
 const { Container } = require("@material-ui/core");
 
-const { HomePageFooter } = require("../components/HomePageFooter");
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -43,7 +44,7 @@ export default function HomePage() {
         alignItems="center"
       >
         <Grid item>
-          <img src={chypeTransLogo} alt="logoImg" height="60px" />
+          <img src={chypeTransInverseLogo} alt="logoImg" height="60px" />
         </Grid>
         <Grid item>
           {/* <Box mb={3}> */}
@@ -57,10 +58,12 @@ export default function HomePage() {
         <Grid>
           <Grid item>
             <Typography variant="h3" align="center">
-              <Box fontWeight="fontWeightBold" m={1} fontFamily='Roboto' >
-                <Animdiv val="Welcome to Chype!"/>
-                {/* <ShowY/> */}
-              </Box>
+              {/* <Box fontWeight="fontWeightBold" m={1} fontFamily='Roboto' > */}
+                {/* <Animdiv val="Welcome to Chype!"/>*/}
+                {/* <ShowY/> */}<img src={chypeTransLogo} alt="trans logo"/>
+
+              {/* </Box> */}
+              
             </Typography>
           </Grid>
         </Grid>
@@ -80,14 +83,14 @@ function Animdiv(){
   
 }
 
-function ShowY(){
-  const [show, set] = useState(false)
-  const transitions = useTransition(show, null, {
-  from: { opacity: 0 },
-  enter: { opacity: 1 },
-  leave: { opacity: 0 },
-  })
-  return transitions.map(({ item, key, props }) =>
-  item && <animated.div key={key} style={props}>✌️</animated.div>
-  )
-}
+// function ShowY(){
+//   const [show, set] = useState(false)
+//   const transitions = useTransition(show, null, {
+//   from: { opacity: 0 },
+//   enter: { opacity: 1 },
+//   leave: { opacity: 0 },
+//   })
+//   return transitions.map(({ item, key, props }) =>
+//   item && <animated.div key={key} style={props}>✌️</animated.div>
+//   )
+// }
