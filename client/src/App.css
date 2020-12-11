@@ -1,6 +1,10 @@
+body {
+  color: "#1e1e1e";
+}
+
 .intl-tel-input.allow-dropdown input,
-.intl-tel-input.allow-dropdown input[type=text],
-.intl-tel-input.allow-dropdown input[type=tel]{
+.intl-tel-input.allow-dropdown input[type="text"],
+.intl-tel-input.allow-dropdown input[type="tel"] {
   height: 3rem;
   width: 30rem;
   border-radius: 4px;
@@ -18,7 +22,7 @@
 .AppForm {
   width: 50%;
   height: 841px;
-  background-color: #2E4158;
+  background-color: #2e4158;
   padding: 25px 40px;
   overflow: inherit;
 }
@@ -26,8 +30,7 @@
   min-height: 100vh;
   height: 100vh;
   display: flex;
-  
-  
+
   /* color: white; */
 }
 /* .App {
@@ -61,7 +64,7 @@
   padding: 4px;
   border: solid white 1px;
   border-radius: 15px;
-  margin:5px;
+  margin: 5px;
   text-decoration: none;
   background-color: rgb(241, 228, 37);
 }
