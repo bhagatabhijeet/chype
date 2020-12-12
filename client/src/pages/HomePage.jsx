@@ -1,6 +1,10 @@
-import React,{useState} from 'react';
-import chypeTransLogo from "../assets/images/chypeLogo-trans.png";
-import y from "../assets/images/y.png";
+import React, { useState } from "react";
+import chypeTransInverseLogo from "../assets/images/new_inverse_trans.png";
+import chypeTransLogo from "../assets/images/new_trans.png";
+import FunAnim from "../assets/images/fun_animation.gif";
+import Button from "@material-ui/core/Button";
+import "../assets/styles/common.css";
+
 import {
   Typography,
   Grid,
@@ -9,11 +13,16 @@ import {
   Box,
   Link,
 } from "@material-ui/core";
+import HomePageFooter from "../components/HomePageFooter";
 import { makeStyles } from "@material-ui/core/styles";
-import {useSpring, animated,config,useTransition,Spring} from 'react-spring';
+import {
+  useSpring,
+  animated,
+  config,
+  useTransition,
+  Spring,
+} from "react-spring";
 const { Container } = require("@material-ui/core");
-
-const { HomePageFooter } = require("../components/HomePageFooter");
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -27,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HomePage() {
   const classes = useStyles();
-  
+
   return (
     <>
       <Grid
@@ -37,57 +46,59 @@ export default function HomePage() {
           backgroundColor: "#1e1e1e",
           color: "#d0effc",
           fontFamily: "Roboto",
-          marginBottom: "50px",
+          marginBottom: "10px",
         }}
         justify="center"
         alignItems="center"
       >
         <Grid item>
-          <img src={chypeTransLogo} alt="logoImg" height="60px" />
+          <img src={chypeTransInverseLogo} alt="logoImg" height="60px" />
+        </Grid>
+        <Grid item></Grid>
+      </Grid>
+      {/* <Container> */}
+      <Grid container direction="column" justify="center" alignItems="center">
+        <Grid item xs={12} spacing={0}>
+            <Animdiv val="Hello there!" />
+          <Typography variant="h4" align="center" component="h4">
+            Welcome to Chype!
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Button className="btn-black-white" href="/signup">
+            I want to be a 'Chyper'
+          </Button>
         </Grid>
         <Grid item>
-          {/* <Box mb={3}> */}
-          {/* <Typography variant="caption">
-            &copy; Chype Team - {new Date().getFullYear()}
-          </Typography> */}
-          {/* </Box> */}
+          <Typography variant="h4" align="center" component="h4">
+            {/* <img src={FunAnim} alt="funanim" /> */}
+          </Typography>
         </Grid>
       </Grid>
-      <Container>
-        <Grid>
-          <Grid item>
-            <Typography variant="h3" align="center">
-              <Box fontWeight="fontWeightBold" m={1} fontFamily='Roboto' >
-                <Animdiv val="Welcome to Chype!"/>
-                {/* <ShowY/> */}
-              </Box>
-            </Typography>
-          </Grid>
-        </Grid>
-      </Container>
+      {/* </Container> */}
       <HomePageFooter />
     </>
   );
 }
 
-function Animdiv(){
-  const props = useSpring({
-    color: "#515dff",
+function Animdiv(props) {
+  const springprops = useSpring({
+    color: "#2ba2ff",
     from: { color: "#ff2187" },
-    config: {...config.gentle,duration:3000}
-  })
-  return <animated.div style={props}>Welcome to Chype</animated.div>
-  
+    config: { ...config.gentle, duration: 3000 },
+    textAlign:'center'
+  });
+  return <animated.h3 style={springprops}>{props.val}</animated.h3>;
 }
 
-function ShowY(){
-  const [show, set] = useState(false)
-  const transitions = useTransition(show, null, {
-  from: { opacity: 0 },
-  enter: { opacity: 1 },
-  leave: { opacity: 0 },
-  })
-  return transitions.map(({ item, key, props }) =>
-  item && <animated.div key={key} style={props}>✌️</animated.div>
-  )
-}
+// function ShowY(){
+//   const [show, set] = useState(false)
+//   const transitions = useTransition(show, null, {
+//   from: { opacity: 0 },
+//   enter: { opacity: 1 },
+//   leave: { opacity: 0 },
+//   })
+//   return transitions.map(({ item, key, props }) =>
+//   item && <animated.div key={key} style={props}>✌️</animated.div>
+//   )
+// }

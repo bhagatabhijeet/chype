@@ -1,0 +1,17 @@
+.btn-blue-black {
+  background-color: #2ba2ff !important;
+  color: #1e1e1e !important;
+}
+
+.btn-blue-black:hover {
+  background-color: #2ba2ff !important;
+  color: #1e1e1e !important;
+}
+
+.btn-black-white {
+  background-color: #1e1e1e  !important;
+  color: #ffffff !important;
+}
+.btn-black-white:hover {
+  background-color: #2ba2ff !important;
+}
