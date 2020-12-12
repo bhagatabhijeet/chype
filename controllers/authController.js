@@ -50,7 +50,7 @@ module.exports = {
     const currentUser = await User.findById(req.user._id).select('-password');
     res.json({ token: tokenForUser(req.user), user: currentUser });
   },
-  getUser: async(req,res) => {
+  getUser: async(req, res) => {
     const currentUser = await User.findById(req.user._id).select('-password');
     res.json({ user: currentUser });
   }
