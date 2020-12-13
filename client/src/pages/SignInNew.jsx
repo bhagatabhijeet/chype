@@ -15,6 +15,7 @@ import "react-intl-tel-input/dist/main.css";
 import { useState } from "react";
 import axios from "axios";
 import Slide from "@material-ui/core/Slide";
+import Parallax from '../components/animated/Parallax';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center",
-    opacity: 0.9,
+    opacity: 0.7,
   },
   paper: {
     margin: theme.spacing(8, 4),
@@ -83,7 +84,7 @@ const StyledTextField = withStyles({
   },
 })(TextField);
 
-export default function SignUp() {
+export default function SignInNew() {
   const classes = useStyles();
   const [formData, setFormData] = useState({
     firstName: { text: "", errorText: "", error: false },
@@ -187,20 +188,13 @@ export default function SignUp() {
           "linear-gradient(#ffffff 30%,#56b5ff 55%,#2ba2ff,#2ba2ff,#2ba2ff,#2ba2ff)",
       }}
     >
-      <AppBarMain home signin />
+      
+      <AppBarMain home signup/>
       <Grid container component="main" className={classes.root} spacing={0}>
-        <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image}>
-          {/* <Paper className={classes.image} variant="outlined">
-          
-          </Paper> */}
-          <Paper
-            elevation={20}
-            style={{ backgroundColor: "transparent" }}
-            variant="outlined"
-          >
-            {" "}
-            */}
+        {/* <CssBaseline /> */}
+        <Grid item xs={false} sm={4} md={7} >
+          <Parallax/>
+          {/* <Paper elevation={20} style={{ backgroundColor: "transparent" }}>
             <Slide direction="left" in timeout={{ appear: 500, enter: 1500 }}>
               <Typography
                 variant="h5"
@@ -215,7 +209,7 @@ export default function SignUp() {
                 We are excited to see you onboard. Come on in!
               </Typography>
             </Slide>
-          </Paper>
+          </Paper> */}
         </Grid>
         <Grid
           item
@@ -232,11 +226,11 @@ export default function SignUp() {
           <div className={classes.paper}>
             <img src={ChypeLogoTrans} alt="LogoTransImage" height="75px" />
             <Typography component="h1" variant="h5">
-              Sign up
+              Sign In
             </Typography>
             {/**NEW FORM */}
             <form className={classes.form} noValidate onSubmit={handleSubmit}>
-              <StyledTextField
+              {/* <StyledTextField
                 autoComplete="fname"
                 name="firstName"
                 variant="outlined"
@@ -262,7 +256,7 @@ export default function SignUp() {
                 onChange={handleLastNameChange}
                 helperText={formData.lastName.errorText}
                 error={formData.lastName.errorText}
-              />
+              /> */}
               <StyledTextField
                 variant="outlined"
                 margin="dense"
@@ -290,7 +284,7 @@ export default function SignUp() {
                 helperText={formData.password.errorText}
                 error={formData.password.errorText}
               />
-              <StyledTextField
+              {/* <StyledTextField
                 variant="outlined"
                 margin="dense"
                 fullWidth
@@ -300,7 +294,7 @@ export default function SignUp() {
                 id="phone"
                 autoComplete="phone"
                 onChange={handlePhoneChange}
-              />
+              /> */}
 
               <Button
                 type="submit"
@@ -310,7 +304,7 @@ export default function SignUp() {
                 className="btn-black-white"
                 margin="dense"
               >
-                Sign Up
+                Sign In
               </Button>
               <Grid container>
                 <Grid item xs>
@@ -331,5 +325,6 @@ export default function SignUp() {
       </Grid>
       <HomePageFooter />
     </div>
+    
   );
 }
