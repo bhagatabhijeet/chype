@@ -5,7 +5,7 @@ import "./index.css";
 import MainPage from "./pages/MainPage";
 import SignUp from "./pages/SignUp";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import SignInPage from "./pages/SignInPage";
+import SignInNew from "./pages/SignInNew";
 import SettingsPage from './pages/SettingsPage';
 import HomePage from './pages/HomePage'
 import 'fontsource-roboto';
@@ -15,7 +15,7 @@ ReactDOM.render(
     <Router>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route path="/signin" component={SignInPage} />
+        <Route path="/signin" component={SignInNew} />
         <Route path="/signup" component={SignUp} />
         <Route path="/main" component={MainPage} />
         <Route path="/settings" component={SettingsPage} />
