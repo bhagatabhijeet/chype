@@ -13,19 +13,21 @@ import HomePageFooter from "../components/HomePageFooter";
 import "react-intl-tel-input/dist/main.css";
 import { useState } from "react";
 import axios from "axios";
+import Slide from "@material-ui/core/Slide";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100vh",
   },
   gridItemBg: {
-    background: "linear-gradient(#ffffff 80%,#56b5ff,#2ba2ff)",
+    backgroundColor: "transparent",
   },
   image: {
     backgroundImage: `url(${SignUpBgImg})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center",
+    opacity: 0.7,
   },
   paper: {
     margin: theme.spacing(8, 4),
@@ -122,16 +124,16 @@ export default function SignUpNew() {
     event.preventDefault();
 
     if (validations()) {
-      const submit = async () =>{
-       const res =await axios.post("/api/auth/signup", {
-        firstName: formData.firstName.text,
-        lastName: formData.lastName.text,
-        email:formData.email.text ,
-      password:formData.password.text,
-      });
-      console.log(res.data);
-    }
-    submit();
+      const submit = async () => {
+        const res = await axios.post("/api/auth/signup", {
+          firstName: formData.firstName.text,
+          lastName: formData.lastName.text,
+          email: formData.email.text,
+          password: formData.password.text,
+        });
+        console.log(res.data);
+      };
+      submit();
     }
   };
   const handleFirstNameChange = (event) => {
@@ -180,25 +182,28 @@ export default function SignUpNew() {
   return (
     <div
       style={{
-        background: "linear-gradient(#ffffff 20%,#56b5ff 20%,#2ba2ff 60%)",
+        background:
+          "linear-gradient(#ffffff 30%,#56b5ff 55%,#2ba2ff,#2ba2ff,#2ba2ff,#2ba2ff)",
       }}
     >
       <Grid container component="main" className={classes.root} spacing={0}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image}>
-          <Paper elevation={10}>
-            <Typography
-              variant="h4"
-              align="center"
-              style={{
-                color: "#fff",
-                backgroundColor: "#2ba2ff",
-                marginTop: 40,
-                fontWeight: 400,
-              }}
-            >
-              We are excited to see you onboard. Come on in!
-            </Typography>
+          <Paper elevation={20} style={{ backgroundColor: "transparent" }}>
+            <Slide direction="left" in timeout={{ appear: 500, enter: 1500 }}>
+              <Typography
+                variant="h5"
+                align="center"
+                style={{
+                  color: "#fff",
+                  backgroundColor: "#2ba2ff",
+                  marginTop: 40,
+                  fontWeight: 400,
+                }}
+              >
+                We are excited to see you onboard. Come on in!
+              </Typography>
+            </Slide>
           </Paper>
         </Grid>
         <Grid
@@ -279,7 +284,7 @@ export default function SignUpNew() {
                 margin="dense"
                 fullWidth
                 name="phone"
-                label="phone"
+                label="Phone"
                 type="text"
                 id="phone"
                 autoComplete="phone"
