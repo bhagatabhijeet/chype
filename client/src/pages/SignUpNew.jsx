@@ -12,6 +12,7 @@ import SignUpBgImg from "../assets/images/signup-background.jpg";
 import HomePageFooter from "../components/HomePageFooter";
 import "react-intl-tel-input/dist/main.css";
 import { useState } from "react";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     backgroundImage: `url(${SignUpBgImg})`,
-    backgroundRepeat: "no-repeat",    
+    backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center",
   },
@@ -110,7 +111,7 @@ export default function SignUpNew() {
         errorText: formData.password.text === "" ? "password is required" : "",
       },
     });
-    return (
+    return !(
       formData.firstName.text === "" ||
       formData.lastName.text === "" ||
       formData.email.text === "" ||
@@ -121,9 +122,16 @@ export default function SignUpNew() {
     event.preventDefault();
 
     if (validations()) {
-      console.log("validation errors cannot submit", formData);
-    } else {
-      console.log("submitting", formData);
+      const submit = async () =>{
+       const res =await axios.post("/api/auth/signup", {
+        firstName: formData.firstName.text,
+        lastName: formData.lastName.text,
+        email:formData.email.text ,
+      password:formData.password.text,
+      });
+      console.log(res.data);
+    }
+    submit();
     }
   };
   const handleFirstNameChange = (event) => {
