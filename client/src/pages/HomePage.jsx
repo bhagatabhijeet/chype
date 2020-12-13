@@ -4,6 +4,7 @@ import chypeTransLogo from "../assets/images/new_trans.png";
 import FunAnim from "../assets/images/fun_animation.gif";
 import Button from "@material-ui/core/Button";
 import "../assets/styles/common.css";
+import AppBarMain from '../components/AppBarMain';
 
 import {
   Typography,
@@ -39,7 +40,8 @@ export default function HomePage() {
 
   return (
     <>
-      <Grid
+    <AppBarMain />
+      {/* <Grid
         container
         style={{
           minHeight: "30px",
@@ -55,8 +57,8 @@ export default function HomePage() {
           <img src={chypeTransInverseLogo} alt="logoImg" height="60px" />
         </Grid>
         <Grid item></Grid>
-      </Grid>
-      {/* <Container> */}
+      </Grid>  */}
+       {/* <Container> */}
       <Grid container direction="column" justify="center" alignItems="center">
         <Grid item xs={12} spacing={0}>
             <Animdiv val="Hello there!" />
