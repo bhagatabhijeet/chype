@@ -10,6 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import ChypeLogoTrans from "../assets/images/new.png";
 import SignUpBgImg from "../assets/images/signup-background.jpg";
 import HomePageFooter from "../components/HomePageFooter";
+import AppBarMain from "../components/AppBarMain";
 import "react-intl-tel-input/dist/main.css";
 import { useState } from "react";
 import axios from "axios";
@@ -186,6 +187,8 @@ export default function SignUp() {
           "linear-gradient(#ffffff 30%,#56b5ff 55%,#2ba2ff,#2ba2ff,#2ba2ff,#2ba2ff)",
       }}
     >
+      
+      <AppBarMain home signin/>
       <Grid container component="main" className={classes.root} spacing={0}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image}>
@@ -320,5 +323,6 @@ export default function SignUp() {
       </Grid>
       <HomePageFooter />
     </div>
+    
   );
 }

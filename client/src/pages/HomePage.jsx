@@ -40,7 +40,7 @@ export default function HomePage() {
 
   return (
     <>
-    <AppBarMain />
+    <AppBarMain signup signin/>
       {/* <Grid
         container
         style={{
