@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 // import App from "./App";
 import MainPage from "./pages/MainPage";
-import SignUpNew from "./pages/SignUpNew";
+import SignUp from "./pages/SignUp";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignInPage from "./pages/SignInPage";
 import SettingsPage from './pages/SettingsPage';
@@ -16,7 +16,7 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/signin" component={SignInPage} />
-        <Route path="/signup" component={SignUpNew} />
+        <Route path="/signup" component={SignUp} />
         <Route path="/main" component={MainPage} />
         <Route path="/settings" component={SettingsPage} />
       </Switch>
