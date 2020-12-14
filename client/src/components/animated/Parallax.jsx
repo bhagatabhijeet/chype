@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { useSpring, animated } from 'react-spring'
 import '../../assets/styles/parallax.css' // // Icons made by Freepik from www.flaticon.com
 
@@ -12,11 +11,11 @@ const trans4 = (x, y) => `translate3d(${x / 3.5}px,${y / 3.5}px,0)`
 export default function Parallax() {
   const [props, set] = useSpring(() => ({ xy: [0, 0], config: { mass: 10, tension: 550, friction: 140 } }))
   return (
-    <div class="container" onMouseMove={({ clientX: x, clientY: y }) => set({ xy: calc(x, y) })}>
-      <animated.div class="card1" style={{ transform: props.xy.interpolate(trans1) }} />
-      {/* <animated.div class="card2" style={{ transform: props.xy.interpolate(trans2) }} /> */}
-      <animated.div class="card3" style={{ transform: props.xy.interpolate(trans3) }} />
-      <animated.div class="card4" style={{ transform: props.xy.interpolate(trans4) }} />
+    <div className="container" onMouseMove={({ clientX: x, clientY: y }) => set({ xy: calc(x, y) })}>
+      <animated.div className="card1" style={{ transform: props.xy.interpolate(trans1) }} />
+      {/* <animated.div className="card2" style={{ transform: props.xy.interpolate(trans2) }} /> */}
+      <animated.div className="card3" style={{ transform: props.xy.interpolate(trans3) }} />
+      <animated.div className="card4" style={{ transform: props.xy.interpolate(trans4) }} />
     </div>
   )
 }
