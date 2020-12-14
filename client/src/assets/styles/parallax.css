@@ -48,3 +48,13 @@
   align-items: center;
   justify-content: center;
 }
+
+@media only screen and (max-width: 900px) {
+  .container {
+    width: 0%;
+    height: 0%;
+  }
+  .card1,.card1,.card3,.card4{
+    display: none;
+  }
+}

@@ -75,10 +75,10 @@ const StyledTextField = withStyles({
         borderColor: "#2ba2ff",
       },
     },
-  },
-  error: {
-    "&.MuiFormHelperText-root.Mui-error": {
-      color: "red !important",
+    error: {
+      "&.MuiFormHelperText-root.Mui-error": {
+        color: "red !important",
+      },
     },
   },
 })(TextField);
@@ -126,7 +126,7 @@ export default function SignUp() {
 
     if (validations()) {
       const submit = async () => {
-        const res = await axios.post("/api/auth/signup", {
+        const res = await axios.post("/auth/signup", {
           firstName: formData.firstName.text,
           lastName: formData.lastName.text,
           email: formData.email.text,
@@ -191,16 +191,11 @@ export default function SignUp() {
       <Grid container component="main" className={classes.root} spacing={0}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image}>
-          {/* <Paper className={classes.image} variant="outlined">
-          
-          </Paper> */}
           <Paper
             elevation={20}
             style={{ backgroundColor: "transparent" }}
             variant="outlined"
           >
-            {" "}
-            */}
             <Slide direction="left" in timeout={{ appear: 500, enter: 1500 }}>
               <Typography
                 variant="h5"
@@ -225,8 +220,8 @@ export default function SignUp() {
           component={Paper}
           elevation={0}
           square
-          direction="column"
-          alignItems="center"
+          // direction="column"
+          // alignItems="center"
           className={classes.gridItemBg}
         >
           <div className={classes.paper}>
@@ -248,7 +243,7 @@ export default function SignUp() {
                 autoFocus
                 onChange={handleFirstNameChange}
                 helperText={formData.firstName.errorText}
-                error={formData.firstName.errorText}
+                error={formData.firstName.errorText !== ""}
               />
               <StyledTextField
                 variant="outlined"
@@ -261,7 +256,7 @@ export default function SignUp() {
                 autoComplete="lname"
                 onChange={handleLastNameChange}
                 helperText={formData.lastName.errorText}
-                error={formData.lastName.errorText}
+                error={formData.lastName.errorText !== ""}
               />
               <StyledTextField
                 variant="outlined"
@@ -274,7 +269,7 @@ export default function SignUp() {
                 autoComplete="email"
                 onChange={handleEmailChange}
                 helperText={formData.email.errorText}
-                error={formData.email.errorText}
+                error={formData.email.errorText !== ""}
               />
               <StyledTextField
                 variant="outlined"
@@ -288,7 +283,7 @@ export default function SignUp() {
                 autoComplete="current-password"
                 onChange={handlePasswordChange}
                 helperText={formData.password.errorText}
-                error={formData.password.errorText}
+                error={formData.password.errorText !== ""}
               />
               <StyledTextField
                 variant="outlined"

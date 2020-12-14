@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
@@ -14,7 +13,6 @@ import AppBarMain from "../components/AppBarMain";
 import "react-intl-tel-input/dist/main.css";
 import { useState } from "react";
 import axios from "axios";
-import Slide from "@material-ui/core/Slide";
 import Parallax from '../components/animated/Parallax';
 
 const useStyles = makeStyles((theme) => ({
@@ -76,11 +74,11 @@ const StyledTextField = withStyles({
         borderColor: "#2ba2ff",
       },
     },
+    error: {
+      "&.MuiFormHelperText-root.Mui-error": {
+        color: "red !important",
+      },
   },
-  error: {
-    "&.MuiFormHelperText-root.Mui-error": {
-      color: "red !important",
-    },
   },
 })(TextField);
 
@@ -138,26 +136,26 @@ export default function SignInNew() {
       submit();
     }
   };
-  const handleFirstNameChange = (event) => {
-    setFormData({
-      ...formData,
-      firstName: {
-        ...formData.firstName,
-        errorText: "",
-        text: event.target.value,
-      },
-    });
-  };
-  const handleLastNameChange = (event) => {
-    setFormData({
-      ...formData,
-      lastName: {
-        ...formData.lastName,
-        errorText: "",
-        text: event.target.value,
-      },
-    });
-  };
+  // const handleFirstNameChange = (event) => {
+  //   setFormData({
+  //     ...formData,
+  //     firstName: {
+  //       ...formData.firstName,
+  //       errorText: "",
+  //       text: event.target.value,
+  //     },
+  //   });
+  // };
+  // const handleLastNameChange = (event) => {
+  //   setFormData({
+  //     ...formData,
+  //     lastName: {
+  //       ...formData.lastName,
+  //       errorText: "",
+  //       text: event.target.value,
+  //     },
+  //   });
+  // };
   const handlePasswordChange = (event) => {
     setFormData({
       ...formData,
@@ -174,12 +172,12 @@ export default function SignInNew() {
       email: { ...formData.email, errorText: "", text: event.target.value },
     });
   };
-  const handlePhoneChange = (event) => {
-    setFormData({
-      ...formData,
-      phone: { ...formData.phone, text: event.target.value },
-    });
-  };
+  // const handlePhoneChange = (event) => {
+  //   setFormData({
+  //     ...formData,
+  //     phone: { ...formData.phone, text: event.target.value },
+  //   });
+  // };
 
   return (
     <div
@@ -193,7 +191,9 @@ export default function SignInNew() {
       <Grid container component="main" className={classes.root} spacing={0}>
         {/* <CssBaseline /> */}
         <Grid item xs={false} sm={4} md={7} >
+          <div className="container">
           <Parallax/>
+          </div>
           {/* <Paper elevation={20} style={{ backgroundColor: "transparent" }}>
             <Slide direction="left" in timeout={{ appear: 500, enter: 1500 }}>
               <Typography
@@ -217,10 +217,10 @@ export default function SignInNew() {
           sm={8}
           md={5}
           component={Paper}
-          elevation={0}
+          elevation={20}
           square
-          direction="column"
-          alignItems="center"
+          // direction="column"
+          // alignItems="center"
           className={classes.gridItemBg}
         >
           <div className={classes.paper}>
@@ -268,7 +268,7 @@ export default function SignInNew() {
                 autoComplete="email"
                 onChange={handleEmailChange}
                 helperText={formData.email.errorText}
-                error={formData.email.errorText}
+                error={formData.email.errorText !== ""}
               />
               <StyledTextField
                 variant="outlined"
@@ -282,7 +282,7 @@ export default function SignInNew() {
                 autoComplete="current-password"
                 onChange={handlePasswordChange}
                 helperText={formData.password.errorText}
-                error={formData.password.errorText}
+                error={formData.password.errorText !== ""}
               />
               {/* <StyledTextField
                 variant="outlined"
