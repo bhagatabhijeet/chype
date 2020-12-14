@@ -4,6 +4,7 @@ import chypeTransInverseLogo from "../assets/images/new_inverse_trans_blue.png";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import HomeIcon from "@material-ui/icons/Home";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,7 +56,9 @@ export default function AppBarMain(props) {
       <AppBar className={classes.appbar} elevation={0}>
         <Toolbar>
           <h1 className={classes.appbarTitle}>
-            <img src={chypeTransInverseLogo} alt="logoImg" height="40px" />
+            <Link to="/">
+              <img src={chypeTransInverseLogo} alt="logoImg" height="40px" />
+            </Link>
           </h1>
           {props.home ? (
             <Button
