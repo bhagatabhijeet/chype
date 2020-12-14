@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from "@material-ui/core/styles"
-// import Grid from '@material-ui/core/Grid';
 import {
     BrowserRouter as Router,
     Switch, Route, Link
@@ -11,10 +10,8 @@ import {
     ListItemIcon, ListItemText,
     Container, Typography,Divider
 } from "@material-ui/core";
-
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
@@ -22,6 +19,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import DetailsIcon from '@material-ui/icons/Details';
 import Account from '../components/Account';
 import General from '../components/General'
+import {isLoggedIn} from "../Utils/AuthenticationHelpers";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,12 +44,16 @@ const useStyles = makeStyles((theme) => ({
     nested: {
         paddingLeft: theme.spacing(4),
     },
-    
+
 }))
 
 function SettingsPage(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
+
+    if (!isLoggedIn()) {
+        return  <Redirect to="/"/>;
+    }
 
     const handleClick = () => {
         setOpen(!open);
@@ -124,7 +126,7 @@ function SettingsPage(props) {
                     <Route path="/signout">
                         <Typography variant="h3" gutterBottom>
                             sign out
-            </Typography>
+                        </Typography>
                     </Route>
                 </Switch>
             </div>

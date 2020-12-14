@@ -1,26 +1,16 @@
 import React, { StrictMode } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-// import App from "./App";
-import MainPage from "./pages/MainPage";
-import SignUpNew from "./pages/SignUpNew";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import SignInPage from "./pages/SignInPage";
-import SettingsPage from './pages/SettingsPage';
-import HomePage from './pages/HomePage'
+import Routes from "./Routes";
 import 'fontsource-roboto';
+import axios from "axios";
+
+const accessString = localStorage.getItem('token');
+axios.defaults.headers.common['authorization'] = `${accessString}`;
 
 ReactDOM.render(
-  <StrictMode>
-    <Router>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/signin" component={SignInPage} />
-        <Route path="/signup" component={SignUpNew} />
-        <Route path="/main" component={MainPage} />
-        <Route path="/settings" component={SettingsPage} />
-      </Switch>
-    </Router>
-  </StrictMode>,
-  document.getElementById("root")
+    <StrictMode>
+        <Routes/>
+    </StrictMode>,
+    document.getElementById("root")
 );
