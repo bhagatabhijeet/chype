@@ -1,14 +1,13 @@
 import React from 'react';
-import { makeStyles } from "@material-ui/core/styles"
+import {makeStyles} from "@material-ui/core/styles"
 import {
     BrowserRouter as Router,
-    Switch, Route, Link
+    Switch, Route, Link, Redirect
 } from "react-router-dom";
-
 import {
     Drawer, List, ListItem,
     ListItemIcon, ListItemText,
-    Container, Typography,Divider
+    Container, Typography, Divider
 } from "@material-ui/core";
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -44,15 +43,14 @@ const useStyles = makeStyles((theme) => ({
     nested: {
         paddingLeft: theme.spacing(4),
     },
-
-}))
+}));
 
 function SettingsPage(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
 
     if (!isLoggedIn()) {
-        return  <Redirect to="/"/>;
+        return <Redirect to="/"/>;
     }
 
     const handleClick = () => {
@@ -61,64 +59,64 @@ function SettingsPage(props) {
 
     return (
         <Router>
-            <div style={{ display: 'flex' }} className={classes.root}>
+            <div style={{display: 'flex'}} className={classes.root}>
                 <Drawer
-                    style={{ width: '270px' }}
+                    style={{width: '270px'}}
                     variant="persistent"
                     anchor="left"
                     open={true}
-                    classes={{ paper: classes.drawerPaper }}
+                    classes={{paper: classes.drawerPaper}}
                 >
                     <List className={classes.list}>
                         <Link to="/settings" className={classes.link}>
                             <ListItem button onClick={handleClick}>
                                 <ListItemIcon>
-                                    <SettingsIcon />
+                                    <SettingsIcon/>
                                 </ListItemIcon>
-                                <ListItemText primary={"Settings"} />
-                                {open ? <ExpandLess /> : <ExpandMore />}
+                                <ListItemText primary={"Settings"}/>
+                                {open ? <ExpandLess/> : <ExpandMore/>}
                             </ListItem>
                             <Collapse in={open} timeout="auto" unmountOnExit>
-                                <Link to="/account" className={classes.link} >
+                                <Link to="/account" className={classes.link}>
                                     <List component="div" disablePadding>
                                         <ListItem button className={classes.nested}>
                                             <ListItemIcon>
-                                                <AccountCircleIcon />
+                                                <AccountCircleIcon/>
                                             </ListItemIcon>
-                                            <ListItemText primary="Account" />
+                                            <ListItemText primary="Account"/>
                                         </ListItem>
                                     </List>
                                 </Link>
                             </Collapse>
-                            <Divider variant="inset" component="li" />
+                            <Divider variant="inset" component="li"/>
                             <Collapse in={open} timeout="auto" unmountOnExit>
                                 <Link to="/general" className={classes.link}>
                                     <List component="div" disablePadding>
                                         <ListItem button className={classes.nested}>
                                             <ListItemIcon>
-                                                <DetailsIcon />
+                                                <DetailsIcon/>
                                             </ListItemIcon>
-                                            <ListItemText primary="General" />
+                                            <ListItemText primary="General"/>
                                         </ListItem>
                                     </List>
                                 </Link>
                             </Collapse>
                         </Link>
-                        <Divider variant="inset" component="li" />
+                        <Divider variant="inset" component="li"/>
                         <Link to="/signout" className={classes.link}>
                             <ListItem button>
                                 <ListItemIcon>
-                                    <ExitToAppIcon />
+                                    <ExitToAppIcon/>
                                 </ListItemIcon>
-                                <ListItemText primary={"Signout"} />
+                                <ListItemText primary={"Signout"}/>
                             </ListItem>
                         </Link>
-                        <Divider variant="inset" component="li" />
+                        <Divider variant="inset" component="li"/>
                     </List>
                 </Drawer>
                 <Switch>
                     <Route path="/account">
-                        <Account />
+                        <Account/>
                     </Route>
                     <Route path="/general">
                         <General/>
@@ -133,4 +131,5 @@ function SettingsPage(props) {
         </Router>
     );
 }
+
 export default SettingsPage;

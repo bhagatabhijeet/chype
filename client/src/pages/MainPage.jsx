@@ -1,22 +1,24 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import CustomNavbar from '../components/Navbar';
 import LoggedInUserCard from '../components/LoggedInUserCard'
-import { Container } from '@material-ui/core';
+import {Container} from '@material-ui/core';
 import io from 'socket.io-client';
 import {useEffect, useState} from 'react';
 import TextField from "@material-ui/core/TextField";
 import {isLoggedIn} from "../Utils/AuthenticationHelpers";
-import {Redirect} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
+
 
 const socket = io();
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    textAlign:"center"
+    textAlign: "center"
   },
   paper: {
     padding: theme.spacing(0),
@@ -32,16 +34,16 @@ export default function MainPage() {
   const [chat, setChat] = useState([]);
 
   useEffect(() => {
-    console.log("I am firing in useeffect!!" );
+    console.log("I am firing in useeffect!!");
     socket.on("serverToClientMessage", ({user, message}) => {
       setChat([...chat, {user, message}]);
       console.log('inside of useEffect ', chat);
     });
 
-  },[]);
+  }, []);
 
   if (!isLoggedIn()) {
-    return  <Redirect to="/"/>;
+    return <Redirect to="/"/>;
   }
 
   const onTextChange = e => {
@@ -73,11 +75,13 @@ export default function MainPage() {
           <Grid container spacing={3}>
             <Grid item xs={3}>
               <Paper className={classes.paper}>
-                <LoggedInUserCard />
-
+                <LoggedInUserCard/>
               </Paper>
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={3}>
+              <Link to="/signout">Sign out</Link>
+            </Grid>
+            <Grid item xs={6}>
               {/* <Paper className={classes.paper}>xs=3</Paper> */}
               <Container>
                 <div className="card">
@@ -85,18 +89,18 @@ export default function MainPage() {
                     <h1> Messenger </h1>
                     <div className="name-field">
                       <TextField
-                          name = 'user'
-                          onChange = {e => onTextChange(e)}
-                          value = {userData.user}
-                          label = "Name"
+                          name='user'
+                          onChange={e => onTextChange(e)}
+                          value={userData.user}
+                          label="Name"
                       />
                     </div>
-                    <div >
+                    <div>
                       <TextField
-                          name = 'message'
-                          onChange = {e => onTextChange(e)}
-                          value = {userData.message}
-                          label = "Message"
+                          name='message'
+                          onChange={e => onTextChange(e)}
+                          value={userData.message}
+                          label="Message"
                       />
                     </div>
                     <button type={"submit"}>Send Message</button>
@@ -112,10 +116,8 @@ export default function MainPage() {
                   </div>
                   {renderChat()}
                 </div>
-
               </Container>
             </Grid>
-
           </Grid>
         </div>
       </>
