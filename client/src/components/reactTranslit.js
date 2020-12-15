@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import getInputSelection, { setCaretPosition } from "../assets/utils";
 import getCaretCoordinates from "textarea-caret";
-import "./styles/styles.module.css";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
