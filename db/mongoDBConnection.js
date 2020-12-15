@@ -7,5 +7,6 @@ mongoose.connect(dbUrl, {
     keepAlive: 1,
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex:true
+    useCreateIndex:true,
+    useFindAndModify: false,
 });

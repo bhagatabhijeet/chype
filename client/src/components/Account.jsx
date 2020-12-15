@@ -14,7 +14,7 @@ const theme = createMuiTheme({
     typography: {
         // fontFamily: 'Comic Sans MS',
         fontFamily: "Roboto",
-        fontSize: '2rem',
+        // fontSize: '2rem',
         fontWeightLight: 300,
         fontWeightBold: 700,
         fontSize: 16

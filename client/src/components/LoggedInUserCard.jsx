@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: 360,
     height: 85,
-    fontSize: '1rem',
+    fontSize: 1,
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '0',
   },
   header: {
-    fontSize: '10px',
+    fontSize: 10,
   }
 }));
 

@@ -10,22 +10,25 @@ import Paper from "@material-ui/core/Paper";
 import ChypeLogoTrans from "../assets/images/new.png";
 import SignUpBgImg from "../assets/images/signup-background.jpg";
 import HomePageFooter from "../components/HomePageFooter";
+import AppBarMain from "../components/AppBarMain";
 import "react-intl-tel-input/dist/main.css";
 import { useState } from "react";
 import axios from "axios";
+import Slide from "@material-ui/core/Slide";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100vh",
   },
   gridItemBg: {
-    background: "linear-gradient(#ffffff 80%,#56b5ff,#2ba2ff)",
+    backgroundColor: "transparent",
   },
   image: {
     backgroundImage: `url(${SignUpBgImg})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center",
+    opacity: 0.9,
   },
   paper: {
     margin: theme.spacing(8, 4),
@@ -72,15 +75,15 @@ const StyledTextField = withStyles({
         borderColor: "#2ba2ff",
       },
     },
-  },
-  error: {
-    "&.MuiFormHelperText-root.Mui-error": {
-      color: "red !important",
+    error: {
+      "&.MuiFormHelperText-root.Mui-error": {
+        color: "red !important",
+      },
     },
   },
 })(TextField);
 
-export default function SignUpNew() {
+export default function SignUp() {
   const classes = useStyles();
   const [formData, setFormData] = useState({
     firstName: { text: "", errorText: "", error: false },
@@ -122,16 +125,16 @@ export default function SignUpNew() {
     event.preventDefault();
 
     if (validations()) {
-      const submit = async () =>{
-       const res =await axios.post("/api/auth/signup", {
-        firstName: formData.firstName.text,
-        lastName: formData.lastName.text,
-        email:formData.email.text ,
-      password:formData.password.text,
-      });
-      console.log(res.data);
-    }
-    submit();
+      const submit = async () => {
+        const res = await axios.post("/auth/signup", {
+          firstName: formData.firstName.text,
+          lastName: formData.lastName.text,
+          email: formData.email.text,
+          password: formData.password.text,
+        });
+        console.log(res.data);
+      };
+      submit();
     }
   };
   const handleFirstNameChange = (event) => {
@@ -180,25 +183,33 @@ export default function SignUpNew() {
   return (
     <div
       style={{
-        background: "linear-gradient(#ffffff 20%,#56b5ff 20%,#2ba2ff 60%)",
+        background:
+          "linear-gradient(#ffffff 30%,#56b5ff 55%,#2ba2ff,#2ba2ff,#2ba2ff,#2ba2ff)",
       }}
     >
+      <AppBarMain home signin />
       <Grid container component="main" className={classes.root} spacing={0}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image}>
-          <Paper elevation={10}>
-            <Typography
-              variant="h4"
-              align="center"
-              style={{
-                color: "#fff",
-                backgroundColor: "#2ba2ff",
-                marginTop: 40,
-                fontWeight: 400,
-              }}
-            >
-              We are excited to see you onboard. Come on in!
-            </Typography>
+          <Paper
+            elevation={20}
+            style={{ backgroundColor: "transparent" }}
+            variant="outlined"
+          >
+            <Slide direction="left" in timeout={{ appear: 500, enter: 1500 }}>
+              <Typography
+                variant="h5"
+                align="center"
+                style={{
+                  color: "#fff",
+                  backgroundColor: "#2ba2ff",
+                  marginTop: 40,
+                  fontWeight: 400,
+                }}
+              >
+                We are excited to see you onboard. Come on in!
+              </Typography>
+            </Slide>
           </Paper>
         </Grid>
         <Grid
@@ -209,8 +220,8 @@ export default function SignUpNew() {
           component={Paper}
           elevation={0}
           square
-          direction="column"
-          alignItems="center"
+          // direction="column"
+          // alignItems="center"
           className={classes.gridItemBg}
         >
           <div className={classes.paper}>
@@ -232,7 +243,7 @@ export default function SignUpNew() {
                 autoFocus
                 onChange={handleFirstNameChange}
                 helperText={formData.firstName.errorText}
-                error={formData.firstName.errorText}
+                error={formData.firstName.errorText !== ""}
               />
               <StyledTextField
                 variant="outlined"
@@ -245,7 +256,7 @@ export default function SignUpNew() {
                 autoComplete="lname"
                 onChange={handleLastNameChange}
                 helperText={formData.lastName.errorText}
-                error={formData.lastName.errorText}
+                error={formData.lastName.errorText !== ""}
               />
               <StyledTextField
                 variant="outlined"
@@ -258,7 +269,7 @@ export default function SignUpNew() {
                 autoComplete="email"
                 onChange={handleEmailChange}
                 helperText={formData.email.errorText}
-                error={formData.email.errorText}
+                error={formData.email.errorText !== ""}
               />
               <StyledTextField
                 variant="outlined"
@@ -272,14 +283,14 @@ export default function SignUpNew() {
                 autoComplete="current-password"
                 onChange={handlePasswordChange}
                 helperText={formData.password.errorText}
-                error={formData.password.errorText}
+                error={formData.password.errorText !== ""}
               />
               <StyledTextField
                 variant="outlined"
                 margin="dense"
                 fullWidth
                 name="phone"
-                label="phone"
+                label="Phone"
                 type="text"
                 id="phone"
                 autoComplete="phone"
