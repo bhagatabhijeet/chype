@@ -10,7 +10,8 @@ import {useEffect, useState} from 'react';
 import TextField from "@material-ui/core/TextField";
 import {ReactTransliterate} from '../components/reactTranslit'
 import { useParams,Redirect } from "react-router-dom";
-import {isLoggedIn} from "../Utils/AuthenticationHelpers";
+import {useSelector} from 'react-redux';
+import {useHistory} from "react-router-dom";
 
 
 
@@ -32,7 +33,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MainPage() {
   const classes = useStyles();
-  const params = useParams();
+  // const params = useParams();
+  let history = useHistory();
+  const userReduxState = useSelector(state=>state.user)
 
   const [userData, setUserData] = useState({user: 'abhi', message: ''});
   const [friendData, setFriendData] = useState({friend: 'son'});
@@ -42,18 +45,25 @@ export default function MainPage() {
   const [text, setText] = useState("");
 
   //can use props.useParams to get params form url, or props.history
-  console.log("PARAMS",params);
+  // console.log("PARAMS",params);
   useEffect(()=>{
-    if(!isLoggedIn()){
-      return (<Redirect
-          to={{
-            pathname: "/signin",
-            state: {
-              error: "You need to login first!",
-            },
-          }}
-      />);
+    // console.log("PARAMS",params);
+    if(!userReduxState.loggedIn)
+    {
+      console.log("going to signin");
+      history.push("/signin");
     }
+
+    // if(params.user === "" || !params){
+    //  return (<Redirect
+    //         to={{
+    //           pathname: "/signin",
+    //           state: {
+    //             error: "You need to login first!",
+    //           },
+    //         }}
+    //       />)
+    //       }
     // const checkUser = async () => {
     //   const res = await axios.get("/auth/current", {
     //     firstName: formData.firstName.text,
@@ -65,6 +75,9 @@ export default function MainPage() {
     // };
     // checkUser();
   },[]);
+
+
+
 
   const onTextChange = e => {
     setUserData({...userData, [e.target.name]: e.target.value})
