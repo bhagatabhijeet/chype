@@ -26,8 +26,14 @@ io.on('connection', socket => {
 
     console.log('Someone connected from the front end');
 
-    socket.on('clientToServerMessage', ({user, message}) => {
+
+
+    socket.on('clientToServerMessage', ({user, message, friend, room}) => {
         console.log('hello world');
+
+        socket.join(room);
+        io.to(room).emit("serverToClientMessage", {user, message, friend});
+
         console.log(user, message);
         io.emit("serverToClientMessage", {user, message});
     })

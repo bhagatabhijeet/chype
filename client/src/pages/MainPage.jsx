@@ -8,10 +8,12 @@ import { Container } from '@material-ui/core';
 import io from 'socket.io-client';
 import {useEffect, useState} from 'react';
 import TextField from "@material-ui/core/TextField";
+import {ReactTransliterate} from '../components/reactTranslit'
 import { useParams,Redirect } from "react-router-dom";
 
 
-const socket = io();
+
+// const socket = io();
 
 
 
@@ -31,21 +33,27 @@ export default function MainPage() {
   const classes = useStyles();
   const params = useParams();
 
-  const [userData, setUserData] = useState({user: '', message: ''});
+  const [userData, setUserData] = useState({user: 'abhi', message: ''});
+  const [friendData, setFriendData] = useState({friend: 'son'});
+  const [roomData, setRoomData] = useState({room: ""});
   const [chat, setChat] = useState([])
+  const [lang, setLang] = useState('hi');
+  const [text, setText] = useState("");
+
+  //can use props.useParams to get params form url, or props.history
   console.log("PARAMS",params);
   useEffect(()=>{
     // console.log("PARAMS",params);
     if(params.user === "" || !params){
-      <Redirect
+     return (<Redirect
             to={{
               pathname: "/signin",
-              state: {               
+              state: {
                 error: "You need to login first!",
               },
             }}
-          />
-    }
+          />)
+          }
     // const checkUser = async () => {
     //   const res = await axios.get("/auth/current", {
     //     firstName: formData.firstName.text,
@@ -58,24 +66,23 @@ export default function MainPage() {
     // checkUser();
   },[]);
 
-  useEffect(() => {
-    console.log("I am firing in useeffect!!" );
-    socket.on("serverToClientMessage", ({user, message}) => {
-      setChat([...chat, {user, message}]);
-      console.log('inside of useEffect ', chat);
-    });
 
-  },[]);
+
 
   const onTextChange = e => {
     setUserData({...userData, [e.target.name]: e.target.value})
   };
 
+
   const onMessageSubmit = (e) => {
     e.preventDefault();
     const {user, message} = userData;
+    const {friend} = friendData;
+    const room = [user, friend].sort().join('')
+    console.log(room)
     console.log('inside of on submit', chat)
-    socket.emit("clientToServerMessage", {user, message});
+    console.log(friend)
+    // socket.emit("clientToServerMessage", {user, message, friend, room});
     setUserData({user, message: ''});
   }
 
@@ -88,7 +95,6 @@ export default function MainPage() {
       </div>
     ))
   }
-
 
 
 
@@ -112,22 +118,46 @@ export default function MainPage() {
                 <div className="name-field">
                   <TextField
                       name = 'user'
-                      onChange = {e => onTextChange(e)}
+                      onChange = {e => {
+                        onTextChange(e);
+                        console.log(userData);
+                      }}
                       value = {userData.user}
                       label = "Name"
                   />
                 </div>
-                <div >
+                <div className="name-field">
                   <TextField
-                      name = 'message'
-                      onChange = {e => onTextChange(e)}
-                      value = {userData.message}
-                      label = "Message"
+                      name = 'friend'
+                      onChange = {e => setFriendData({...friendData, friend: e.target.value})}
+                      value = {friendData.friend}
+                      label = "Friend"
                   />
                 </div>
+                <div className="name-field">
+                  <TextField
+                      name = 'room'
+                      // onChange = {e => onRoomChange(e)}
+                      value = {roomData.room}
+                      label = "Room"
+                  />
+                </div>
+                <div className="name-field">
+                  <ReactTransliterate
+                      value={text}
+                      onChange={(e) => setText(e.target.value)}
+                      lang={lang}
+                      placeholder="Start typing here..."
+                      containerStyles={{
+                        width: "300px",
+                      }}/>
+                </div>
+
                 <button type={"submit"}>Send Message</button>
               </form>
             </div>
+
+
 
             <div className='render-chat'>
               <h1>Chat Log</h1>
