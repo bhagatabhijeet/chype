@@ -5,11 +5,11 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignInNew from "./pages/SignInNew";
 import SettingsPage from './pages/SettingsPage';
 import HomePage from './pages/HomePage';
-import {useSelector} from 'react-redux';
-import ProtectedRoute from "./pages/ProtectedRoutes";
+ 
+// import ProtectedRoute from "./pages/ProtectedRoutes";
 
 function App() {
-  const user = useSelector(state=>state.user)  
+   
   return (
     <StrictMode>
     <Router>
@@ -17,7 +17,7 @@ function App() {
         <Route exact path="/" component={HomePage} />
         <Route path="/signin" component={SignInNew} />
         <Route path="/signup" component={SignUp} />
-        <ProtectedRoute path="/main" component={MainPage} loggedIn={user.loggedIn} redirectTo="/signin"/>
+        <Route path="/main" component={MainPage}/>
         <Route path="/settings" component={SettingsPage} />
         <Route path="*" component={HomePage} />
       </Switch>
