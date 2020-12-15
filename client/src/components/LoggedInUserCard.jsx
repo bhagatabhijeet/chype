@@ -12,6 +12,7 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
+import { useSelector } from "react-redux";
 // import MenuBar from './Menu';
 
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -75,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LoggedInUserCard() {
+  const ReduxUserState = useSelector(state=>state.user);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -119,7 +121,7 @@ export default function LoggedInUserCard() {
 
           }
 
-          title="Abhijeet Bhagat"
+          title={`${ReduxUserState.firstName} ${ReduxUserState.lastName}`}
           subheader="This is my Status"
         />
         <Menu
