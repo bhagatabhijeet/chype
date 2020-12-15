@@ -15,7 +15,7 @@ function App({match}) {
         <Route exact path="/" component={HomePage} />
         <Route path="/signin" component={SignInNew} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/main/:user" component={MainPage} />
+        <Route path="/main" component={MainPage} />
         <Route path="/settings" component={SettingsPage} />
         <Route path="*" component={HomePage} />
       </Switch>
