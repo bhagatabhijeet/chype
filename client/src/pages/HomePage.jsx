@@ -25,7 +25,6 @@ import {
   useTransition,
   Spring,
 } from "react-spring";
-import {isLoggedIn} from "../Utils/AuthenticationHelpers";
 import {Redirect} from "react-router-dom";
 import {useSelector} from "react-redux";
 
