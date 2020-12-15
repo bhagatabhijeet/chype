@@ -15,6 +15,7 @@ import "react-intl-tel-input/dist/main.css";
 import { useState } from "react";
 import axios from "axios";
 import Slide from "@material-ui/core/Slide";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -85,6 +86,8 @@ const StyledTextField = withStyles({
 
 export default function SignUp() {
   const classes = useStyles();
+  const history = useHistory();
+
   const [formData, setFormData] = useState({
     firstName: { text: "", errorText: "", error: false },
     lastName: { text: "", errorText: "", error: false },
@@ -133,6 +136,7 @@ export default function SignUp() {
           password: formData.password.text,
         });
         console.log(res.data);
+        history.push('/main');
       };
       submit();
     }
