@@ -15,6 +15,7 @@ import { red } from '@material-ui/core/colors';
 // import MenuBar from './Menu';
 
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import {Menu, MenuItem} from "@material-ui/core";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -75,6 +76,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LoggedInUserCard() {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   // const [expanded, setExpanded] = React.useState(false);
 
   // const handleExpandClick = () => {
@@ -103,7 +114,7 @@ export default function LoggedInUserCard() {
           }
           action={
             <IconButton aria-label="settings" className={classes.icon}>
-              <MoreHorizIcon />
+              <MoreHorizIcon onClick={handleClick}/>
             </IconButton>
 
           }
@@ -111,6 +122,16 @@ export default function LoggedInUserCard() {
           title="Abhijeet Bhagat"
           subheader="This is my Status"
         />
+        <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose}>Account</MenuItem>
+          <MenuItem onClick={handleClose}>Sign Out</MenuItem>
+        </Menu>
         <Typography variant="subtitle1" color="textSecondary" style={{ marginTop: '0', fontSize: '10px' }}>
           This is my last chat
         </Typography>
