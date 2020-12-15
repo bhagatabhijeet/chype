@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
@@ -14,7 +13,7 @@ import AppBarMain from "../components/AppBarMain";
 import "react-intl-tel-input/dist/main.css";
 import { useState } from "react";
 import axios from "axios";
-import Slide from "@material-ui/core/Slide";
+import Parallax from '../components/animated/Parallax';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center",
-    opacity: 0.9,
+    opacity: 0.7,
   },
   paper: {
     margin: theme.spacing(8, 4),
@@ -79,32 +78,20 @@ const StyledTextField = withStyles({
       "&.MuiFormHelperText-root.Mui-error": {
         color: "red !important",
       },
-    },
+  },
   },
 })(TextField);
 
-export default function SignUp() {
+export default function SignInNew() {
   const classes = useStyles();
-  const [formData, setFormData] = useState({
-    firstName: { text: "", errorText: "", error: false },
-    lastName: { text: "", errorText: "", error: false },
+  const [formData, setFormData] = useState({   
     password: { text: "", errorText: "", error: false },
-    email: { text: "", errorText: "", error: false },
-    phone: { text: "", errorText: "" },
+    email: { text: "", errorText: "", error: false }, 
   });
 
   const validations = () => {
     setFormData({
-      ...formData,
-      firstName: {
-        ...formData.firstName,
-        errorText:
-          formData.firstName.text === "" ? "first name is required" : "",
-      },
-      lastName: {
-        ...formData.lastName,
-        errorText: formData.lastName.text === "" ? "last name is required" : "",
-      },
+      ...formData,     
       email: {
         ...formData.email,
         errorText: formData.email.text === "" ? "email is required" : "",
@@ -114,9 +101,7 @@ export default function SignUp() {
         errorText: formData.password.text === "" ? "password is required" : "",
       },
     });
-    return !(
-      formData.firstName.text === "" ||
-      formData.lastName.text === "" ||
+    return !( 
       formData.email.text === "" ||
       formData.password.text === ""
     );
@@ -126,9 +111,7 @@ export default function SignUp() {
 
     if (validations()) {
       const submit = async () => {
-        const res = await axios.post("/auth/signup", {
-          firstName: formData.firstName.text,
-          lastName: formData.lastName.text,
+        const res = await axios.post("/auth/signin", {         
           email: formData.email.text,
           password: formData.password.text,
         });
@@ -137,26 +120,7 @@ export default function SignUp() {
       submit();
     }
   };
-  const handleFirstNameChange = (event) => {
-    setFormData({
-      ...formData,
-      firstName: {
-        ...formData.firstName,
-        errorText: "",
-        text: event.target.value,
-      },
-    });
-  };
-  const handleLastNameChange = (event) => {
-    setFormData({
-      ...formData,
-      lastName: {
-        ...formData.lastName,
-        errorText: "",
-        text: event.target.value,
-      },
-    });
-  };
+  
   const handlePasswordChange = (event) => {
     setFormData({
       ...formData,
@@ -173,13 +137,7 @@ export default function SignUp() {
       email: { ...formData.email, errorText: "", text: event.target.value },
     });
   };
-  const handlePhoneChange = (event) => {
-    setFormData({
-      ...formData,
-      phone: { ...formData.phone, text: event.target.value },
-    });
-  };
-
+  
   return (
     <div
       style={{
@@ -187,30 +145,15 @@ export default function SignUp() {
           "linear-gradient(#ffffff 30%,#56b5ff 55%,#2ba2ff,#2ba2ff,#2ba2ff,#2ba2ff)",
       }}
     >
-      <AppBarMain home signin />
+      
+      <AppBarMain home signup/>
       <Grid container component="main" className={classes.root} spacing={0}>
-        <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image}>
-          <Paper
-            elevation={20}
-            style={{ backgroundColor: "transparent" }}
-            variant="outlined"
-          >
-            <Slide direction="left" in timeout={{ appear: 500, enter: 1500 }}>
-              <Typography
-                variant="h5"
-                align="center"
-                style={{
-                  color: "#fff",
-                  backgroundColor: "#2ba2ff",
-                  marginTop: 40,
-                  fontWeight: 400,
-                }}
-              >
-                We are excited to see you onboard. Come on in!
-              </Typography>
-            </Slide>
-          </Paper>
+        {/* <CssBaseline /> */}
+        <Grid item xs={false} sm={4} md={7} >
+          <div className="container">
+          <Parallax/>
+          </div>
+         
         </Grid>
         <Grid
           item
@@ -218,46 +161,17 @@ export default function SignUp() {
           sm={8}
           md={5}
           component={Paper}
-          elevation={0}
+          elevation={20}
           square
-          // direction="column"
-          // alignItems="center"
           className={classes.gridItemBg}
         >
           <div className={classes.paper}>
             <img src={ChypeLogoTrans} alt="LogoTransImage" height="75px" />
             <Typography component="h1" variant="h5">
-              Sign up
+              Sign In
             </Typography>
             {/**NEW FORM */}
-            <form className={classes.form} noValidate onSubmit={handleSubmit}>
-              <StyledTextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                margin="dense"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                onChange={handleFirstNameChange}
-                helperText={formData.firstName.errorText}
-                error={formData.firstName.errorText !== ""}
-              />
-              <StyledTextField
-                variant="outlined"
-                margin="dense"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-                onChange={handleLastNameChange}
-                helperText={formData.lastName.errorText}
-                error={formData.lastName.errorText !== ""}
-              />
+            <form className={classes.form} noValidate onSubmit={handleSubmit}>             
               <StyledTextField
                 variant="outlined"
                 margin="dense"
@@ -285,18 +199,7 @@ export default function SignUp() {
                 helperText={formData.password.errorText}
                 error={formData.password.errorText !== ""}
               />
-              <StyledTextField
-                variant="outlined"
-                margin="dense"
-                fullWidth
-                name="phone"
-                label="Phone"
-                type="text"
-                id="phone"
-                autoComplete="phone"
-                onChange={handlePhoneChange}
-              />
-
+             
               <Button
                 type="submit"
                 fullWidth
@@ -305,7 +208,7 @@ export default function SignUp() {
                 className="btn-black-white"
                 margin="dense"
               >
-                Sign Up
+                Sign In
               </Button>
               <Grid container>
                 <Grid item xs>
@@ -326,5 +229,6 @@ export default function SignUp() {
       </Grid>
       <HomePageFooter />
     </div>
+    
   );
 }

@@ -41,6 +41,11 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Message",
   }],
+  loggedIn:{
+    status:Boolean,
+    token:String,    
+  }
+ 
 });
 
 UserSchema.methods.toJSON = function() {

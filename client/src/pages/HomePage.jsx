@@ -4,6 +4,9 @@ import chypeTransLogo from "../assets/images/new_trans.png";
 import FunAnim from "../assets/images/fun_animation.gif";
 import Button from "@material-ui/core/Button";
 import "../assets/styles/common.css";
+// import Deck from "../components/animated/Deck";
+
+import AppBarMain from "../components/AppBarMain";
 
 import {
   Typography,
@@ -22,6 +25,7 @@ import {
   useTransition,
   Spring,
 } from "react-spring";
+
 const { Container } = require("@material-ui/core");
 
 const useStyles = makeStyles((theme) => ({
@@ -39,44 +43,27 @@ export default function HomePage() {
 
   return (
     <>
-      <Grid
-        container
-        style={{
-          minHeight: "30px",
-          backgroundColor: "#1e1e1e",
-          color: "#d0effc",
-          fontFamily: "Roboto",
-          marginBottom: "10px",
-        }}
-        justify="center"
-        alignItems="center"
-      >
-        <Grid item>
-          <img src={chypeTransInverseLogo} alt="logoImg" height="60px" />
-        </Grid>
-        <Grid item></Grid>
-      </Grid>
-      {/* <Container> */}
-      <Grid container direction="column" justify="center" alignItems="center">
-        <Grid item xs={12} spacing={0}>
-            <Animdiv val="Hello there!" />
-          <Typography variant="h4" align="center" component="h4">
-            Welcome to Chype!
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Button className="btn-black-white" href="/signup">
-            I want to be a 'Chyper'
-          </Button>
-        </Grid>
-        <Grid item>
-          <Typography variant="h4" align="center" component="h4">
-            {/* <img src={FunAnim} alt="funanim" /> */}
-          </Typography>
-        </Grid>
-      </Grid>
-      {/* </Container> */}
-      <HomePageFooter />
+   <AppBarMain signup signin />
+     
+
+     <Grid container direction="column" justify="center" alignItems="center">
+       <Grid item xs={12} spacing={0}>
+         <Animdiv val="Hello there!" />
+         <Typography variant="h4" align="center" component="h4">
+           Welcome to Chype!
+         </Typography>
+       </Grid>
+       <Grid item xs={12}>
+         <Button className="btn-black-white" href="/signup">
+           I want to be a 'Chyper'
+         </Button>
+       </Grid>
+       <Grid item>
+         <Typography variant="h4" align="center" component="h4"></Typography>
+       </Grid>
+     </Grid>
+     <HomePageFooter />
+      
     </>
   );
 }
@@ -86,7 +73,7 @@ function Animdiv(props) {
     color: "#2ba2ff",
     from: { color: "#ff2187" },
     config: { ...config.gentle, duration: 3000 },
-    textAlign:'center'
+    textAlign: "center",
   });
   return <animated.h3 style={springprops}>{props.val}</animated.h3>;
 }

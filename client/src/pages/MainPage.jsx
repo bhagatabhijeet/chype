@@ -9,6 +9,8 @@ import io from 'socket.io-client';
 import {useEffect, useState} from 'react';
 import TextField from "@material-ui/core/TextField";
 import {ReactTransliterate} from '../components/reactTranslit'
+import { useParams,Redirect } from "react-router-dom";
+
 
 
 // const socket = io();
@@ -29,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MainPage() {
   const classes = useStyles();
+  const params = useParams();
 
   const [userData, setUserData] = useState({user: 'abhi', message: ''});
   const [friendData, setFriendData] = useState({friend: 'son'});
@@ -38,17 +41,31 @@ export default function MainPage() {
   const [text, setText] = useState("");
 
   //can use props.useParams to get params form url, or props.history
-  useEffect(() => {
-    // socket.emit("joinRoom", roomNumber);
-
-    // socket.on("serverToClientMessage", ({user, message, friend}) => {
-    //   console.log('recieved!!')
-    //     setChat(chat => [...chat, {user, message}]);
-    //
-    //
-    // });
-
+  console.log("PARAMS",params);
+  useEffect(()=>{
+    // console.log("PARAMS",params);
+    if(params.user === "" || !params){
+     return (<Redirect
+            to={{
+              pathname: "/signin",
+              state: {
+                error: "You need to login first!",
+              },
+            }}
+          />)
+          }
+    // const checkUser = async () => {
+    //   const res = await axios.get("/auth/current", {
+    //     firstName: formData.firstName.text,
+    //     lastName: formData.lastName.text,
+    //     email: formData.email.text,
+    //     password: formData.password.text,
+    //   });
+    //   console.log(res.data);
+    // };
+    // checkUser();
   },[]);
+
 
 
 

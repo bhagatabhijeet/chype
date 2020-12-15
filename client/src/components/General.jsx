@@ -6,7 +6,7 @@ import { createMuiTheme,ThemeProvider } from '@material-ui/core/styles';
 const theme = createMuiTheme({
     typography: {
         // fontFamily: 'Comic Sans MS',
-        fontSize: '2rem',
+        fontSize: 2,
     },
     // shape: {
     //     borderRadius: 30,
