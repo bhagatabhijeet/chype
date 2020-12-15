@@ -15,7 +15,9 @@ import { useState } from "react";
 import axios from "axios";
 import Parallax from '../components/animated/Parallax';
 import { useHistory } from "react-router-dom";
-import {setToken} from "../Utils/AuthenticationHelpers";
+import {setUpUser} from "../Utils/AuthenticationHelpers";
+import {setUser} from "../redux/UserReducer";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -80,22 +82,21 @@ const StyledTextField = withStyles({
       "&.MuiFormHelperText-root.Mui-error": {
         color: "red !important",
       },
-  },
+    },
   },
 })(TextField);
 
-export default function SignInNew() {
+function SignInNew(props) {
   const classes = useStyles();
   const history = useHistory();
 
-  const [formData, setFormData] = useState({   
+  const [formData, setFormData] = useState({
     password: { text: "", errorText: "", error: false },
-    email: { text: "", errorText: "", error: false }, 
+    email: { text: "", errorText: "", error: false },
   });
-
   const validations = () => {
     setFormData({
-      ...formData,     
+      ...formData,
       email: {
         ...formData.email,
         errorText: formData.email.text === "" ? "email is required" : "",
@@ -105,9 +106,9 @@ export default function SignInNew() {
         errorText: formData.password.text === "" ? "password is required" : "",
       },
     });
-    return !( 
-      formData.email.text === "" ||
-      formData.password.text === ""
+    return !(
+        formData.email.text === "" ||
+        formData.password.text === ""
     );
   };
   const handleSubmit = (event) => {
@@ -115,18 +116,17 @@ export default function SignInNew() {
 
     if (validations()) {
       const submit = async () => {
-        const res = await axios.post("/auth/signin", {         
+        const res = await axios.post("/auth/signin", {
           email: formData.email.text,
           password: formData.password.text,
         });
-        setToken(res.data.token);
-        console.log(res.data);
+        setUpUser(res.data);
+        props.dispatch(setUser(res.data));
         history.push('/main');
       };
       submit();
     }
   };
-  
   const handlePasswordChange = (event) => {
     setFormData({
       ...formData,
@@ -143,98 +143,100 @@ export default function SignInNew() {
       email: { ...formData.email, errorText: "", text: event.target.value },
     });
   };
-  
+
   return (
-    <div
-      style={{
-        background:
-          "linear-gradient(#ffffff 30%,#56b5ff 55%,#2ba2ff,#2ba2ff,#2ba2ff,#2ba2ff)",
-      }}
-    >
-      
-      <AppBarMain home signup/>
-      <Grid container component="main" className={classes.root} spacing={0}>
-        {/* <CssBaseline /> */}
-        <Grid item xs={false} sm={4} md={7} >
-          <div className="container">
-          <Parallax/>
-          </div>
-         
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={8}
-          md={5}
-          component={Paper}
-          elevation={20}
-          square
-          className={classes.gridItemBg}
-        >
-          <div className={classes.paper}>
-            <img src={ChypeLogoTrans} alt="LogoTransImage" height="75px" />
-            <Typography component="h1" variant="h5">
-              Sign In
-            </Typography>
-            {/**NEW FORM */}
-            <form className={classes.form} noValidate onSubmit={handleSubmit}>             
-              <StyledTextField
-                variant="outlined"
-                margin="dense"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                onChange={handleEmailChange}
-                helperText={formData.email.errorText}
-                error={formData.email.errorText !== ""}
-              />
-              <StyledTextField
-                variant="outlined"
-                margin="dense"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={handlePasswordChange}
-                helperText={formData.password.errorText}
-                error={formData.password.errorText !== ""}
-              />
-             
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className="btn-black-white"
-                margin="dense"
-              >
+      <div
+          style={{
+            background:
+                "linear-gradient(#ffffff 30%,#56b5ff 55%,#2ba2ff,#2ba2ff,#2ba2ff,#2ba2ff)",
+          }}
+      >
+
+        <AppBarMain home signup/>
+        <Grid container component="main" className={classes.root} spacing={0}>
+          {/* <CssBaseline /> */}
+          <Grid item xs={false} sm={4} md={7} >
+            <div className="container">
+              <Parallax/>
+            </div>
+
+          </Grid>
+          <Grid
+              item
+              xs={12}
+              sm={8}
+              md={5}
+              component={Paper}
+              elevation={20}
+              square
+              className={classes.gridItemBg}
+          >
+            <div className={classes.paper}>
+              <img src={ChypeLogoTrans} alt="LogoTransImage" height="75px" />
+              <Typography component="h1" variant="h5">
                 Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="/" variant="body2">
-                    Home
-                  </Link>
+              </Typography>
+              {/**NEW FORM */}
+              <form className={classes.form} noValidate onSubmit={handleSubmit}>
+                <StyledTextField
+                    variant="outlined"
+                    margin="dense"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    onChange={handleEmailChange}
+                    helperText={formData.email.errorText}
+                    error={formData.email.errorText !== ""}
+                />
+                <StyledTextField
+                    variant="outlined"
+                    margin="dense"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    onChange={handlePasswordChange}
+                    helperText={formData.password.errorText}
+                    error={formData.password.errorText !== ""}
+                />
+
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className="btn-black-white"
+                    margin="dense"
+                >
+                  Sign In
+                </Button>
+                <Grid container>
+                  <Grid item xs>
+                    <Link href="/" variant="body2">
+                      Home
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Link href="/signin" variant="body2">
+                      Already have an account? Sign in
+                    </Link>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Link href="/signin" variant="body2">
-                    Already have an account? Sign in
-                  </Link>
-                </Grid>
-              </Grid>
-            </form>
-            {/*NEW FORM END*/}
-          </div>
+              </form>
+              {/*NEW FORM END*/}
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
-      <HomePageFooter />
-    </div>
-    
+        <HomePageFooter />
+      </div>
+
   );
 }
+
+export default connect(null, null)(SignInNew);

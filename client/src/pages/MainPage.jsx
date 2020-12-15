@@ -41,35 +41,9 @@ export default function MainPage() {
   const [lang, setLang] = useState('hi');
   const [text, setText] = useState("");
 
-  //can use props.useParams to get params form url, or props.history
-  console.log("PARAMS",params);
-  useEffect(()=>{
-    if(!isLoggedIn()){
-      return (<Redirect
-          to={{
-            pathname: "/signin",
-            state: {
-              error: "You need to login first!",
-            },
-          }}
-      />);
-    }
-    // const checkUser = async () => {
-    //   const res = await axios.get("/auth/current", {
-    //     firstName: formData.firstName.text,
-    //     lastName: formData.lastName.text,
-    //     email: formData.email.text,
-    //     password: formData.password.text,
-    //   });
-    //   console.log(res.data);
-    // };
-    // checkUser();
-  },[]);
-
   const onTextChange = e => {
     setUserData({...userData, [e.target.name]: e.target.value})
   };
-
 
   const onMessageSubmit = (e) => {
     e.preventDefault();
@@ -85,92 +59,92 @@ export default function MainPage() {
 
   const renderChat = () =>{
     return chat.map(({user, message}, index) => (
-      <div key={index}>
-        <h3>
-          {user}: <span>{message}</span>
-        </h3>
-      </div>
+        <div key={index}>
+          <h3>
+            {user}: <span>{message}</span>
+          </h3>
+        </div>
     ))
   }
 
 
 
   return (
-    <>
-    <div className={classes.root}>
-      <CustomNavbar/>
-      <Grid container spacing={3}>
-         <Grid item xs={3}>
-          <Paper className={classes.paper}>
-          <LoggedInUserCard />
+      <>
+        <div className={classes.root}>
+          <CustomNavbar/>
+          <Grid container spacing={3}>
+            <Grid item xs={3}>
+              <Paper className={classes.paper}>
+                <LoggedInUserCard />
 
-          </Paper>
-        </Grid>
-        <Grid item xs={9}>
-          {/* <Paper className={classes.paper}>xs=3</Paper> */}
-          <Container>
-            <div className="card">
-              <form onSubmit={onMessageSubmit}>
-                <h1> Messenger </h1>
-                <div className="name-field">
-                  <TextField
-                      name = 'user'
-                      onChange = {e => {
-                        onTextChange(e);
-                        console.log(userData);
-                      }}
-                      value = {userData.user}
-                      label = "Name"
-                  />
+              </Paper>
+            </Grid>
+            <Grid item xs={9}>
+              {/* <Paper className={classes.paper}>xs=3</Paper> */}
+              <Container>
+                <div className="card">
+                  <form onSubmit={onMessageSubmit}>
+                    <h1> Messenger </h1>
+                    <div className="name-field">
+                      <TextField
+                          name = 'user'
+                          onChange = {e => {
+                            onTextChange(e);
+                            console.log(userData);
+                          }}
+                          value = {userData.user}
+                          label = "Name"
+                      />
+                    </div>
+                    <div className="name-field">
+                      <TextField
+                          name = 'friend'
+                          onChange = {e => setFriendData({...friendData, friend: e.target.value})}
+                          value = {friendData.friend}
+                          label = "Friend"
+                      />
+                    </div>
+                    <div className="name-field">
+                      <TextField
+                          name = 'room'
+                          // onChange = {e => onRoomChange(e)}
+                          value = {roomData.room}
+                          label = "Room"
+                      />
+                    </div>
+                    <div className="name-field">
+                      <ReactTransliterate
+                          value={text}
+                          onChange={(e) => setText(e.target.value)}
+                          lang={lang}
+                          placeholder="Start typing here..."
+                          containerStyles={{
+                            width: "300px",
+                          }}/>
+                    </div>
+
+                    <button type={"submit"}>Send Message</button>
+                  </form>
                 </div>
-                <div className="name-field">
-                  <TextField
-                      name = 'friend'
-                      onChange = {e => setFriendData({...friendData, friend: e.target.value})}
-                      value = {friendData.friend}
-                      label = "Friend"
-                  />
-                </div>
-                <div className="name-field">
-                  <TextField
-                      name = 'room'
-                      // onChange = {e => onRoomChange(e)}
-                      value = {roomData.room}
-                      label = "Room"
-                  />
-                </div>
-                <div className="name-field">
-                  <ReactTransliterate
-                      value={text}
-                      onChange={(e) => setText(e.target.value)}
-                      lang={lang}
-                      placeholder="Start typing here..."
-                      containerStyles={{
-                        width: "300px",
-                      }}/>
+
+
+
+                <div className='render-chat'>
+                  <h1>Chat Log</h1>
+                  <div key={2000}>
+                    <h3>
+                      Son: <span>first test message</span>
+                    </h3>
+                  </div>
+                  {renderChat()}
                 </div>
 
-                <button type={"submit"}>Send Message</button>
-              </form>
-            </div>
+              </Container>
+            </Grid>
 
-
-
-            <div className='render-chat'>
-              <h1>Chat Log</h1>
-              <div key={2000}>
-                <h3>
-                  Son: <span>first test message</span>
-                </h3>
-              </div>
-              {renderChat()}
-            </div>
-
-          </Container>
-        </Grid>
-
-      </Grid>
-    </div>
-    </>
+          </Grid>
+        </div>
+      </>
   );
 }
