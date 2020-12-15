@@ -15,6 +15,7 @@ import { useState } from "react";
 import axios from "axios";
 import Parallax from '../components/animated/Parallax';
 import { useHistory } from "react-router-dom";
+import {setToken} from "../Utils/AuthenticationHelpers";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -118,6 +119,7 @@ export default function SignInNew() {
           email: formData.email.text,
           password: formData.password.text,
         });
+        setToken(res.data.token);
         console.log(res.data);
         history.push('/main');
       };

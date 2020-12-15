@@ -10,6 +10,7 @@ import {useEffect, useState} from 'react';
 import TextField from "@material-ui/core/TextField";
 import {ReactTransliterate} from '../components/reactTranslit'
 import { useParams,Redirect } from "react-router-dom";
+import {isLoggedIn} from "../Utils/AuthenticationHelpers";
 
 
 
@@ -43,17 +44,16 @@ export default function MainPage() {
   //can use props.useParams to get params form url, or props.history
   console.log("PARAMS",params);
   useEffect(()=>{
-    // console.log("PARAMS",params);
-    if(params.user === "" || !params){
-     return (<Redirect
-            to={{
-              pathname: "/signin",
-              state: {
-                error: "You need to login first!",
-              },
-            }}
-          />)
-          }
+    if(!isLoggedIn()){
+      return (<Redirect
+          to={{
+            pathname: "/signin",
+            state: {
+              error: "You need to login first!",
+            },
+          }}
+      />);
+    }
     // const checkUser = async () => {
     //   const res = await axios.get("/auth/current", {
     //     firstName: formData.firstName.text,
@@ -65,9 +65,6 @@ export default function MainPage() {
     // };
     // checkUser();
   },[]);
-
-
-
 
   const onTextChange = e => {
     setUserData({...userData, [e.target.name]: e.target.value})
