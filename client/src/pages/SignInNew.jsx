@@ -84,26 +84,14 @@ const StyledTextField = withStyles({
 
 export default function SignInNew() {
   const classes = useStyles();
-  const [formData, setFormData] = useState({
-    firstName: { text: "", errorText: "", error: false },
-    lastName: { text: "", errorText: "", error: false },
+  const [formData, setFormData] = useState({   
     password: { text: "", errorText: "", error: false },
-    email: { text: "", errorText: "", error: false },
-    phone: { text: "", errorText: "" },
+    email: { text: "", errorText: "", error: false }, 
   });
 
   const validations = () => {
     setFormData({
-      ...formData,
-      firstName: {
-        ...formData.firstName,
-        errorText:
-          formData.firstName.text === "" ? "first name is required" : "",
-      },
-      lastName: {
-        ...formData.lastName,
-        errorText: formData.lastName.text === "" ? "last name is required" : "",
-      },
+      ...formData,     
       email: {
         ...formData.email,
         errorText: formData.email.text === "" ? "email is required" : "",
@@ -113,9 +101,7 @@ export default function SignInNew() {
         errorText: formData.password.text === "" ? "password is required" : "",
       },
     });
-    return !(
-      formData.firstName.text === "" ||
-      formData.lastName.text === "" ||
+    return !( 
       formData.email.text === "" ||
       formData.password.text === ""
     );
@@ -125,9 +111,7 @@ export default function SignInNew() {
 
     if (validations()) {
       const submit = async () => {
-        const res = await axios.post("/api/auth/signup", {
-          firstName: formData.firstName.text,
-          lastName: formData.lastName.text,
+        const res = await axios.post("/auth/signin", {         
           email: formData.email.text,
           password: formData.password.text,
         });
@@ -136,26 +120,7 @@ export default function SignInNew() {
       submit();
     }
   };
-  // const handleFirstNameChange = (event) => {
-  //   setFormData({
-  //     ...formData,
-  //     firstName: {
-  //       ...formData.firstName,
-  //       errorText: "",
-  //       text: event.target.value,
-  //     },
-  //   });
-  // };
-  // const handleLastNameChange = (event) => {
-  //   setFormData({
-  //     ...formData,
-  //     lastName: {
-  //       ...formData.lastName,
-  //       errorText: "",
-  //       text: event.target.value,
-  //     },
-  //   });
-  // };
+  
   const handlePasswordChange = (event) => {
     setFormData({
       ...formData,
@@ -172,13 +137,7 @@ export default function SignInNew() {
       email: { ...formData.email, errorText: "", text: event.target.value },
     });
   };
-  // const handlePhoneChange = (event) => {
-  //   setFormData({
-  //     ...formData,
-  //     phone: { ...formData.phone, text: event.target.value },
-  //   });
-  // };
-
+  
   return (
     <div
       style={{
@@ -194,22 +153,7 @@ export default function SignInNew() {
           <div className="container">
           <Parallax/>
           </div>
-          {/* <Paper elevation={20} style={{ backgroundColor: "transparent" }}>
-            <Slide direction="left" in timeout={{ appear: 500, enter: 1500 }}>
-              <Typography
-                variant="h5"
-                align="center"
-                style={{
-                  color: "#fff",
-                  backgroundColor: "#2ba2ff",
-                  marginTop: 40,
-                  fontWeight: 400,
-                }}
-              >
-                We are excited to see you onboard. Come on in!
-              </Typography>
-            </Slide>
-          </Paper> */}
+         
         </Grid>
         <Grid
           item
@@ -219,8 +163,6 @@ export default function SignInNew() {
           component={Paper}
           elevation={20}
           square
-          // direction="column"
-          // alignItems="center"
           className={classes.gridItemBg}
         >
           <div className={classes.paper}>
@@ -229,34 +171,7 @@ export default function SignInNew() {
               Sign In
             </Typography>
             {/**NEW FORM */}
-            <form className={classes.form} noValidate onSubmit={handleSubmit}>
-              {/* <StyledTextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                margin="dense"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                onChange={handleFirstNameChange}
-                helperText={formData.firstName.errorText}
-                error={formData.firstName.errorText}
-              />
-              <StyledTextField
-                variant="outlined"
-                margin="dense"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-                onChange={handleLastNameChange}
-                helperText={formData.lastName.errorText}
-                error={formData.lastName.errorText}
-              /> */}
+            <form className={classes.form} noValidate onSubmit={handleSubmit}>             
               <StyledTextField
                 variant="outlined"
                 margin="dense"
@@ -284,18 +199,7 @@ export default function SignInNew() {
                 helperText={formData.password.errorText}
                 error={formData.password.errorText !== ""}
               />
-              {/* <StyledTextField
-                variant="outlined"
-                margin="dense"
-                fullWidth
-                name="phone"
-                label="Phone"
-                type="text"
-                id="phone"
-                autoComplete="phone"
-                onChange={handlePhoneChange}
-              /> */}
-
+             
               <Button
                 type="submit"
                 fullWidth
