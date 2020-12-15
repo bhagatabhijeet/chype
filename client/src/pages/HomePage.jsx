@@ -25,8 +25,8 @@ import {
   useTransition,
   Spring,
 } from "react-spring";
-
-const { Container } = require("@material-ui/core");
+import {isLoggedIn} from "../Utils/AuthenticationHelpers";
+import {Redirect} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -41,30 +41,34 @@ const useStyles = makeStyles((theme) => ({
 export default function HomePage() {
   const classes = useStyles();
 
-  return (
-    <>
-   <AppBarMain signup signin />
-     
+  if (isLoggedIn()) {
+    return <Redirect to="/main"/>;
+  }
 
-     <Grid container direction="column" justify="center" alignItems="center">
-       <Grid item xs={12} spacing={0}>
-         <Animdiv val="Hello there!" />
-         <Typography variant="h4" align="center" component="h4">
-           Welcome to Chype!
-         </Typography>
-       </Grid>
-       <Grid item xs={12}>
-         <Button className="btn-black-white" href="/signup">
-           I want to be a 'Chyper'
-         </Button>
-       </Grid>
-       <Grid item>
-         <Typography variant="h4" align="center" component="h4"></Typography>
-       </Grid>
-     </Grid>
-     <HomePageFooter />
-      
-    </>
+  return (
+      <>
+        <AppBarMain signup signin />
+
+
+        <Grid container direction="column" justify="center" alignItems="center">
+          <Grid item xs={12} spacing={0}>
+            <Animdiv val="Hello there!" />
+            <Typography variant="h4" align="center" component="h4">
+              Welcome to Chype!
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Button className="btn-black-white" href="/signup">
+              I want to be a 'Chyper'
+            </Button>
+          </Grid>
+          <Grid item>
+            <Typography variant="h4" align="center" component="h4"></Typography>
+          </Grid>
+        </Grid>
+        <HomePageFooter />
+
+      </>
   );
 }
 
