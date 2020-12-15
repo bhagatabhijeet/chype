@@ -5,6 +5,10 @@ import App from "./App";
 import "./index.css";
 import "fontsource-roboto";
 import rootReducer from './redux';
+import axios from "axios";
+
+const accessString = localStorage.getItem('token');
+axios.defaults.headers.common['authorization'] = `${accessString}`;
 
 const store = configureStore({
   reducer: rootReducer,

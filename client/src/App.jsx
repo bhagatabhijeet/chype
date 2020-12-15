@@ -9,7 +9,7 @@ import HomePage from './pages/HomePage';
 // import ProtectedRoute from "./pages/ProtectedRoutes";
 
 function App() {
-   
+
   return (
     <StrictMode>
     <Router>
