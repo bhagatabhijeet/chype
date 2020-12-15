@@ -52,6 +52,8 @@ const useStyles = makeStyles((theme) => ({
     width: 360,
     height: 85,
     fontSize: 1,
+    backgroundColor:'transparent',
+    color:'white'
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -72,6 +74,8 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     fontSize: 10,
+    backgroundColor:'transparent',
+    color:'white'
   }
 }));
 
@@ -110,7 +114,7 @@ export default function LoggedInUserCard() {
               variant="dot"
             >
               <Avatar aria-label="recipe" className={classes.avatar}>
-                R
+              {`${ReduxUserState.firstName[0].toUpperCase()}${ReduxUserState.lastName[0].toUpperCase()}`}
           </Avatar>
             </StyledBadge>
           }
@@ -134,7 +138,7 @@ export default function LoggedInUserCard() {
           <MenuItem onClick={handleClose}>Account</MenuItem>
           <MenuItem onClick={handleClose}>Sign Out</MenuItem>
         </Menu>
-        <Typography variant="subtitle1" color="textSecondary" style={{ marginTop: '0', fontSize: '10px' }}>
+        <Typography variant="subtitle1" color="inherit" style={{ marginTop: '0', fontSize: '10px' }}>
           This is my last chat
         </Typography>
 
