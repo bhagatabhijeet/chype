@@ -19,6 +19,7 @@ import DetailsIcon from '@material-ui/icons/Details';
 import Account from '../components/Account';
 import General from '../components/General'
 import {isLoggedIn} from "../Utils/AuthenticationHelpers";
+import {useSelector} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,9 +48,11 @@ const useStyles = makeStyles((theme) => ({
 
 function SettingsPage(props) {
     const classes = useStyles();
+    const userReduxState = useSelector(state=>state.user);
+
     const [open, setOpen] = React.useState(true);
 
-    if (!isLoggedIn()) {
+    if (!userReduxState.loggedIn) {
         return <Redirect to="/"/>;
     }
 

@@ -27,6 +27,7 @@ import {
 } from "react-spring";
 import {isLoggedIn} from "../Utils/AuthenticationHelpers";
 import {Redirect} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -40,8 +41,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HomePage() {
   const classes = useStyles();
+  const userReduxState = useSelector(state=>state.user);
 
-  if (isLoggedIn()) {
+  if (userReduxState.loggedIn) {
     return <Redirect to="/main"/>;
   }
 
