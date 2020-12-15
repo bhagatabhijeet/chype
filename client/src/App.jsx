@@ -9,7 +9,10 @@ import {useSelector} from 'react-redux';
 import ProtectedRoute from "./pages/ProtectedRoutes";
 
 function App() {
-  const user = useSelector(state=>state.user)  
+  const user = useSelector(state=>state.user)
+  user.loggedIn = true; // TODO switch over to setting user, including token, on Redux store, and removing
+  // use of local storage
+
   return (
     <StrictMode>
     <Router>

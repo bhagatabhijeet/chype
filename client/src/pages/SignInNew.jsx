@@ -14,6 +14,8 @@ import "react-intl-tel-input/dist/main.css";
 import { useState } from "react";
 import axios from "axios";
 import Parallax from '../components/animated/Parallax';
+import { useHistory } from "react-router-dom";
+import {setToken} from "../Utils/AuthenticationHelpers";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -84,6 +86,8 @@ const StyledTextField = withStyles({
 
 export default function SignInNew() {
   const classes = useStyles();
+  const history = useHistory();
+
   const [formData, setFormData] = useState({   
     password: { text: "", errorText: "", error: false },
     email: { text: "", errorText: "", error: false }, 
@@ -115,7 +119,9 @@ export default function SignInNew() {
           email: formData.email.text,
           password: formData.password.text,
         });
+        setToken(res.data.token);
         console.log(res.data);
+        history.push('/main');
       };
       submit();
     }
