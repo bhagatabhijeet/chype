@@ -153,35 +153,6 @@ export default function MainPage() {
                       label = "Room"
                   />
                 </div>
-                <div >
-                  <ReactTransliterate
-                      margin = "dense"
-                      value={text}
-                      onChange={(e) => setText(e.target.value)}
-                      lang={lang}
-                      placeholder="Start typing here..."
-                      />
-
-                <FormControl >
-                  <Select
-                      displayEmpty
-                      onChange={handleChange}
-                      value={lang}
-                      input={<Input />}
-                      MenuProps={MenuProps}
-                      inputProps={{ 'aria-label': 'Without label' }}
-                  >
-                    <MenuItem disabled value="">
-                      <em>Language</em>
-                    </MenuItem>
-                    {languages.map((language) => (
-                        <MenuItem key={language.label} value={language.value}>
-                          {language.label}
-                        </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                </div>
 
                 <button type={"submit"}>Send Message</button>
               </form>
@@ -204,15 +175,36 @@ export default function MainPage() {
             <div style={{position:'fixed',width:'100%',height:100,top:'90vh',backgroundColor:'black',color:'white',display:'flex',flexDirection:'row'}}>
 
               <form onSubmit={onMessageSubmit}>
-              <div className="name-field">
+              <div className="name-field"
+                   style = {{display: "flex", flexDirection: "row"}}>
                   <ReactTransliterate
                       value={text}
                       onChange={(e) => setText(e.target.value)}
                       lang={lang}
                       placeholder="Start typing here..."
+                      cols= "100"
                       containerStyles={{
-                        width: "300px",
+                        width: "100%",
                       }}/>
+                  <FormControl style = {{backgroundColor: "white"}}>
+                      <Select
+                          displayEmpty
+                          onChange={handleChange}
+                          value={lang}
+                          input={<Input />}
+                          MenuProps={MenuProps}
+                          inputProps={{ 'aria-label': 'Without label' }}
+                      >
+                          <MenuItem disabled value="">
+                              <em>Language</em>
+                          </MenuItem>
+                          {languages.map((language) => (
+                              <MenuItem key={language.label} value={language.value}>
+                                  {language.label}
+                              </MenuItem>
+                          ))}
+                      </Select>
+                  </FormControl>
                 </div>
 
                 <button type={"submit"}>Send Message</button>

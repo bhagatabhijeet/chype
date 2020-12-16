@@ -6,6 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 
 
 
+
 const KEY_UP = 38;
 const KEY_DOWN = 40;
 const KEY_RETURN = 13;
@@ -173,19 +174,19 @@ const OPTION_LIST_MIN_WIDTH = 100;
 
 export const ReactTransliterate = ({
                                        Component = "textarea",
-                                       onBlur = () => {},
-                                       disabled = false,
                                        lang = "hi",
                                        offsetX = 20,
-                                       offsetY = 20,
+                                       offsetY = -50,
                                        onChange,
                                        value,
                                        onKeyDown = () => {},
                                        containerClassName = "",
                                        containerStyles = {},
-                                       activeItemStyles = {},
                                        maxOptions = 6,
-                                       ...rest
+    cols,
+    placeholder,
+    width,
+    ...rest
                                    }) => {
     const [options, setOptions] = useState([]);
     const [left, setLeft] = useState(0);
@@ -292,10 +293,7 @@ export const ReactTransliterate = ({
         }
     };
 
-    const handleResize = () => {
-        // TODO implement the resize function to resize
-        // the helper on screen size change
-    };
+
 
     const handleSelection = (index) => {
         const currentString = value;
@@ -329,11 +327,8 @@ export const ReactTransliterate = ({
     };
 
     useEffect(() => {
-        window.addEventListener("resize", handleResize);
 
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
+
     }, []);
 
     return (
@@ -343,6 +338,7 @@ export const ReactTransliterate = ({
             style={{
                 ...containerStyles,
                 position: "relative",
+                width: "100%"
             }}
             className={containerClassName}
         >
@@ -352,6 +348,8 @@ export const ReactTransliterate = ({
                 onKeyDown={handleKeyDown}
                 ref={inputRef}
                 value={value}
+                cols ={cols}
+                placeholder = {placeholder}
 
             />
             {options.length > 0 ? (
@@ -369,12 +367,12 @@ export const ReactTransliterate = ({
                         padding:" 1px",
                         textAlign: "left",
                         zIndex: "20000",
-                        width: "20%",
+                        width: "100%",
                     }}
                 >
                     {options.map((item, index) => (
                         <ListItem
-                            style={index === selection ? {background: "#65c3d7"} : {}}
+                            style={index === selection ? {background: "#65c3d7"} : {background: "#888"}}
                             onMouseEnter={() => {
                                 setSelection(index);
                             }}
