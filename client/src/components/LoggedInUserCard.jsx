@@ -106,7 +106,6 @@ export default function LoggedInUserCard() {
   return (
       <div >
         <Card style={{ paddingBottom: '1px' }} className={classes.root}>
-
         <CardHeader
           className={classes.header}
           avatar={
@@ -125,7 +124,7 @@ export default function LoggedInUserCard() {
           }
           action={
             <IconButton aria-label="settings" className={classes.icon}>
-              <MoreHorizIcon onClick={handleClick}/>
+              <MoreHorizIcon onClick={handleClick} style={{color: 'white'}}/>
             </IconButton>
 
           }
