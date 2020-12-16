@@ -172,7 +172,7 @@ const OPTION_LIST_MIN_WIDTH = 100;
 })();
 
 export const ReactTransliterate = ({
-                                       Component = "input",
+                                       Component = "textarea",
                                        onBlur = () => {},
                                        disabled = false,
                                        lang = "hi",
@@ -196,8 +196,6 @@ export const ReactTransliterate = ({
     const inputRef = useRef(null);
 
     const getSuggestions = async (lastWord) => {
-        // fetch suggestion from api
-        // const url = `https://www.google.com/inputtools/request?ime=transliteration_en_${lang}&num=5&cp=0&cs=0&ie=utf-8&oe=utf-8&app=jsapi&text=${lastWord}`;
         const url = `https://inputtools.google.com/request?text=${lastWord}&itc=${lang}-t-i0-und&num=13&cp=0&cs=1&ie=utf-8&oe=utf-8&app=demopage`;
         try {
             const res = await fetch(url);
@@ -369,9 +367,9 @@ export const ReactTransliterate = ({
                         display: "block",
                         fontSize: "14px",
                         padding:" 1px",
-                        // textAlign: "left",
-                        // zIndex: "20000",
-                        width: "100%",
+                        textAlign: "left",
+                        zIndex: "20000",
+                        width: "20%",
                     }}
                 >
                     {options.map((item, index) => (
