@@ -100,13 +100,13 @@ export default function MainPage() {
     {/* <div className={classes.root}> */}
       <ChatTopNav/>
       <Grid container spacing={0}>
-         <Grid item xs={3} wrap='wrap'>
-          {/* <Paper className={classes.paper}> */}
+         <Grid item  container  xs={false} sm={3} md={2}>
+          <Paper>
           {/* <LoggedInUserCard /> */}
-          <UsersBox />
-          {/* </Paper>  */}
+          <UsersBox style={{width:100}}/>
+          </Paper> 
         </Grid>
-        <Grid container item xs={8}>
+        <Grid  item container xs={8}  sm={8}  md={5}>
           {/* <Paper className={classes.paper}>xs=3</Paper> */}
           {/* <Container> */}
             <div className="card">
