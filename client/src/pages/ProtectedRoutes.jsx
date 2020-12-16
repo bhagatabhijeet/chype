@@ -8,6 +8,7 @@ const ProtectedRoute = ({
   redirectTo,
   ...rest
 }) => {
+  console.log("inside protected route", loggedIn);
   return (
     <Route
       path={path}

@@ -13,7 +13,10 @@ import AppBarMain from "../components/AppBarMain";
 import "react-intl-tel-input/dist/main.css";
 import { useState } from "react";
 import axios from "axios";
-import Parallax from '../components/animated/Parallax';
+import Parallax from "../components/animated/Parallax";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../redux/UserReducer";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,20 +81,24 @@ const StyledTextField = withStyles({
       "&.MuiFormHelperText-root.Mui-error": {
         color: "red !important",
       },
-  },
+    },
   },
 })(TextField);
 
 export default function SignInNew() {
+  //Redux  
+  let history = useHistory();
+  const dispatch  = useDispatch();
+
   const classes = useStyles();
-  const [formData, setFormData] = useState({   
+  const [formData, setFormData] = useState({
     password: { text: "", errorText: "", error: false },
-    email: { text: "", errorText: "", error: false }, 
+    email: { text: "", errorText: "", error: false },
   });
 
   const validations = () => {
     setFormData({
-      ...formData,     
+      ...formData,
       email: {
         ...formData.email,
         errorText: formData.email.text === "" ? "email is required" : "",
@@ -101,26 +108,39 @@ export default function SignInNew() {
         errorText: formData.password.text === "" ? "password is required" : "",
       },
     });
-    return !( 
-      formData.email.text === "" ||
-      formData.password.text === ""
-    );
+    return !(formData.email.text === "" || formData.password.text === "");
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    
     if (validations()) {
       const submit = async () => {
-        const res = await axios.post("/auth/signin", {         
+        const res = await axios.post("/auth/signin", {
           email: formData.email.text,
           password: formData.password.text,
         });
         console.log(res.data);
+        
+        dispatch(
+          setUser({
+            firstName: res.data.firstName,
+            lastName: res.data.lastName,
+            email: res.data.email,
+            loggedIn: res.data.loggedIn.status,
+            token: res.data.loggedIn.token,
+          })
+        );
+
+        if(res.data.loggedIn.status){
+          console.log("going to main");
+          history.push("/main");
+        }
+
       };
       submit();
     }
   };
-  
+
   const handlePasswordChange = (event) => {
     setFormData({
       ...formData,
@@ -137,7 +157,7 @@ export default function SignInNew() {
       email: { ...formData.email, errorText: "", text: event.target.value },
     });
   };
-  
+
   return (
     <div
       style={{
@@ -145,15 +165,13 @@ export default function SignInNew() {
           "linear-gradient(#ffffff 30%,#56b5ff 55%,#2ba2ff,#2ba2ff,#2ba2ff,#2ba2ff)",
       }}
     >
-      
-      <AppBarMain home signup/>
+      <AppBarMain home signup />
       <Grid container component="main" className={classes.root} spacing={0}>
         {/* <CssBaseline /> */}
-        <Grid item xs={false} sm={4} md={7} >
+        <Grid item xs={false} sm={4} md={7}>
           <div className="container">
-          <Parallax/>
+            <Parallax />
           </div>
-         
         </Grid>
         <Grid
           item
@@ -171,7 +189,7 @@ export default function SignInNew() {
               Sign In
             </Typography>
             {/**NEW FORM */}
-            <form className={classes.form} noValidate onSubmit={handleSubmit}>             
+            <form className={classes.form} noValidate onSubmit={handleSubmit}>
               <StyledTextField
                 variant="outlined"
                 margin="dense"
@@ -199,7 +217,7 @@ export default function SignInNew() {
                 helperText={formData.password.errorText}
                 error={formData.password.errorText !== ""}
               />
-             
+
               <Button
                 type="submit"
                 fullWidth
@@ -229,6 +247,5 @@ export default function SignInNew() {
       </Grid>
       <HomePageFooter />
     </div>
-    
   );
 }

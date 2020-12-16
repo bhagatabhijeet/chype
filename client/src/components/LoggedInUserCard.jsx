@@ -12,9 +12,11 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
+import { useSelector } from "react-redux";
 // import MenuBar from './Menu';
 
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import {Menu, MenuItem} from "@material-ui/core";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -50,6 +52,8 @@ const useStyles = makeStyles((theme) => ({
     width: 360,
     height: 85,
     fontSize: 1,
+    backgroundColor:'transparent',
+    color:'white'
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -70,11 +74,24 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     fontSize: 10,
+    backgroundColor:'transparent',
+    color:'white'
   }
 }));
 
 export default function LoggedInUserCard() {
+  const ReduxUserState = useSelector(state=>state.user);
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   // const [expanded, setExpanded] = React.useState(false);
 
   // const handleExpandClick = () => {
@@ -97,21 +114,31 @@ export default function LoggedInUserCard() {
               variant="dot"
             >
               <Avatar aria-label="recipe" className={classes.avatar}>
-                R
+              {`${ReduxUserState.firstName[0].toUpperCase()}${ReduxUserState.lastName[0].toUpperCase()}`}
           </Avatar>
             </StyledBadge>
           }
           action={
             <IconButton aria-label="settings" className={classes.icon}>
-              <MoreHorizIcon />
+              <MoreHorizIcon onClick={handleClick}/>
             </IconButton>
 
           }
 
-          title="Abhijeet Bhagat"
+          title={`${ReduxUserState.firstName} ${ReduxUserState.lastName}`}
           subheader="This is my Status"
         />
-        <Typography variant="subtitle1" color="textSecondary" style={{ marginTop: '0', fontSize: '10px' }}>
+        <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose}>Account</MenuItem>
+          <MenuItem onClick={handleClose}>Sign Out</MenuItem>
+        </Menu>
+        <Typography variant="subtitle1" color="inherit" style={{ marginTop: '0', fontSize: '10px' }}>
           This is my last chat
         </Typography>
 
