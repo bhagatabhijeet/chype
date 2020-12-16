@@ -10,6 +10,11 @@ import {useEffect, useState} from 'react';
 import TextField from "@material-ui/core/TextField";
 import {ReactTransliterate} from '../components/reactTranslit'
 import { useParams,Redirect } from "react-router-dom";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import Input from "@material-ui/core/Input";
+import {languages} from "../assets/languages"
 
 
 
@@ -37,9 +42,8 @@ export default function MainPage() {
   const [friendData, setFriendData] = useState({friend: 'son'});
   const [roomData, setRoomData] = useState({room: ""});
   const [chat, setChat] = useState([])
-  const [lang, setLang] = useState('hi');
+  const [lang, setLang] = useState([]);
   const [text, setText] = useState("");
-
   //can use props.useParams to get params form url, or props.history
   console.log("PARAMS",params);
   useEffect(()=>{
@@ -82,7 +86,6 @@ export default function MainPage() {
     console.log(room)
     console.log('inside of on submit', chat)
     console.log(friend)
-    // socket.emit("clientToServerMessage", {user, message, friend, room});
     setUserData({user, message: ''});
   }
 
@@ -98,6 +101,19 @@ export default function MainPage() {
 
 
 
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
+  const handleChange = (event) => {
+    setLang(event.target.value);
+  };
   return (
     <>
     <div className={classes.root}>
@@ -142,15 +158,34 @@ export default function MainPage() {
                       label = "Room"
                   />
                 </div>
-                <div className="name-field">
+                <div >
                   <ReactTransliterate
+                      margin = "dense"
                       value={text}
                       onChange={(e) => setText(e.target.value)}
                       lang={lang}
                       placeholder="Start typing here..."
-                      containerStyles={{
-                        width: "300px",
-                      }}/>
+                      />
+
+                <FormControl >
+                  <Select
+                      displayEmpty
+                      onChange={handleChange}
+                      value={lang}
+                      input={<Input />}
+                      MenuProps={MenuProps}
+                      inputProps={{ 'aria-label': 'Without label' }}
+                  >
+                    <MenuItem disabled value="">
+                      <em>Language</em>
+                    </MenuItem>
+                    {languages.map((language) => (
+                        <MenuItem key={language.label} value={language.value}>
+                          {language.label}
+                        </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
                 </div>
 
                 <button type={"submit"}>Send Message</button>
