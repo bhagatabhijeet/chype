@@ -16,7 +16,12 @@ import { useSelector } from "react-redux";
 // import MenuBar from './Menu';
 
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import {Menu, MenuItem} from "@material-ui/core";
+import {List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem} from "@material-ui/core";
+import {Link} from "react-router-dom";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import DetailsIcon from '@material-ui/icons/Details';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Collapse from "../pages/SettingsPage";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -99,8 +104,8 @@ export default function LoggedInUserCard() {
   // };
 
   return (
-    <div >
-      <Card style={{ paddingBottom: '1px' }} className={classes.root}>
+      <div >
+        <Card style={{ paddingBottom: '1px' }} className={classes.root}>
 
         <CardHeader
           className={classes.header}
@@ -135,10 +140,42 @@ export default function LoggedInUserCard() {
             open={Boolean(anchorEl)}
             onClose={handleClose}
         >
-          <MenuItem onClick={handleClose}>Account</MenuItem>
-          <MenuItem onClick={handleClose}>Sign Out</MenuItem>
+            <MenuItem onClick={handleClose}>
+                <Link to="/account" className={classes.link}>
+                    <List component="div" disablePadding>
+                        <ListItem button className={classes.nested}>
+                            <ListItemIcon>
+                                <AccountCircleIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Account"/>
+                        </ListItem>
+                    </List>
+                </Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+                <Link to="/general" className={classes.link}>
+                    <List component="div" disablePadding>
+                        <ListItem button className={classes.nested}>
+                            <ListItemIcon>
+                                <DetailsIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="General"/>
+                        </ListItem>
+                    </List>
+                </Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+                <Link to="/signout" className={classes.link}>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <ExitToAppIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary={"Signout"}/>
+                    </ListItem>
+                </Link>
+            </MenuItem>
         </Menu>
-        <Typography variant="subtitle1" color="inherit" style={{ marginTop: '0', fontSize: '10px' }}>
+        <Typography variant="subtitle1" color="textSecondary" style={{ marginTop: '0', fontSize: '10px' }}>
           This is my last chat
         </Typography>
 

@@ -25,7 +25,7 @@ import UsersBox from '../components/UsersBox';
 const socket = io();
 socket.on("connect", function () {
   // const sessionID = socketConnection.socket.sessionid;
- console.log(socket.id);
+  console.log(socket.id);
 });
 
 
@@ -66,13 +66,9 @@ export default function MainPage() {
 
   },[]);
 
-
-
-
   const onTextChange = e => {
     setUserData({...userData, [e.target.name]: e.target.value})
   };
-
 
   const onMessageSubmit = (e) => {
     e.preventDefault();
@@ -87,14 +83,13 @@ export default function MainPage() {
 
   const renderChat = () =>{
     return chat.map(({user, message}, index) => (
-      <div key={index}>
-        <h3>
-          {user}: <span>{message}</span>
-        </h3>
-      </div>
+        <div key={index}>
+          <h3>
+            {user}: <span>{message}</span>
+          </h3>
+        </div>
     ))
   }
-
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -110,19 +105,19 @@ export default function MainPage() {
     setLang(event.target.value);
   };
   return (
-    <>
-    {/* <div className={classes.root}> */}
-      <ChatTopNav/>
-      <Grid container spacing={0}>
-         <Grid item  container  xs={false} sm={3} md={2}>
-          <Paper>
-          {/* <LoggedInUserCard /> */}
-          <UsersBox style={{width:100}}/>
-          </Paper>
-        </Grid>
-        <Grid  item container xs={8}  sm={8}  md={5}>
-          {/* <Paper className={classes.paper}>xs=3</Paper> */}
-          {/* <Container> */}
+      <>
+        {/* <div className={classes.root}> */}
+        <ChatTopNav/>
+        <Grid container spacing={0}>
+          <Grid item  container  xs={false} sm={3} md={2}>
+            <Paper>
+              {/* <LoggedInUserCard /> */}
+              <UsersBox style={{width:100}}/>
+            </Paper>
+          </Grid>
+          <Grid  item container xs={8}  sm={8}  md={5}>
+            {/* <Paper className={classes.paper}>xs=3</Paper> */}
+            {/* <Container> */}
             <div className="card">
               <form onSubmit={onMessageSubmit}>
                 <h1> Messenger </h1>
@@ -160,27 +155,27 @@ export default function MainPage() {
                       onChange={(e) => setText(e.target.value)}
                       lang={lang}
                       placeholder="Start typing here..."
-                      />
+                  />
 
-                <FormControl >
-                  <Select
-                      displayEmpty
-                      onChange={handleChange}
-                      value={lang}
-                      input={<Input />}
-                      MenuProps={MenuProps}
-                      inputProps={{ 'aria-label': 'Without label' }}
-                  >
-                    <MenuItem disabled value="">
-                      <em>Language</em>
-                    </MenuItem>
-                    {languages.map((language) => (
-                        <MenuItem key={language.label} value={language.value}>
-                          {language.label}
-                        </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                  <FormControl >
+                    <Select
+                        displayEmpty
+                        onChange={handleChange}
+                        value={lang}
+                        input={<Input />}
+                        MenuProps={MenuProps}
+                        inputProps={{ 'aria-label': 'Without label' }}
+                    >
+                      <MenuItem disabled value="">
+                        <em>Language</em>
+                      </MenuItem>
+                      {languages.map((language) => (
+                          <MenuItem key={language.label} value={language.value}>
+                            {language.label}
+                          </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </div>
 
                 <button type={"submit"}>Send Message</button>
@@ -204,7 +199,7 @@ export default function MainPage() {
             <div style={{position:'fixed',width:'100%',height:100,top:'90vh',backgroundColor:'black',color:'white',display:'flex',flexDirection:'row'}}>
 
               <form onSubmit={onMessageSubmit}>
-              <div className="name-field">
+                <div className="name-field">
                   <ReactTransliterate
                       value={text}
                       onChange={(e) => setText(e.target.value)}
@@ -220,11 +215,11 @@ export default function MainPage() {
               </form>
             </div>
 
-          {/* </Container> */}
-        </Grid>
+            {/* </Container> */}
+          </Grid>
 
-      </Grid>
-    {/* </div> */}
-    </>
+        </Grid>
+        {/* </div> */}
+      </>
   );
 }
