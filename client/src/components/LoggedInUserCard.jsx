@@ -96,6 +96,10 @@ export default function LoggedInUserCard() {
   let history = useHistory();
   const dispatch  = useDispatch();
   const ReduxUserState = useSelector(state=>state.user);
+    let {firstName,lastName}=ReduxUserState;
+  firstName=firstName?firstName:"";
+  lastName=lastName?lastName:"";
+  
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
  
@@ -135,7 +139,7 @@ export default function LoggedInUserCard() {
               variant="dot"
             >
               <Avatar aria-label="recipe" className={classes.avatar}>
-              {"Redux State is Empty"||`${ReduxUserState.firstName[0].toUpperCase()}${ReduxUserState.lastName[0].toUpperCase()}`}
+              {firstName.length>0?`${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`:null}
           </Avatar>
             </StyledBadge>
           }
@@ -146,7 +150,7 @@ export default function LoggedInUserCard() {
 
           }
 
-          title={"Redux State is Empty" || `${ReduxUserState.firstName} ${ReduxUserState.lastName}`}
+          title={`${firstName} ${lastName}`}
           // subheader="This is my Status"
         />
         <Menu
