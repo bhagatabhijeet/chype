@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 const { isEmail, isLength } = require('validator');
 const bcrypt = require('bcryptjs');
@@ -37,15 +36,19 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Room',
   },
+  socketId: {
+    type: String,
+    default: "",
+  },
   messages: [{
     type: Schema.Types.ObjectId,
     ref: "Message",
   }],
   loggedIn:{
     status:Boolean,
-    token:String,    
+    token:String,
   }
- 
+
 });
 
 UserSchema.methods.toJSON = function() {
