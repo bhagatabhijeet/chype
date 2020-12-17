@@ -23,7 +23,7 @@ import ChatContainer from "../components/ChatContainer";
 import UsersContainer from "../components/UsersContainer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import chypeTransInverseLogo from "../assets/images/new_inverse_trans.png";
-import "../assets/styles/mainpage.css"
+// import "../assets/styles/mainpage.css"
 
 const socket = io();
 socket.on("connect", function () {
@@ -63,6 +63,7 @@ export default function MainPage() {
       console.log("going to signin");
       history.push("/signin");
     }
+    document.body.style.backgroundColor="#d7d8f1";
   }, []);
 
   const onTextChange = (e) => {
