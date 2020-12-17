@@ -15,7 +15,7 @@ import { red } from '@material-ui/core/colors';
 import { useSelector } from "react-redux";
 // import MenuBar from './Menu';
 
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import {List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -54,13 +54,12 @@ const StyledBadge = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 300,
-    height: '100%',
+    // width: 360,
+    // height: 85,
     fontSize: 1,
     backgroundColor:'transparent',
-    color:'blue',
-    elevation:0
-
+    color:'white',
+    boxSizing:'border-box'
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -75,8 +74,9 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
     marginBottom: '0',
-    width: theme.spacing(3),
-    height: theme.spacing(3),
+    fontSize:8,
+    width:10,
+    height:10,
   },
   icon: {
     marginBottom: '0',
@@ -84,11 +84,11 @@ const useStyles = makeStyles((theme) => ({
   header: {
     fontSize: 10,
     backgroundColor:'transparent',
-    color:'blue'
+    color:'white'
   }
 }));
 
-export default function LoggedInUserCard() {
+export default function SearchedUserCard() {
   const ReduxUserState = useSelector(state=>state.user);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -128,13 +128,13 @@ export default function LoggedInUserCard() {
           }
           action={
             <IconButton aria-label="settings" className={classes.icon}>
-              <MoreVertIcon  onClick={handleClick} style={{color: 'white'}}/>
+              <MoreHorizIcon onClick={handleClick} style={{color: 'white'}}/>
             </IconButton>
 
           }
 
           title={`${ReduxUserState.firstName} ${ReduxUserState.lastName}`}
-          // subheader="This is my Status"
+          subheader="This is my Status"
         />
         <Menu
             id="simple-menu"
@@ -178,9 +178,9 @@ export default function LoggedInUserCard() {
                 </Link>
             </MenuItem>
         </Menu>
-        {/* <Typography variant="subtitle1" color="textSecondary" style={{ marginTop: '0', fontSize: '10px' }}>
+        <Typography variant="subtitle1" color="textSecondary" style={{ marginTop: '0', fontSize: '10px' }}>
           This is my last chat
-        </Typography> */}
+        </Typography>
 
       </Card>
     </div>
