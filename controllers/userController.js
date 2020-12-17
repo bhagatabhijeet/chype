@@ -1,9 +1,9 @@
 const { User } = require('../models/index');
 
 module.exports = {
-  getAllUserEmails: async (req, res) => {
+  getUserByEmail: async (req, res) => {
     try {
-      const userEmail = await User.findOne({ email: req.query.email }, 'email');
+      const userEmail = await User.findOne({ email: req.query.email });
       return res.status(200).json(userEmail);
     } catch (e) {
       return res.status(403).json({ e });
@@ -21,6 +21,3 @@ module.exports = {
     }
   },
 };
-
-
-    
