@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
 // import clsx from 'clsx';
@@ -22,6 +22,9 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import DetailsIcon from '@material-ui/icons/Details';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Collapse from "../pages/SettingsPage";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/UserReducer";
+import {useHistory} from "react-router-dom";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -89,9 +92,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LoggedInUserCard() {
+  //Redux  
+  let history = useHistory();
+  const dispatch  = useDispatch();
   const ReduxUserState = useSelector(state=>state.user);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+ 
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -100,6 +107,12 @@ export default function LoggedInUserCard() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const signOut=()=>{
+    dispatch(setUser({}));
+    sessionStorage.removeItem("persist:root");
+    history.push("/");
+  }
 
   // const [expanded, setExpanded] = React.useState(false);
 
@@ -122,7 +135,7 @@ export default function LoggedInUserCard() {
               variant="dot"
             >
               <Avatar aria-label="recipe" className={classes.avatar}>
-              {`${ReduxUserState.firstName[0].toUpperCase()}${ReduxUserState.lastName[0].toUpperCase()}`}
+              {"Redux State is Empty"||`${ReduxUserState.firstName[0].toUpperCase()}${ReduxUserState.lastName[0].toUpperCase()}`}
           </Avatar>
             </StyledBadge>
           }
@@ -133,7 +146,7 @@ export default function LoggedInUserCard() {
 
           }
 
-          title={`${ReduxUserState.firstName} ${ReduxUserState.lastName}`}
+          title={"Redux State is Empty" || `${ReduxUserState.firstName} ${ReduxUserState.lastName}`}
           // subheader="This is my Status"
         />
         <Menu
@@ -173,7 +186,7 @@ export default function LoggedInUserCard() {
                         <ListItemIcon>
                             <ExitToAppIcon/>
                         </ListItemIcon>
-                        <ListItemText primary={"Signout"}/>
+                        <ListItemText primary={"Signout"} onClick={signOut}/>
                     </ListItem>
                 </Link>
             </MenuItem>
