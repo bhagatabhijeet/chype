@@ -11,7 +11,7 @@ import "../assets/styles/common.css";
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100%",
-    width: "18%",
+    width: "28%",
     display: "flex",
     flexDirection: "column",
     borderTopLeftRadius:10,
