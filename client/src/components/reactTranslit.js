@@ -351,6 +351,7 @@ export const ReactTransliterate = ({
                 cols ={cols}
                 placeholder = {placeholder}
 
+
             />
             {options.length > 0 ? (
                 <List
