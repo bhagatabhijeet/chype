@@ -3,7 +3,7 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import { Grid, Box } from "@material-ui/core";
-import SearchedUserCard from "../components/SearchedUserCard";
+import FriendUserCard from "../components/FriendUserCard";
 import { makeStyles } from "@material-ui/core/styles";
 import "../assets/styles/common.css";
 
@@ -61,7 +61,7 @@ export default function UsersBox() {
           ),
         }}
       />
-      {/* <SearchedUserCard/>       */}
+      <FriendUserCard/>      
       <div>User Card 2</div>
       <div>User Card 3</div>
       <div>User Card 4</div>

@@ -35,7 +35,7 @@ export default function ChatContainer() {
         position: "relative",
         //   top: 100,
         height: "100%",
-        width: "78%",
+        width: "68%",
         // left:'20%',
 
           display: "flex",
