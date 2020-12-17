@@ -9,10 +9,18 @@ module.exports = {
       return res.status(403).json({ e });
     }
   },
+  updateUser: async (req, res) => {
+    try {
+      const {body, user} = req;
+      // await User.findByIdAndUpdate(user.id, body);
+      await User.findByIdAndUpdate(user.id, {socketId: body.socketId});
+      const updatedUser = await User.findOne({email: user.email});
+      return res.json(updatedUser);
+    } catch (e) {
+      return res.status(403).json({ e });
+    }
+  },
 };
-
-
-
 
 
     

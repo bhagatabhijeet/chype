@@ -19,15 +19,16 @@ import {useSelector} from 'react-redux';
 import {useHistory} from "react-router-dom";
 import ChatTopNav from "../components/ChatTopNav"
 import UsersBox from '../components/UsersBox';
-
-
+import axios from "axios";
 
 const socket = io();
 socket.on("connect", function () {
   // const sessionID = socketConnection.socket.sessionid;
   console.log(socket.id);
+  axios.put("/api/user", {
+    socketId: socket.id
+  });
 });
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
