@@ -347,12 +347,13 @@ export const ReactTransliterate = ({
             className={containerClassName}
         >
             <Component
-
+                
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 ref={inputRef}
                 value={value}
-
+                style={{width:'95%'}}
+                rows="3"
             />
             {options.length > 0 ? (
                 <List
