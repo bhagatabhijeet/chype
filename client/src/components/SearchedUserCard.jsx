@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
 // import clsx from 'clsx';
@@ -15,16 +15,13 @@ import { red } from '@material-ui/core/colors';
 import { useSelector } from "react-redux";
 // import MenuBar from './Menu';
 
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import {List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import DetailsIcon from '@material-ui/icons/Details';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Collapse from "../pages/SettingsPage";
-import { useDispatch } from "react-redux";
-import { setUser } from "../redux/UserReducer";
-import {useHistory} from "react-router-dom";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -57,13 +54,12 @@ const StyledBadge = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 300,
-    height: '100%',
+    // width: 360,
+    // height: 85,
     fontSize: 1,
     backgroundColor:'transparent',
-    color:'blue',
-    elevation:0
-
+    color:'white',
+    boxSizing:'border-box'
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -78,8 +74,9 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
     marginBottom: '0',
-    width: theme.spacing(3),
-    height: theme.spacing(3),
+    fontSize:8,
+    width:10,
+    height:10,
   },
   icon: {
     marginBottom: '0',
@@ -87,18 +84,14 @@ const useStyles = makeStyles((theme) => ({
   header: {
     fontSize: 10,
     backgroundColor:'transparent',
-    color:'blue'
+    color:'white'
   }
 }));
 
-export default function LoggedInUserCard() {
-  //Redux  
-  let history = useHistory();
-  const dispatch  = useDispatch();
+export default function SearchedUserCard() {
   const ReduxUserState = useSelector(state=>state.user);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
- 
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -107,12 +100,6 @@ export default function LoggedInUserCard() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  const signOut=()=>{
-    dispatch(setUser({}));
-    sessionStorage.removeItem("persist:root");
-    history.push("/");
-  }
 
   // const [expanded, setExpanded] = React.useState(false);
 
@@ -135,19 +122,19 @@ export default function LoggedInUserCard() {
               variant="dot"
             >
               <Avatar aria-label="recipe" className={classes.avatar}>
-              {"Redux State is Empty"||`${ReduxUserState.firstName[0].toUpperCase()}${ReduxUserState.lastName[0].toUpperCase()}`}
+              {`${ReduxUserState.firstName[0].toUpperCase()}${ReduxUserState.lastName[0].toUpperCase()}`}
           </Avatar>
             </StyledBadge>
           }
           action={
             <IconButton aria-label="settings" className={classes.icon}>
-              <MoreVertIcon  onClick={handleClick} style={{color: 'white'}}/>
+              <MoreHorizIcon onClick={handleClick} style={{color: 'white'}}/>
             </IconButton>
 
           }
 
-          title={"Redux State is Empty" || `${ReduxUserState.firstName} ${ReduxUserState.lastName}`}
-          // subheader="This is my Status"
+          title={`${ReduxUserState.firstName} ${ReduxUserState.lastName}`}
+          subheader="This is my Status"
         />
         <Menu
             id="simple-menu"
@@ -186,14 +173,14 @@ export default function LoggedInUserCard() {
                         <ListItemIcon>
                             <ExitToAppIcon/>
                         </ListItemIcon>
-                        <ListItemText primary={"Signout"} onClick={signOut}/>
+                        <ListItemText primary={"Signout"}/>
                     </ListItem>
                 </Link>
             </MenuItem>
         </Menu>
-        {/* <Typography variant="subtitle1" color="textSecondary" style={{ marginTop: '0', fontSize: '10px' }}>
+        <Typography variant="subtitle1" color="textSecondary" style={{ marginTop: '0', fontSize: '10px' }}>
           This is my last chat
-        </Typography> */}
+        </Typography>
 
       </Card>
     </div>

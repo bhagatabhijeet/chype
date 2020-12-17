@@ -1,3 +1,4 @@
+import  React from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Button } from "@material-ui/core";
 import chypeTransInverseLogo from "../assets/images/new_inverse_trans_blue.png";
@@ -48,23 +49,32 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#2ba2ff",
     },
   },
+  offset: theme.mixins.toolbar,
+  toolbar: theme.mixins.toolbar,
 }));
 
 export default function ChatTopNav(props) {
   const classes = useStyles();
   return (
-    <div className={classes.root} id="header">
-      <AppBar className={classes.appbar} elevation={0}>
-        <Toolbar>
+    // <div className={classes.root} id="header">
+    //   <AppBar className={classes.appbar} elevation={0}>
+    //     <Toolbar>
        
-          <h1 className={classes.appbarTitle}>
-            <Link to="/">
-              <img src={chypeTransInverseLogo} alt="logoImg" height="40px"/>
-            </Link>
-          </h1>
-          <LoggedInUserCard />
-        </Toolbar>
+    //       <h1 className={classes.appbarTitle}>
+    //         <Link to="/">
+    //           <img src={chypeTransInverseLogo} alt="logoImg" height="40px"/>
+    //         </Link>
+    //       </h1>
+    //       <LoggedInUserCard />
+    //     </Toolbar>
+    //   </AppBar>
+    //   <div className={classes.offset} />
+    // </div>
+    <React.Fragment>
+      <AppBar position='fixed'>
+        <Toolbar><LoggedInUserCard /></Toolbar>
       </AppBar>
-    </div>
+      <div className={classes.toolbar} />
+    </React.Fragment>
   );
 }
