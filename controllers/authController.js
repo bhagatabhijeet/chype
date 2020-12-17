@@ -47,11 +47,9 @@ module.exports = {
       return res.status(403).json({ e });
     }
   },
-  signIn: async (req, res) => {    
+  signIn: async (req, res) => {
     const currentUser = await User.findById(req.user._id).select('-password');
     await User.findByIdAndUpdate(req.user._id,{loggedIn:{status:true,token: tokenForUser(req.user)}});
-    // res.json({ token: tokenForUser(req.user), user: currentUser });
-    // res.json({user:req.user.email,loggedIn:true});
     res.json(currentUser);
   },
   getUser: async(req, res) => {
