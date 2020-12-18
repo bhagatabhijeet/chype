@@ -112,7 +112,13 @@ export default function LoggedInUserCard() {
     };
 
     const signOut=async ()=>{
-       await axios.patch(encodeURI(`/api/user/${ReduxUserState.id}`),{"loggedIn.status":false,"loggedIn.token":""},{header:{'authorization':`${ReduxUserState.token}`}})
+      try{
+
+        await axios.patch(encodeURI(`/api/user/${ReduxUserState.id}`),{"loggedIn.status":false,"loggedIn.token":""},{header:{'authorization':`${ReduxUserState.token}`}})
+      }
+      catch(err){
+        console.log(err);
+      }
         dispatch(setUser({}));
         sessionStorage.removeItem("persist:root");
         history.push("/");
