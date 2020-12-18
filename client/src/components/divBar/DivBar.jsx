@@ -1,6 +1,6 @@
 import './DivBar.css';
 
-const DivBar = () => {
+const DivBar = (props) => {
 
     return (
         <>
@@ -9,7 +9,7 @@ const DivBar = () => {
                 <button className="btn"></button>
                 <p className="sentText pr-10"></p>
                 <div className="messageBox backgroundBlue">
-                    <p className="messageText colorWhite"></p>
+                    <p className="messageText colorWhite">{props.text}</p>
                 </div>
             </div>
         {/* another user */}

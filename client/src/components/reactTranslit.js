@@ -350,8 +350,8 @@ export const ReactTransliterate = ({
                 value={value}
                 cols ={cols}
                 placeholder = {placeholder}
-
-
+                style={{width:'95%'}}
+                rows="3"
             />
             {options.length > 0 ? (
                 <List
