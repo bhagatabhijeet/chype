@@ -6,7 +6,10 @@ import { Grid, Box } from "@material-ui/core";
 import SearchedUserCard from "../components/SearchedUserCard";
 import UsersBox from "../components/UsersBox";
 import { makeStyles } from "@material-ui/core/styles";
+import {useState,useEffect} from "react";
+import {useSelector} from "react-redux";
 import "../assets/styles/common.css";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +28,28 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UsersContainer() {
   const classes = useStyles();
+  const ReduxUserState = useSelector(state=>state.user);
+  const [search,setSearch] = useState('');
+  const [searchResult,setSearchResult] = useState([]);
+
+  const handleSearch=(event)=>{
+    setSearch(event.target.value);
+  }
+
+  useEffect(()=>{
+    const getUsers=async ()=>{
+      if(search.trim()===""){
+        setSearchResult([]);
+      }
+      else{
+        const res=  await axios.get(encodeURI(`/api/user?q=${search}&filterme=true`),{header:{'authorization':`${ReduxUserState.token}`}})
+        setSearchResult(res.data);
+      }
+    }
+    getUsers();
+    console.log(searchResult);
+  },[search]);
+
   return (
     <Box className={classes.root}>
       {/* <TextField
@@ -39,7 +64,26 @@ export default function UsersContainer() {
           ),
         }}
       /> */}
-      <div id="searchedUsers"></div>
+      
+      <div id="searchedUsers">
+      <TextField
+        label="Search Users"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment>
+              <IconButton>
+                <SearchIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+        onChange={handleSearch}
+        fullWidth
+        style={{color:"#fff"}}
+        margin="dense"
+      />
+      {searchResult.map(s=><SearchedUserCard data={s}/>)}
+      </div>
 
       <UsersBox />
     </Box>

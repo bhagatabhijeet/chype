@@ -48,8 +48,8 @@ module.exports = {
     }
   },
   signIn: async (req, res) => {
-    const currentUser = await User.findById(req.user._id).select('-password');
     await User.findByIdAndUpdate(req.user._id,{loggedIn:{status:true,token: tokenForUser(req.user)}});
+    const currentUser = await User.findById(req.user._id).select('-password');
     res.json(currentUser);
   },
   getUser: async(req, res) => {
