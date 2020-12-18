@@ -1,3 +1,4 @@
+import {useState,useEffect} from "react";
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -6,6 +7,8 @@ import { Grid, Box } from "@material-ui/core";
 import FriendUserCard from "../components/FriendUserCard";
 import { makeStyles } from "@material-ui/core/styles";
 import "../assets/styles/common.css";
+import {useSelector} from "react-redux";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +31,24 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UsersBox() {
   const classes = useStyles();
+  const ReduxUserState = useSelector(state=>state.user);
+  const [search,setSearch] = useState('');
+  const [searchResult,setSearchResult] = useState([]);
+
+  
+  const handleSearch=(event)=>{
+    setSearch(event.target.value);
+  }
+
+  useEffect(()=>{
+    const getUsers=async ()=>{
+      const res=  await axios.get(`/api/user?q=${search}&filterme=true`,{header:{'authorization':`${ReduxUserState.token}`}})
+      setSearchResult(res.data);
+    }
+    getUsers();
+    console.log(searchResult);
+  },[search]);
+
   return (
     <Box
        className={classes.root}
@@ -60,20 +81,9 @@ export default function UsersBox() {
             </InputAdornment>
           ),
         }}
+        onChange={handleSearch}
       />
-      <FriendUserCard/>      
-      <div>User Card 2</div>
-      <div>User Card 3</div>
-      <div>User Card 4</div>
-      <div>User Card 5</div>
-      <div>User Card 6</div>
-      <div>User Card 7</div>
-      <div>User Card 8</div>
-      <div>User Card 9</div>
-      <div>User Card 10</div>
-      <div>User Card 11</div>
-      <div>User Card 12</div>
-      <div>User Card 13</div>
+      {searchResult.map(s=><FriendUserCard data={s}/>)}
       <div>User Card 14</div>
       <div>User Card 15</div>
       <div>User Card 16</div>

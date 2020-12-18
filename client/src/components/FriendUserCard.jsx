@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function FriendUserCard() {
+export default function FriendUserCard(props) {
   const ReduxUserState = useSelector(state=>state.user);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -115,11 +115,11 @@ const selectedUser=(event)=>{
         <Card style={{ paddingBottom: '1px' }} className={classes.root} role="button" onClick={selectedUser}>
           <CardContent>
           <Avatar aria-label="recipe" className={classes.avatar}>
-              {`${ReduxUserState.firstName[0].toUpperCase()}${ReduxUserState.lastName[0].toUpperCase()}`}
+              {`${props.data.firstName[0].toUpperCase()}${props.data.lastName[0].toUpperCase()}`}
           </Avatar>
           <Typography color="textSecondary" gutterBottom>
           
-          {`${ReduxUserState.firstName} ${ReduxUserState.lastName}`}
+          {`${props.data.firstName} ${props.data.lastName}`}
         </Typography>
           
           </CardContent>
