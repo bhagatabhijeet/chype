@@ -19,6 +19,7 @@ import DetailsIcon from '@material-ui/icons/Details';
 import Account from '../components/Account';
 import General from '../components/General'
 import {useSelector} from "react-redux";
+import ChatIcon from '@material-ui/icons/Chat';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -111,6 +112,15 @@ function SettingsPage(props) {
                                     <ExitToAppIcon/>
                                 </ListItemIcon>
                                 <ListItemText primary={"Signout"}/>
+                            </ListItem>
+                        </Link>
+                        <Divider variant="inset" component="li"/>
+                        <Link to="/main" className={classes.link}>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <ChatIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary={"Back to chat"}/>
                             </ListItem>
                         </Link>
                         <Divider variant="inset" component="li"/>
