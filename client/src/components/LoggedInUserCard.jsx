@@ -21,6 +21,7 @@ import DetailsIcon from '@material-ui/icons/Details';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {setUser} from "../redux/UserReducer";
 import SettingsIcon from '@material-ui/icons/Settings';
+import axios from "axios";
 
 const StyledBadge = withStyles((theme) => ({
     badge: {
@@ -110,7 +111,8 @@ export default function LoggedInUserCard() {
         setAnchorEl(null);
     };
 
-    const signOut=()=>{
+    const signOut=async ()=>{
+       await axios.patch(encodeURI(`/api/user/${ReduxUserState.id}`),{"loggedIn.status":false,"loggedIn.token":""},{header:{'authorization':`${ReduxUserState.token}`}})
         dispatch(setUser({}));
         sessionStorage.removeItem("persist:root");
         history.push("/");

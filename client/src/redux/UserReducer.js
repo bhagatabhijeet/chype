@@ -7,7 +7,8 @@ const INITIAL_STATE = {
   lastName: "",
   email: "",
   loggedIn: false,  
-  token:""
+  token:"",
+  id:""
 };
 /**
  * @description Create UserSlice, this will hold user state in our redux store
@@ -25,7 +26,8 @@ const userSlice = createSlice({
       lastName: action.payload.lastName,
       email: action.payload.email,
       loggedIn: action.payload.loggedIn,   
-      token:action.payload.token   
+      token:action.payload.token,
+      id:action.payload.id   
     }),
   },
 });
