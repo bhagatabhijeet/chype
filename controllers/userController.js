@@ -44,9 +44,10 @@ const searchUser = async (req, res) => {
         { email: { $regex: q, $options: "i" } },
       ],
     });
-    if(filterme){
-
-      users = users.filter(u=>u.id !==req.user.id);
+    if (typeof filterme !== undefined) {
+      if (filterme.toLowerCase() === "true") {
+        users = users.filter((u) => u.id !== req.user.id);
+      }
     }
 
     return res.json(users);
@@ -73,10 +74,14 @@ const getAllUsers = async (req, res) => {
 
 const getAllOrSearchUsers = async (req, res) => {
   const { q } = req.query;
-  if (q) {
-    searchUser(req, res);
-  } else {
+  if (typeof q === "undefined") {
     getAllUsers(req, res);
+  } else {
+    if (q.trim() === "") {
+      return [];
+    } else {
+      searchUser(req, res);
+    }
   }
 };
 

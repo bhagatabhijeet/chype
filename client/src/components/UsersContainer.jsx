@@ -14,10 +14,11 @@ const useStyles = makeStyles((theme) => ({
     width: "28%",
     display: "flex",
     flexDirection: "column",
-    borderTopLeftRadius:10,
-    borderBottomLeftRadius:10,
+    // borderTopLeftRadius:10,
+    // borderBottomLeftRadius:10,
     border:'1px solid black',
-    margin:'0 0 10 10'
+    margin:'0 0 10 10',
+    boxSizing:'border-box'
 
   },
 }));
