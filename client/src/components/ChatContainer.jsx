@@ -15,10 +15,13 @@ import Select from "@material-ui/core/Select";
 import Input from "@material-ui/core/Input";
 import MenuItem from "@material-ui/core/MenuItem";
 import { languages } from "../assets/languages";
+import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
+import SpeechToText from "speech-to-text";
 
 export default function ChatContainer() {
   const [lang, setLang] = useState([]);
   const [text, setText] = useState("");
+  const [listening,setListening] = useState(false);
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -44,6 +47,17 @@ export default function ChatContainer() {
   const handleLanguageChange = (event) => {
     setLang(event.target.value);
   };
+
+  const handleSpeech = ()=>{
+    setListening(!listening)
+    if(listening){
+      SpeechToText.startListening();
+    }
+    else{
+      SpeechToText.stopListening();
+    }
+
+  }
 
   return (
     <Box
@@ -135,9 +149,19 @@ export default function ChatContainer() {
                   </FormControl>
                   <span style={{fontSize:10,fontStyle:'italic'}}>{500-text.length} Characters Left</span>
               <form onSubmit={()=>{}} style={{width:'100%',display:'flex',flexDirection:'row',justifyContent:'center',position:'relative',fontFamily:'inherit'}}>
-              {/**Select Control */}
+              {/**Talk Control */}
+              <IconButton
+        
+        // className={classes.button}
+        size='small'
+        disabled
+        onClick={handleSpeech}
+      >
+        <KeyboardVoiceIcon />
+        Talk
+      </IconButton>
               
-              {/*Select Control End*/}
+              {/*Talk Control End*/}
 
                 {/* <div style={{display:'inline-block',width:'80%'}}> */}
                   <ReactTransliterate
