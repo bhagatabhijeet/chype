@@ -160,8 +160,6 @@ export default function ChatContainer() {
                 <form onSubmit={()=>{}} style={{width:'100%',display:'flex',flexDirection:'row',justifyContent:'center',position:'relative',fontFamily:'inherit'}}>
                     {/**Talk Control */}
                     <IconButton
-
-                        // className={classes.button}
                         size='small'
                         disabled
                         onClick={handleSpeech}
@@ -169,9 +167,7 @@ export default function ChatContainer() {
                         <KeyboardVoiceIcon />
                         Talk
                     </IconButton>
-
                     {/*Talk Control End*/}
-
                     {/* <div style={{display:'inline-block',width:'80%'}}> */}
                     <ReactTransliterate
                         value={text}
