@@ -9,7 +9,9 @@ require('./db/mongoDBConnection');
 
 const PORT = process.env.PORT||3001;
 
-const app = express();
+const app = express(); //Create Express App
+const server = http.createServer(app); //Crete HTTP Server
+const io = require('socket.io')(server); // Create Socket Server from HTTP Server
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -25,10 +27,6 @@ app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 })
 
-
-const server = http.createServer(app);
-
-const io = require('socket.io')(server);
 
 io.on('connection', socket => {
     console.log('Someone connected from the front end');
