@@ -42,8 +42,13 @@ export default function UsersBox() {
 
   useEffect(()=>{
     const getUsers=async ()=>{
-      const res=  await axios.get(`/api/user?q=${search}&filterme=true`,{header:{'authorization':`${ReduxUserState.token}`}})
-      setSearchResult(res.data);
+      if(search.trim()===""){
+        setSearchResult([]);
+      }
+      else{
+        const res=  await axios.get(encodeURI(`/api/user?q=${search}&filterme=true`),{header:{'authorization':`${ReduxUserState.token}`}})
+        setSearchResult(res.data);
+      }
     }
     getUsers();
     console.log(searchResult);
