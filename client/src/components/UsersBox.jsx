@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     boxSizing: "border-box",
     padding: 10,
-    backgroundColor: "magenta",
+    backgroundColor: "#096dba",
     "&:hover": {
       overflowY: "auto",
     },
@@ -87,6 +87,9 @@ export default function UsersBox() {
           ),
         }}
         onChange={handleSearch}
+        fullWidth
+        style={{color:"#fff"}}
+        margin="dense"
       />
       {searchResult.map(s=><FriendUserCard data={s}/>)}
       <div>User Card 14</div>

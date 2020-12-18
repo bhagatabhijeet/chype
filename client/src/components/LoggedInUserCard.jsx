@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
         fontSize: 1,
         backgroundColor:'transparent',
-        color:'blue',
+        color:'white',
         elevation:0
 
     },
@@ -72,18 +72,20 @@ const useStyles = makeStyles((theme) => ({
         transform: 'rotate(180deg)',
     },
     avatar: {
-        backgroundColor: red[500],
+        backgroundColor: '#2ba2ff',
         marginBottom: '0',
-        width: theme.spacing(3),
-        height: theme.spacing(3),
+        width: theme.spacing(5),
+        height: theme.spacing(5),
     },
     icon: {
         marginBottom: '0',
     },
     header: {
-        fontSize: 10,
+        fontSize: 12,
         backgroundColor:'transparent',
-        color:'blue'
+        color:'white',
+        fontSmooth:12,
+        fontWeight:600,
     }
 }));
 
