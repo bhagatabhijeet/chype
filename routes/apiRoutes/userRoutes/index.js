@@ -19,7 +19,7 @@ router.route("/")
 //Get and update a single user using id
 router.route("/:id")
 .get(requireAuth,getUserById)
-.put(requireAuth, updateUser);
+.patch(requireAuth, updateUser);
 
 
 module.exports = router;
