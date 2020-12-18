@@ -23,191 +23,167 @@ import {setUser} from "../redux/UserReducer";
 import SettingsIcon from '@material-ui/icons/Settings';
 
 const StyledBadge = withStyles((theme) => ({
-  badge: {
-    backgroundColor: '#44b700',
-    color: '#44b700',
-    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-    '&::after': {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      borderRadius: '50%',
-      animation: '$ripple 1.2s infinite ease-in-out',
-      border: '1px solid currentColor',
-      content: '""',
+    badge: {
+        backgroundColor: '#44b700',
+        color: '#44b700',
+        boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+        '&::after': {
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            borderRadius: '50%',
+            animation: '$ripple 1.2s infinite ease-in-out',
+            border: '1px solid currentColor',
+            content: '""',
+        },
     },
-  },
-  '@keyframes ripple': {
-    '0%': {
-      transform: 'scale(.8)',
-      opacity: 1,
+    '@keyframes ripple': {
+        '0%': {
+            transform: 'scale(.8)',
+            opacity: 1,
+        },
+        '100%': {
+            transform: 'scale(2.4)',
+            opacity: 0,
+        },
     },
-    '100%': {
-      transform: 'scale(2.4)',
-      opacity: 0,
-    },
-  },
 }))(Badge);
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: 300,
-    height: '100%',
-    fontSize: 1,
-    backgroundColor:'transparent',
-    color:'blue',
-    elevation:0
+    root: {
+        width: 300,
+        height: '100%',
+        fontSize: 1,
+        backgroundColor:'transparent',
+        color:'blue',
+        elevation:0
 
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
-  avatar: {
-    backgroundColor: red[500],
-    marginBottom: '0',
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-  },
-  icon: {
-    marginBottom: '0',
-  },
-  header: {
-    fontSize: 10,
-    backgroundColor:'transparent',
-    color:'blue'
-  }
+    },
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    },
+    avatar: {
+        backgroundColor: red[500],
+        marginBottom: '0',
+        width: theme.spacing(3),
+        height: theme.spacing(3),
+    },
+    icon: {
+        marginBottom: '0',
+    },
+    header: {
+        fontSize: 10,
+        backgroundColor:'transparent',
+        color:'blue'
+    }
 }));
 
 export default function LoggedInUserCard() {
-  //Redux  
-  let history = useHistory();
-  const dispatch  = useDispatch();
-  const ReduxUserState = useSelector(state=>state.user);
+    //Redux
+    let history = useHistory();
+    const dispatch  = useDispatch();
+    const ReduxUserState = useSelector(state=>state.user);
     let {firstName,lastName}=ReduxUserState;
-  firstName=firstName?firstName:"";
-  lastName=lastName?lastName:"";
-  
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
- 
+    firstName=firstName?firstName:"";
+    lastName=lastName?lastName:"";
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    const classes = useStyles();
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
-  const signOut=()=>{
-    dispatch(setUser({}));
-    sessionStorage.removeItem("persist:root");
-    history.push("/");
-  }
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
-  // const [expanded, setExpanded] = React.useState(false);
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
-  // const handleExpandClick = () => {
-  //   setExpanded(!expanded);
-  // };
+    const signOut=()=>{
+        dispatch(setUser({}));
+        sessionStorage.removeItem("persist:root");
+        history.push("/");
+    }
 
-  return (
-      <div >
-        <Card style={{ paddingBottom: '1px' }} className={classes.root}>
-        <CardHeader
-          className={classes.header}
-          avatar={
-            <StyledBadge
-              overlap="circle"
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-              variant="dot"
-            >
-              <Avatar aria-label="recipe" className={classes.avatar}>
-              {firstName.length>0?`${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`:null}
-          </Avatar>
-            </StyledBadge>
-          }
-          action={
-            <IconButton aria-label="settings" className={classes.icon}>
-              <MoreVertIcon  onClick={handleClick} style={{color: 'white'}}/>
-            </IconButton>
+    // const [expanded, setExpanded] = React.useState(false);
 
-          }
+    // const handleExpandClick = () => {
+    //   setExpanded(!expanded);
+    // };
 
-          title={`${firstName} ${lastName}`}
-          // subheader="This is my Status"
-        />
-        <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-        >
-            <MenuItem>
-                <Link to="/settings" className={classes.link}>
-                    <List component="div" disablePadding>
-                        <ListItem button className={classes.nested}>
-                            <ListItemIcon>
-                                <SettingsIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary={"Settings"}/>
-                        </ListItem>
-                    </List>
-                </Link>
-            </MenuItem>
-            <MenuItem>
-                <Link to="/account" className={classes.link}>
-                    <List component="div" disablePadding>
-                        <ListItem button className={classes.nested}>
-                            <ListItemIcon>
-                                <AccountCircleIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary="Account"/>
-                        </ListItem>
-                    </List>
-                </Link>
-            </MenuItem>
-            <MenuItem>
-                <Link to="/general" className={classes.link}>
-                    <List component="div" disablePadding>
-                        <ListItem button className={classes.nested}>
-                            <ListItemIcon>
-                                <DetailsIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary="General"/>
-                        </ListItem>
-                    </List>
-                </Link>
-            </MenuItem>
-            <MenuItem>
-                <Link to="/signout" className={classes.link}>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <ExitToAppIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary={"Signout"} onClick={signOut}/>
-                    </ListItem>
-                </Link>
-            </MenuItem>
-        </Menu>
-        {/* <Typography variant="subtitle1" color="textSecondary" style={{ marginTop: '0', fontSize: '10px' }}>
+    return (
+        <div >
+            <Card style={{ paddingBottom: '1px' }} className={classes.root}>
+                <CardHeader
+                    className={classes.header}
+                    avatar={
+                        <StyledBadge
+                            overlap="circle"
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'right',
+                            }}
+                            variant="dot"
+                        >
+                            <Avatar aria-label="recipe" className={classes.avatar}>
+                                {firstName.length>0?`${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`:null}
+                            </Avatar>
+                        </StyledBadge>
+                    }
+                    action={
+                        <IconButton aria-label="settings" className={classes.icon}>
+                            <MoreVertIcon  onClick={handleClick} style={{color: 'white'}}/>
+                        </IconButton>
+
+                    }
+
+                    title={`${firstName} ${lastName}`}
+                    // subheader="This is my Status"
+                />
+                <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                >
+                    <MenuItem>
+                        <Link to="/settings" className={classes.link}>
+                            <List component="div" disablePadding>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemIcon>
+                                        <SettingsIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText primary={"Settings"}/>
+                                </ListItem>
+                            </List>
+                        </Link>
+                    </MenuItem>
+                    <MenuItem>
+                        <Link to="/signout" className={classes.link}>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <ExitToAppIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary={"Signout"} onClick={signOut}/>
+                            </ListItem>
+                        </Link>
+                    </MenuItem>
+                </Menu>
+                {/* <Typography variant="subtitle1" color="textSecondary" style={{ marginTop: '0', fontSize: '10px' }}>
           This is my last chat
         </Typography> */}
 
-      </Card>
-    </div>
-  );
+            </Card>
+        </div>
+    );
 }
