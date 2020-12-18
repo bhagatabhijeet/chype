@@ -1,22 +1,30 @@
 require('dotenv')
     .config();
 const express = require('express');
-const app = express();
+const path = require("path");
 const http = require('http');
 const routes = require('./routes');
 require('./services/passport');
 require('./db/mongoDBConnection');
 
+const PORT = process.env.PORT||3001;
+
+const app = express();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 //use client build in production
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
 }
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 app.use(routes);
+// Send every request to the React app
+// Define any API routes before this runs
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+})
 
-const PORT = process.env.PORT||3001;
 
 const server = http.createServer(app);
 
@@ -36,9 +44,6 @@ io.on('connection', socket => {
     })
 });
 
-app.use(express.json());
-
-app.use(routes);
 
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
