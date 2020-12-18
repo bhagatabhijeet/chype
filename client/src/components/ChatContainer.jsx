@@ -60,7 +60,7 @@ export default function ChatContainer() {
         // overflowY: "auto",
         boxSizing: "border-box",
         padding: 10,
-        backgroundColor: "yellow",
+        backgroundColor: "#ebecee",
       }}
     >
       <div id="chatContents" style={{ overflowY: "scroll",
@@ -121,6 +121,7 @@ export default function ChatContainer() {
                       input={<Input />}
                       MenuProps={MenuProps}
                       inputProps={{ "aria-label": "Without label" }}
+                      style={{marginBottom:5}}
                     >
                       <MenuItem disabled value="">
                         <em>Language</em>
@@ -132,7 +133,8 @@ export default function ChatContainer() {
                       ))}
                     </Select>
                   </FormControl>
-              <form onSubmit={()=>{}} style={{width:'100%',display:'flex',flexDirection:'row',justifyContent:'center',position:'relative'}}>
+                  <span style={{fontSize:10,fontStyle:'italic'}}>{500-text.length} Characters Left</span>
+              <form onSubmit={()=>{}} style={{width:'100%',display:'flex',flexDirection:'row',justifyContent:'center',position:'relative',fontFamily:'inherit'}}>
               {/**Select Control */}
               
               {/*Select Control End*/}
@@ -149,11 +151,11 @@ export default function ChatContainer() {
                   />
                 {/* </div> */}
                 <Button
-        variant="contained"
-        color="primary"
-        // className={classes.button}
+        variant="contained"        
+        className="btn-black-white"
         endIcon={<SendIcon/>}
         type="submit"
+        style={{maxWidth: '80px', maxHeight: '40px', minWidth: '80px', minHeight: '40px'}}
       >
         Send
       </Button>

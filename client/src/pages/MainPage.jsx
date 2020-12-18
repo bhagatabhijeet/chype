@@ -97,7 +97,7 @@ export default function MainPage() {
             marginBottom: 0,
             borderTopLeftRadius: 10,
             borderTopRightRadius: 10,
-            backgroundColor: "black",
+            backgroundColor: "#1e1e1e",
             width: "96%",
           }}
         >
@@ -114,7 +114,7 @@ export default function MainPage() {
             }}
           >
             <Grid item lg={6} md={12} alignContent="center" justify="center">
-              <img src={chypeTransInverseLogo} alt="logoImg" height="40px" />
+              <img src={chypeTransInverseLogo} alt="logoImg" height="40px" style={{margin:10}}/>
             </Grid>
             <Grid
               item
@@ -149,11 +149,12 @@ export default function MainPage() {
             marginTop: 0,
             borderBottomLeftRadius: 10,
             borderBottomRightRadius: 10,
-            backgroundColor: "black",
+            backgroundColor: "#1e1e1e",
             width: "96%",
+            minHeight:10
           }}
         >
-          Bottom CAP
+          {/*Bottom CAP*/}
         </div>
         <div style={{ marginTop: 20 }}>This is a footer div</div>
       </Container>
