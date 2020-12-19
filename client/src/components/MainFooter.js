@@ -4,7 +4,7 @@
 // import chypeTransInverseLogo from "../assets/images/new_inverse_trans.png";
 // import chypeTransLogo from "../assets/images/new_trans.png";
 // import { makeStyles } from "@material-ui/core/styles";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
@@ -23,6 +23,15 @@ import axios from "axios";
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import Badge from "@material-ui/core/Badge";
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+
+// import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Card from "@material-ui/core/Card";
+import IconButton from "@material-ui/core/IconButton";
+import Collapse from '@material-ui/core/Collapse';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import clsx from 'clsx';
+
 
 function Copyright() {
     return (
@@ -44,19 +53,21 @@ function Copyright() {
 
 
 const useStyles = makeStyles((theme) => ({
+
     root: {
+        minHeight: "10vh",
         display: "flex",
         flexDirection: "column",
-        minHeight: "45vh",
+        alignItems: "stretch",
+        textAlign: "center",
+        marginBottom: '20px',
+        borderRadius: '15px',
+        width: '1230px',
     },
-    main: {
-        marginTop: theme.spacing(8),
-        marginBottom: theme.spacing(2),
-    },
-    footerBottom:{
+    footerBottom: {
         backgroundColor: "#1e1e1e",
         color: "#ffffff",
-        marginTop: 80
+        marginTop: 45
 
     },
     item: {
@@ -70,6 +81,19 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: "#c9c1c1",
         margin: 15,
     },
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
+        color: 'white',
+        marginTop: '0px',
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+        
+    },
 }));
 
 
@@ -81,57 +105,55 @@ export default function MainFooter() {
 
 
     const githubContent = async () => {
-        const {data} = await axios.get(`https://api.github.com/repos/bhagatabhijeet/chype`)
+        const { data } = await axios.get(`https://api.github.com/repos/bhagatabhijeet/chype`)
         console.log(data)
         setForks(data.forks_count)
         setStars(data.stargazers_count);
     }
+    const [expanded, setExpanded] = React.useState(false);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
 
     useEffect(() => {
         githubContent();
-    },[])
+    }, [])
     return (
-        <footer>
-            {/** developers Grid Start */}
-            <Grid
-                // xs={12}
-                // sm={12}
-                style={{
-                    flexDirection: "column",
-                    alignItems: "stretch",
-                    textAlign: "center",
-                    width: "100%"
-                }}
-                container
-                direction='row'
-                className={classes.footerBottom}
-            >
-                <Grid item xs={12}>
-                    <Grid item>
-                        <Typography variant="body2" style={{color: "#ffffff", margin: 10}}>
-                            GitHub {'  '}
-                            <Badge badgeContent={forks} color="primary">
-                                <AccountTreeIcon/>
-                            </Badge>
-                            {"  "}
-                            <Badge badgeContent={stars} color="primary">
-                                <StarBorderIcon/>
-                            </Badge>
-                        </Typography>
-                        <Copyright />
-                    </Grid>
-                    <Grid item>
-                        <Link
-                            color="inherit"
-                            href="https://github.com/bhagatabhijeet/chype"
-                            target="_blank"
-                        >
-                            <GithubIcon style={{ fontSize: 34 }} />
-                        </Link>
-                        <Divider variant="inset" classes={{ root: classes.divider }} />
-                    </Grid>
-                </Grid>
-            </Grid>
-        </footer>
+        <Card className={classes.root}>
+            <CardContent className={classes.footerBottom}>
+                
+                <IconButton
+                    className={clsx(classes.expand, {
+                        [classes.expandOpen]: expanded,
+                    })}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                >
+                    <ExpandMoreIcon />
+                </IconButton>
+                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <Typography variant="body2" style={{ color: "#ffffff", margin: 10 }}>
+                        GitHub {'  '}
+                        <Badge badgeContent={forks} color="primary">
+                            <AccountTreeIcon />
+                        </Badge>
+                        {"  "}
+                        <Badge badgeContent={stars} color="primary">
+                            <StarBorderIcon />
+                        </Badge>
+                    </Typography>
+                    <Copyright />
+                    <Link
+                        color="inherit"
+                        href="https://github.com/bhagatabhijeet/chype"
+                        target="_blank"
+                    >
+                        <GithubIcon style={{ fontSize: 34 }} />
+                    </Link>
+                </Collapse>
+            </CardContent>
+        </Card>
     );
 }
