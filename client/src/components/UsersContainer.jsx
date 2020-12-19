@@ -67,7 +67,8 @@ export default function UsersContainer() {
       
       <div id="searchedUsers">
       <TextField
-        label="Search Users"
+        // label="Search Users"
+        placeholder="Search chypers"
         InputProps={{
           startAdornment: (
             <InputAdornment>
@@ -81,6 +82,7 @@ export default function UsersContainer() {
         fullWidth
         style={{color:"#fff"}}
         margin="dense"
+        variant="standard"
       />
       {searchResult.map(s=><SearchedUserCard data={s}/>)}
       </div>
