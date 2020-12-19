@@ -14,7 +14,7 @@ import MainFooter from "../components/MainFooter";
 const socket = io();
 socket.on("connect", function () {
     // const sessionID = socketConnection.socket.sessionid;
-    console.log(socket.id);
+    // console.log(socket.id);
 });
 
 const useStyles = makeStyles((theme) => ({
