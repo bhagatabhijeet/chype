@@ -62,7 +62,8 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center",
         marginBottom: '20px',
         borderRadius: '15px',
-        width: '1230px',
+        // width: '1600px',
+         width: '1230px',
     },
     footerBottom: {
         backgroundColor: "#1e1e1e",
@@ -120,8 +121,11 @@ export default function MainFooter() {
         githubContent();
     }, [])
     return (
+        <Grid container  >
+            <Grid container item sm={12} xs={12} justify="space-between">
         <Card className={classes.root}>
             <CardContent className={classes.footerBottom}>
+                <Grid item sm={5} xs={12}  justify="center">
                 
                 <IconButton
                     className={clsx(classes.expand, {
@@ -133,6 +137,8 @@ export default function MainFooter() {
                 >
                     <ExpandMoreIcon />
                 </IconButton>
+                </Grid>
+                <Grid item sm={5} xs={12}  justify="center">
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <Typography variant="body2" style={{ color: "#ffffff", margin: 10 }}>
                         GitHub {'  '}
@@ -153,7 +159,11 @@ export default function MainFooter() {
                         <GithubIcon style={{ fontSize: 34 }} />
                     </Link>
                 </Collapse>
+                </Grid>
             </CardContent>
         </Card>
+        
+        </Grid>
+        </Grid>
     );
 }
