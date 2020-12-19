@@ -10,8 +10,7 @@ import { useHistory } from "react-router-dom";
 import ChatContainer from "../components/ChatContainer";
 import UsersContainer from "../components/UsersContainer";
 import chypeTransInverseLogo from "../assets/images/new_inverse_trans.png";
-// import "../assets/styles/mainpage.css"
-
+import MainFooter from "../components/MainFooter";
 const socket = io();
 socket.on("connect", function () {
     // const sessionID = socketConnection.socket.sessionid;
@@ -156,7 +155,10 @@ export default function MainPage() {
                 >
                     {/*Bottom CAP*/}
                 </div>
-                <div style={{ marginTop: 20 }}>This is a footer div</div>
+
+            </Container>
+            <Container>
+                <MainFooter/>
             </Container>
         </Fragment>
     );
