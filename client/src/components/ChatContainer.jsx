@@ -9,6 +9,7 @@ import { ReactTransliterate } from "./reactTranslit";
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import SendIcon from '@material-ui/icons/Send';
+import TelegramIcon from '@material-ui/icons/Telegram';
 import DivBar from "./divBar/DivBar";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -25,7 +26,8 @@ export default function ChatContainer() {
     const [text, setText] = useState("");
     const [listening,setListening] = useState(false);
     const ReduxUserState = useSelector(state=>state.user);
-
+    const ReduxSelectedUserState = useSelector(state=>state.selectedUser);
+    console.log(ReduxSelectedUserState,"FROM REDUX")
     const ITEM_HEIGHT = 48;
     const ITEM_PADDING_TOP = 8;
     const MenuProps = {
@@ -86,6 +88,7 @@ export default function ChatContainer() {
                 backgroundColor: "#ebecee",
             }}
         >
+            <div style={{position:'absolute',top:0,opacity:0.1,fontSize:65,textAlign:'center',width:'100%'}}>{ReduxSelectedUserState.firstName}</div>
             <div id="chatContents" style={{ overflowY: "scroll",
                 boxSizing: "border-box",height:'90%',width:'100%',marginBottom:20}}
             >
@@ -182,7 +185,7 @@ export default function ChatContainer() {
                     <Button
                         variant="contained"
                         className="btn-black-white"
-                        endIcon={<SendIcon/>}
+                        endIcon={<TelegramIcon/>}
                         type="submit"
                         style={{maxWidth: '80px', maxHeight: '40px', minWidth: '80px', minHeight: '40px'}}
                     >
