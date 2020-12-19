@@ -14,150 +14,150 @@ import chypeTransInverseLogo from "../assets/images/new_inverse_trans.png";
 
 const socket = io();
 socket.on("connect", function () {
-  // const sessionID = socketConnection.socket.sessionid;
-  console.log(socket.id);
+    // const sessionID = socketConnection.socket.sessionid;
+    console.log(socket.id);
 });
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    // textAlign:"center"
-  },
-  paper: {
-    padding: theme.spacing(0),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
+    root: {
+        flexGrow: 1,
+        // textAlign:"center"
+    },
+    paper: {
+        padding: theme.spacing(0),
+        textAlign: "center",
+        color: theme.palette.text.secondary,
+    },
 }));
 
 export default function MainPage() {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  let history = useHistory();
-  const userReduxState = useSelector((state) => state.user);
+    let history = useHistory();
+    const userReduxState = useSelector((state) => state.user);
 
-  // const [userData, setUserData] = useState({ user: "abhi", message: "" });
-  // const [friendData, setFriendData] = useState({ friend: "son" });
-  // const [roomData, setRoomData] = useState({ room: "" });
-  // const [chat, setChat] = useState([]);
-  // const [lang, setLang] = useState([]);
-  // const [text, setText] = useState("");
-  //can use props.useParams to get params form url, or props.history
-  // console.log("PARAMS",params);
-  useEffect(() => {
+    // const [userData, setUserData] = useState({ user: "abhi", message: "" });
+    // const [friendData, setFriendData] = useState({ friend: "son" });
+    // const [roomData, setRoomData] = useState({ room: "" });
+    // const [chat, setChat] = useState([]);
+    // const [lang, setLang] = useState([]);
+    // const [text, setText] = useState("");
+    //can use props.useParams to get params form url, or props.history
     // console.log("PARAMS",params);
-    if (!userReduxState.loggedIn) {
-      console.log("going to signin");
-      history.push("/signin");
-    }
-    document.body.style.backgroundColor = "#d7d8f1";
-  }, []);
+    useEffect(() => {
+        // console.log("PARAMS",params);
+        if (!userReduxState.loggedIn) {
+            console.log("going to signin");
+            history.push("/signin");
+        }
+        document.body.style.backgroundColor = "#d7d8f1";
+    }, []);
 
-  // const onTextChange = (e) => {
-  //   setUserData({ ...userData, [e.target.name]: e.target.value });
-  // };
+    // const onTextChange = (e) => {
+    //   setUserData({ ...userData, [e.target.name]: e.target.value });
+    // };
 
-  // const onMessageSubmit = (e) => {
-  //   e.preventDefault();
-  //   const { user, message } = userData;
-  //   const { friend } = friendData;
-  //   const room = [user, friend].sort().join("");
-  //   console.log(room);
-  //   console.log("inside of on submit", chat);
-  //   console.log(friend);
-  //   setUserData({ user, message: "" });
-  // };
+    // const onMessageSubmit = (e) => {
+    //   e.preventDefault();
+    //   const { user, message } = userData;
+    //   const { friend } = friendData;
+    //   const room = [user, friend].sort().join("");
+    //   console.log(room);
+    //   console.log("inside of on submit", chat);
+    //   console.log(friend);
+    //   setUserData({ user, message: "" });
+    // };
 
-  // const renderChat = () => {
-  //   return chat.map(({ user, message }, index) => (
-  //     <div key={index}>
-  //       <h3>
-  //         {user}: <span>{message}</span>
-  //       </h3>
-  //     </div>
-  //   ));
-  // };
+    // const renderChat = () => {
+    //   return chat.map(({ user, message }, index) => (
+    //     <div key={index}>
+    //       <h3>
+    //         {user}: <span>{message}</span>
+    //       </h3>
+    //     </div>
+    //   ));
+    // };
 
-  return (
-    <Fragment>
-      <Container
-        disableGutters
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          height: "80vh",
-          marginTop: 10,
-          marginBottom: 10,
-          alignItems: "center",
-        }}
-      >
-        {/*TOP CAP */}
-        <div
-          style={{
-            marginBottom: 0,
-            borderTopLeftRadius: 10,
-            borderTopRightRadius: 10,
-            backgroundColor: "#1e1e1e",
-            width: "96%",
-          }}
-        >
-          <Grid
-            container
-            style={{
-              height: "auto",
-              display: "flex",
-              flexDirection: "row",
-              backgroundColor: "transparent",
-              justifyContent: "center",
-              flexWrap: "wrap",
-              alignItems: "center",
-            }}
-          >
-            <Grid item lg={6} md={12} alignContent="center" justify="center">
-              <img src={chypeTransInverseLogo} alt="logoImg" height="40px" style={{margin:10}}/>
-            </Grid>
-            <Grid
-              item
-              lg={6}
-              md={12}
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "flex-end",
-                height: "100%",
-              }}
+    return (
+        <Fragment>
+            <Container
+                disableGutters
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "80vh",
+                    marginTop: 10,
+                    marginBottom: 10,
+                    alignItems: "center",
+                }}
             >
-              <LoggedInUserCard />
-            </Grid>
-          </Grid>
-        </div>
-        <Container
-          disableGutters
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            height: "98%",
-            justifyContent: "center",
-          }}
-        >
-          <UsersContainer />
+                {/*TOP CAP */}
+                <div
+                    style={{
+                        marginBottom: 0,
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                        backgroundColor: "#1e1e1e",
+                        width: "96%",
+                    }}
+                >
+                    <Grid
+                        container
+                        style={{
+                            height: "auto",
+                            display: "flex",
+                            flexDirection: "row",
+                            backgroundColor: "transparent",
+                            justifyContent: "center",
+                            flexWrap: "wrap",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Grid item lg={6} md={12} alignContent="center" justify="center">
+                            <img src={chypeTransInverseLogo} alt="logoImg" height="40px" style={{margin:10}}/>
+                        </Grid>
+                        <Grid
+                            item
+                            lg={6}
+                            md={12}
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "flex-end",
+                                height: "100%",
+                            }}
+                        >
+                            <LoggedInUserCard />
+                        </Grid>
+                    </Grid>
+                </div>
+                <Container
+                    disableGutters
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        height: "98%",
+                        justifyContent: "center",
+                    }}
+                >
+                    <UsersContainer />
 
-          <ChatContainer />
-        </Container>
-        <div
-          style={{
-            marginTop: 0,
-            borderBottomLeftRadius: 10,
-            borderBottomRightRadius: 10,
-            backgroundColor: "#1e1e1e",
-            width: "96%",
-            minHeight:10
-          }}
-        >
-          {/*Bottom CAP*/}
-        </div>
-        <div style={{ marginTop: 20 }}>This is a footer div</div>
-      </Container>
-    </Fragment>
-  );
+                    <ChatContainer />
+                </Container>
+                <div
+                    style={{
+                        marginTop: 0,
+                        borderBottomLeftRadius: 10,
+                        borderBottomRightRadius: 10,
+                        backgroundColor: "#1e1e1e",
+                        width: "96%",
+                        minHeight:10
+                    }}
+                >
+                    {/*Bottom CAP*/}
+                </div>
+                <div style={{ marginTop: 20 }}>This is a footer div</div>
+            </Container>
+        </Fragment>
+    );
 }
