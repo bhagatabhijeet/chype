@@ -11,104 +11,53 @@ import {useSelector} from "react-redux";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    // position: "fixed",
-    //   top: 100,
-    height: "100%",
-    // width:'20%',
-    //   display: "flex",
-    //   flexDirection: "column",
-    overflow: "hidden",
-    boxSizing: "border-box",
-    padding: 10,
-    backgroundColor: "#096dba",
-    "&:hover": {
-      overflowY: "auto",
+    root: {
+        // position: "fixed",
+        //   top: 100,
+        height: "100%",
+        // width:'20%',
+        //   display: "flex",
+        //   flexDirection: "column",
+        overflow: "hidden",
+        boxSizing: "border-box",
+        padding: 10,
+        backgroundColor: "#096dba",
+        "&:hover": {
+            overflowY: "auto",
+        },
+
     },
-    
-  },
 }));
 
 export default function UsersBox() {
-  const classes = useStyles();
-  const ReduxUserState = useSelector(state=>state.user);
-  const [search,setSearch] = useState('');
-  const [searchResult,setSearchResult] = useState([]);
+    const classes = useStyles();
 
-  
-  const handleSearch=(event)=>{
-    setSearch(event.target.value);
-  }
 
-  useEffect(()=>{
-    const getUsers=async ()=>{
-      if(search.trim()===""){
-        setSearchResult([]);
-      }
-      else{
-        const res=  await axios.get(encodeURI(`/api/user?q=${search}&filterme=true`),{header:{'authorization':`${ReduxUserState.token}`}})
-        setSearchResult(res.data);
-      }
-    }
-    getUsers();
-    console.log(searchResult);
-  },[search]);
 
-  return (
-    <Box
-       className={classes.root}
-      style={
-        {
-          // position: "fixed",
-          //   top: 100,
-          // height:'100%',
-          // width:'20%',
-          //   display: "flex",
-          //   flexDirection: "column",
-          //  overflow: 'hidden',
-          //   boxSizing:'border-box',
-          //   padding:10,
-          //   backgroundColor:'magenta',
-          //   "&::hover":{
-          //     overflowY: 'auto',
-          //   },
-        }
-      }
-    >
-      <TextField
-        label="Search Users"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment>
-              <IconButton>
-                <SearchIcon />
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-        onChange={handleSearch}
-        fullWidth
-        style={{color:"#fff"}}
-        margin="dense"
-      />
-      {searchResult.map(s=><FriendUserCard data={s}/>)}
-      <div>User Card 14</div>
-      <div>User Card 15</div>
-      <div>User Card 16</div>
-      <div>User Card 17</div>
-      <div>User Card 18</div>
-      <div>User Card 4</div>
-      <div>User Card 5</div>
-      <div>User Card 6</div>
-      <div>User Card 7</div>
-      <div>User Card 8</div>
-      <div>User Card 9</div>
-      <div>User Card 10</div>
-      <div>User Card 11</div>
-      <div>User Card 12</div>
-      <div>User Card 13</div>
-      <div>User Card 14</div>
-      <div>User Card 15</div>
-    </Box>
-  );
+
+    return (
+        <Box
+            className={classes.root}
+            style={
+                {
+                    // position: "fixed",
+                    //   top: 100,
+                    // height:'100%',
+                    // width:'20%',
+                    //   display: "flex",
+                    //   flexDirection: "column",
+                    //  overflow: 'hidden',
+                    //   boxSizing:'border-box',
+                    //   padding:10,
+                    //   backgroundColor:'magenta',
+                    //   "&::hover":{
+                    //     overflowY: 'auto',
+                    //   },
+                }
+            }
+        >
+
+
+        </Box>
+    );
 }

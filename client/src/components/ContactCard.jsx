@@ -1,19 +1,14 @@
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
-// import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-// import CardMedia from '@material-ui/core/CardMedia';
-// import CardContent from '@material-ui/core/CardContent';
-// import CardActions from '@material-ui/core/CardActions';
-// import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import { useSelector } from "react-redux";
-// import MenuBar from './Menu';
+
 
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import {CardHeader, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem} from "@material-ui/core";
@@ -99,6 +94,8 @@ export default function FriendUserCard(props) {
 
 
 
+
+    //When contact card is clicked it should load the chat with the user and connect to that user
     const selectedUser=(event)=>{
         const contacts = props.contactList;
         const existingContact = contacts.filter(entry => entry.email === props.data.email)
