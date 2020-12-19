@@ -4,6 +4,7 @@
 // import chypeTransInverseLogo from "../assets/images/new_inverse_trans.png";
 // import chypeTransLogo from "../assets/images/new_trans.png";
 // import { makeStyles } from "@material-ui/core/styles";
+import FaceIcon from '@material-ui/icons/Face';
 import React, { useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -62,8 +63,10 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center",
         marginBottom: '20px',
         borderRadius: '15px',
-        // width: '1600px',
-         width: '1230px',
+        width: '1230px',
+        justifyContent: 'center',
+
+
     },
     footerBottom: {
         backgroundColor: "#1e1e1e",
@@ -93,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
     },
     expandOpen: {
         transform: 'rotate(180deg)',
-        
+
     },
 }));
 
@@ -122,48 +125,48 @@ export default function MainFooter() {
     }, [])
     return (
         <Grid container  >
-            <Grid container item sm={12} xs={12} justify="space-between">
-        <Card className={classes.root}>
-            <CardContent className={classes.footerBottom}>
-                <Grid item sm={5} xs={12}  justify="center">
-                
-                <IconButton
-                    className={clsx(classes.expand, {
-                        [classes.expandOpen]: expanded,
-                    })}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label="show more"
-                >
-                    <ExpandMoreIcon />
-                </IconButton>
-                </Grid>
-                <Grid item sm={5} xs={12}  justify="center">
-                <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <Typography variant="body2" style={{ color: "#ffffff", margin: 10 }}>
-                        GitHub {'  '}
-                        <Badge badgeContent={forks} color="primary">
-                            <AccountTreeIcon />
-                        </Badge>
-                        {"  "}
-                        <Badge badgeContent={stars} color="primary">
-                            <StarBorderIcon />
-                        </Badge>
-                    </Typography>
-                    <Copyright />
-                    <Link
-                        color="inherit"
-                        href="https://github.com/bhagatabhijeet/chype"
-                        target="_blank"
-                    >
-                        <GithubIcon style={{ fontSize: 34 }} />
-                    </Link>
-                </Collapse>
-                </Grid>
-            </CardContent>
-        </Card>
-        
-        </Grid>
+            <Grid container item sm={12} xs={12} justify="center">
+                <Card className={classes.root}>
+                    <CardContent className={classes.footerBottom}>
+                        <Grid item xs={12} justify="center">
+
+                            <IconButton
+                                className={clsx(classes.expand, {
+                                    [classes.expandOpen]: expanded,
+                                })}
+                                onClick={handleExpandClick}
+                                aria-expanded={expanded}
+                                aria-label="show more"
+                            >
+                                < FaceIcon />
+                            </IconButton>
+                        </Grid>
+                        <Grid item xs={12} justify="center">
+                            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                                <Typography variant="body2" style={{ color: "#ffffff", margin: 10 }}>
+                                    GitHub {'  '}
+                                    <Badge badgeContent={forks} color="primary">
+                                        <AccountTreeIcon />
+                                    </Badge>
+                                    {"  "}
+                                    <Badge badgeContent={stars} color="primary">
+                                        <StarBorderIcon />
+                                    </Badge>
+                                </Typography>
+                                <Copyright />
+                                <Link
+                                    color="inherit"
+                                    href="https://github.com/bhagatabhijeet/chype"
+                                    target="_blank"
+                                >
+                                    <GithubIcon style={{ fontSize: 34 }} />
+                                </Link>
+                            </Collapse>
+                        </Grid>
+                    </CardContent>
+                </Card>
+
+            </Grid>
         </Grid>
     );
 }
