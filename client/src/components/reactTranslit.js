@@ -3,7 +3,7 @@ import getInputSelection, { setCaretPosition } from "../assets/utils";
 import getCaretCoordinates from "textarea-caret";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-
+import TextField from '@material-ui/core/TextField';
 
 
 
@@ -348,10 +348,8 @@ export const ReactTransliterate = ({
                 onKeyDown={handleKeyDown}
                 ref={inputRef}
                 value={value}
-                cols ={cols}
-                placeholder = {placeholder}
-                style={{width:'95%'}}
-                rows="3"
+                style={{width:'95%',lineHeight:'1.5',fontSize:'15px',borderRadius:10,outline:'none',maxLength:500}}
+
             />
             {options.length > 0 ? (
                 <List

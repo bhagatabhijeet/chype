@@ -19,6 +19,8 @@ import DetailsIcon from '@material-ui/icons/Details';
 import Account from '../components/Account';
 import General from '../components/General'
 import {useSelector} from "react-redux";
+import ChatIcon from '@material-ui/icons/Chat';
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SettingsPage(props) {
     const classes = useStyles();
+    const history = useHistory();
     const userReduxState = useSelector(state=>state.user);
 
     const [open, setOpen] = React.useState(true);
@@ -57,6 +60,10 @@ function SettingsPage(props) {
 
     const handleClick = () => {
         setOpen(!open);
+    };
+
+    const navigateToChat = () => {
+        history.push('/main');
     };
 
     return (
@@ -99,6 +106,19 @@ function SettingsPage(props) {
                                                 <DetailsIcon/>
                                             </ListItemIcon>
                                             <ListItemText primary="General"/>
+                                        </ListItem>
+                                    </List>
+                                </Link>
+                            </Collapse>
+                            <Divider variant="inset" component="li"/>
+                            <Collapse in={open} timeout="auto" unmountOnExit>
+                                <Link to="/main" className={classes.link}>
+                                    <List component="div" disablePadding onClick={navigateToChat}>
+                                        <ListItem button className={classes.nested}>
+                                            <ListItemIcon>
+                                                <ChatIcon/>
+                                            </ListItemIcon>
+                                            <ListItemText primary="Back to chat"/>
                                         </ListItem>
                                     </List>
                                 </Link>

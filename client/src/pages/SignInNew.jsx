@@ -128,6 +128,7 @@ export default function SignInNew() {
             email: res.data.email,
             loggedIn: res.data.loggedIn.status,
             token: res.data.loggedIn.token,
+            id:res.data._id
           })
         );
 

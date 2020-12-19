@@ -12,25 +12,25 @@ import {useSelector} from "react-redux";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        // position: "fixed",
-        //   top: 100,
-        height: "100%",
-        // width:'20%',
-        //   display: "flex",
-        //   flexDirection: "column",
-        overflow: "hidden",
-        boxSizing: "border-box",
-        padding: 10,
-        backgroundColor: "magenta",
-        "&:hover": {
-            overflowY: "auto",
-        },
-
+  root: {
+    // position: "fixed",
+    //   top: 100,
+    height: "100%",
+    // width:'20%',
+    //   display: "flex",
+    //   flexDirection: "column",
+    overflow: "hidden",
+    boxSizing: "border-box",
+    padding: 10,
+    backgroundColor: "#096dba",
+    "&:hover": {
+      overflowY: "auto",
     },
+}
 }));
 
 export default function UsersBox() {
+
     const classes = useStyles();
     const ReduxUserState = useSelector(state=>state.user);
     const [search,setSearch] = useState('');
@@ -115,4 +115,6 @@ export default function UsersBox() {
             <div>User Card 15</div>
         </Box>
     );
+
+
 }
