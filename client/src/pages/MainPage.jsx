@@ -112,7 +112,7 @@ export default function MainPage() {
                             alignItems: "center",
                         }}
                     >
-                        <Grid item lg={6} md={12} alignContent="center" justify="center">
+                        <Grid item container lg={6} md={12}  alignContent="center" >
                             <img src={chypeTransInverseLogo} alt="logoImg" height="30px" style={{margin:3}}/>
                         </Grid>
                         <Grid
