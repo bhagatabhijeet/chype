@@ -11,10 +11,16 @@ import ChatContainer from "../components/ChatContainer";
 import UsersContainer from "../components/UsersContainer";
 import chypeTransInverseLogo from "../assets/images/new_inverse_trans.png";
 import MainFooter from "../components/MainFooter";
-const socket = io();
+export const socket = io();
 socket.on("connect", function () {
     // const sessionID = socketConnection.socket.sessionid;
     // console.log(socket.id);
+    const localUser=JSON.parse(sessionStorage.getItem("persist:root"));
+    // console.log("SOC",JSON.parse(localUser.user).id);
+    socket.emit("USER_SOCKET_ID",{
+      id:JSON.parse(localUser.user).id,
+      socketId:socket.id
+    })
 });
 
 const useStyles = makeStyles((theme) => ({
