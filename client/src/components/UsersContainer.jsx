@@ -2,14 +2,16 @@ import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
-import { Grid, Box } from "@material-ui/core";
+import Box from "@material-ui/core/Box";
 import SearchedUserCard from "../components/SearchedUserCard";
 import UsersBox from "../components/UsersBox";
 import { makeStyles } from "@material-ui/core/styles";
 import {useState,useEffect} from "react";
-import {useSelector} from "react-redux";
+import {useSelector,useDispatch} from "react-redux";
 import "../assets/styles/common.css";
 import axios from "axios";
+import {setSelectedUser} from "../redux/SelectedUserReducer";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,10 +29,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function UsersContainer() {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const ReduxUserState = useSelector(state=>state.user);
+  const ReduxSelectedUserState = useSelector(state=>state.selectedUser);
+  
   const [search,setSearch] = useState('');
   const [searchResult,setSearchResult] = useState([]);
+  const [friendsList,setFriendsList] = useState([]);
+  const [selectedUsr,setSelectedUsr] =useState({});
 
   const handleSearch=(event)=>{
     setSearch(event.target.value);
@@ -47,23 +54,52 @@ export default function UsersContainer() {
       }
     }
     getUsers();
-    console.log(searchResult);
-  },[search]);
+    
+  },[ReduxUserState.token, search]);
+
+  useEffect(()=>{
+    dispatch(setSelectedUser({
+      firstName: "",
+      lastName: "",
+      email: "",      
+      id:0
+    }));
+    const getFriends=async ()=>{
+      // if(search.trim()===""){
+      //   setSearchResult([]);
+      // }
+      // else{
+        try{
+
+          const res=  await axios.get(`/api/user/${ReduxUserState.id}/friends`,{header:{'authorization':`${ReduxUserState.token}`}})
+          
+          setFriendsList(res.data);
+        }
+        catch(err){
+          console.log(err);
+        }        
+    }
+    getFriends();
+  },[]);
+
+  const handleSelectedUser=(data)=>{
+    // const contacts = props.contactList;
+    // const existingContact = contacts.filter(entry => entry.email === props.data.email)
+    // if(existingContact.length === 0){
+    //     props.setContactList(contacts.concat(props.data));
+    // }
+    // alert(data.firstName);
+    dispatch(setSelectedUser({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,      
+      id:data._id
+    }));
+    // setSelectedUsr(ReduxSelectedUserState);
+}
 
   return (
-    <Box className={classes.root}>
-      {/* <TextField
-        label="Search Users"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment>
-              <IconButton>
-                <SearchIcon />
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-      /> */}
+    <Box className={classes.root}>   
       
       <div id="searchedUsers">
       <TextField
@@ -87,7 +123,7 @@ export default function UsersContainer() {
       {searchResult.map(s=><SearchedUserCard data={s}/>)}
       </div>
 
-      <UsersBox />
+      <UsersBox friends={friendsList} selectedUserHandler={handleSelectedUser} selected={ReduxSelectedUserState}/>
     </Box>
   );
 }

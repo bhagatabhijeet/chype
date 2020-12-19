@@ -26,7 +26,7 @@ export default function MainFooter() {
     const { data } = await axios.get(
       `https://api.github.com/repos/bhagatabhijeet/chype`
     );
-    console.log(data);
+
     setForks(data.forks_count);
     setStars(data.stargazers_count);
   };

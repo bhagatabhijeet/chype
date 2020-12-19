@@ -3,7 +3,8 @@ const {
   getAllOrSearchUsers,  
   getUserByEmail,
   getUserById,
-  updateUser
+  updateUser,
+  getFriends
 } = require('../../../controllers/userController');
 
 const router = require('express').Router();
@@ -21,5 +22,8 @@ router.route("/:id")
 .get(requireAuth,getUserById)
 .patch(requireAuth, updateUser);
 
+//Get Friends
+router.route("/:id/friends")
+.get(requireAuth,getFriends)
 
 module.exports = router;

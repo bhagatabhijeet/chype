@@ -47,7 +47,10 @@ const UserSchema = new Schema({
   loggedIn:{
     status:Boolean,
     token:String,
-  }
+  },
+  friends:[{
+    type:String
+  }]
 
 });
 

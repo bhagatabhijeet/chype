@@ -32,6 +32,20 @@ const getUserById = async (req, res) => {
   }
 };
 
+//Here friends mean users with whom you have already had a chat
+const getFriends = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  try {
+    const friends = await User.findById(id).select("friends");
+    const friendIdsArray = friends._doc.friends;
+    const friendDetailsArray = await User.find().where('_id').in(friendIdsArray).exec();
+    return res.status(200).json(friendDetailsArray);
+  } catch (e) {
+    return res.status(403).json({ e });
+  }
+};
+
 const searchUser = async (req, res) => {
   try {
     const { q, filterme } = req.query;
@@ -90,4 +104,5 @@ module.exports = {
   getUserByEmail,
   getUserById,
   updateUser,
+  getFriends,
 };
