@@ -16,6 +16,8 @@ import { useState } from "react";
 import axios from "axios";
 import Slide from "@material-ui/core/Slide";
 import { useHistory } from "react-router-dom";
+import {setUser} from "../redux/UserReducer";
+import {useDispatch} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -87,6 +89,7 @@ const StyledTextField = withStyles({
 export default function SignUp() {
   const classes = useStyles();
   const history = useHistory();
+  const dispatch  = useDispatch();
 
   const [formData, setFormData] = useState({
     firstName: { text: "", errorText: "", error: false },
@@ -102,7 +105,7 @@ export default function SignUp() {
       firstName: {
         ...formData.firstName,
         errorText:
-          formData.firstName.text === "" ? "first name is required" : "",
+            formData.firstName.text === "" ? "first name is required" : "",
       },
       lastName: {
         ...formData.lastName,
@@ -118,10 +121,10 @@ export default function SignUp() {
       },
     });
     return !(
-      formData.firstName.text === "" ||
-      formData.lastName.text === "" ||
-      formData.email.text === "" ||
-      formData.password.text === ""
+        formData.firstName.text === "" ||
+        formData.lastName.text === "" ||
+        formData.email.text === "" ||
+        formData.password.text === ""
     );
   };
   const handleSubmit = (event) => {
@@ -135,8 +138,25 @@ export default function SignUp() {
           email: formData.email.text,
           password: formData.password.text,
         });
-        console.log(res.data);
-        history.push('/main');
+
+        const {user} = res.data;
+        const {firstName, lastName, email, loggedIn} = user;
+
+        dispatch(
+            setUser({
+              firstName,
+              lastName,
+              email,
+              loggedIn: loggedIn.status,
+              token: loggedIn.token,
+              id:res.data._id
+            })
+        );
+
+        if(loggedIn.status){
+          console.log("going to main");
+          history.push("/main");
+        }
       };
       submit();
     }
@@ -185,150 +205,150 @@ export default function SignUp() {
   };
 
   return (
-    <div
-      style={{
-        background:
-          "linear-gradient(#ffffff 30%,#56b5ff 55%,#2ba2ff,#2ba2ff,#2ba2ff,#2ba2ff)",
-      }}
-    >
-      <AppBarMain home signin />
-      <Grid container component="main" className={classes.root} spacing={0}>
-        <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image}>
-          <Paper
-            elevation={20}
-            style={{ backgroundColor: "transparent" }}
-            variant="outlined"
+      <div
+          style={{
+            background:
+                "linear-gradient(#ffffff 30%,#56b5ff 55%,#2ba2ff,#2ba2ff,#2ba2ff,#2ba2ff)",
+          }}
+      >
+        <AppBarMain home signin />
+        <Grid container component="main" className={classes.root} spacing={0}>
+          <CssBaseline />
+          <Grid item xs={false} sm={4} md={7} className={classes.image}>
+            <Paper
+                elevation={20}
+                style={{ backgroundColor: "transparent" }}
+                variant="outlined"
+            >
+              <Slide direction="left" in timeout={{ appear: 500, enter: 1500 }}>
+                <Typography
+                    variant="h5"
+                    align="center"
+                    style={{
+                      color: "#fff",
+                      backgroundColor: "#2ba2ff",
+                      marginTop: 40,
+                      fontWeight: 400,
+                    }}
+                >
+                  We are excited to see you onboard. Come on in!
+                </Typography>
+              </Slide>
+            </Paper>
+          </Grid>
+          <Grid
+              item
+              xs={12}
+              sm={8}
+              md={5}
+              component={Paper}
+              elevation={0}
+              square
+              // direction="column"
+              // alignItems="center"
+              className={classes.gridItemBg}
           >
-            <Slide direction="left" in timeout={{ appear: 500, enter: 1500 }}>
-              <Typography
-                variant="h5"
-                align="center"
-                style={{
-                  color: "#fff",
-                  backgroundColor: "#2ba2ff",
-                  marginTop: 40,
-                  fontWeight: 400,
-                }}
-              >
-                We are excited to see you onboard. Come on in!
+            <div className={classes.paper}>
+              <img src={ChypeLogoTrans} alt="LogoTransImage" height="75px" />
+              <Typography component="h1" variant="h5">
+                Sign up
               </Typography>
-            </Slide>
-          </Paper>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={8}
-          md={5}
-          component={Paper}
-          elevation={0}
-          square
-          // direction="column"
-          // alignItems="center"
-          className={classes.gridItemBg}
-        >
-          <div className={classes.paper}>
-            <img src={ChypeLogoTrans} alt="LogoTransImage" height="75px" />
-            <Typography component="h1" variant="h5">
-              Sign up
-            </Typography>
-            {/**NEW FORM */}
-            <form className={classes.form} noValidate onSubmit={handleSubmit}>
-              <StyledTextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                margin="dense"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                onChange={handleFirstNameChange}
-                helperText={formData.firstName.errorText}
-                error={formData.firstName.errorText !== ""}
-              />
-              <StyledTextField
-                variant="outlined"
-                margin="dense"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-                onChange={handleLastNameChange}
-                helperText={formData.lastName.errorText}
-                error={formData.lastName.errorText !== ""}
-              />
-              <StyledTextField
-                variant="outlined"
-                margin="dense"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                onChange={handleEmailChange}
-                helperText={formData.email.errorText}
-                error={formData.email.errorText !== ""}
-              />
-              <StyledTextField
-                variant="outlined"
-                margin="dense"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={handlePasswordChange}
-                helperText={formData.password.errorText}
-                error={formData.password.errorText !== ""}
-              />
-              <StyledTextField
-                variant="outlined"
-                margin="dense"
-                fullWidth
-                name="phone"
-                label="Phone"
-                type="text"
-                id="phone"
-                autoComplete="phone"
-                onChange={handlePhoneChange}
-              />
+              {/**NEW FORM */}
+              <form className={classes.form} noValidate onSubmit={handleSubmit}>
+                <StyledTextField
+                    autoComplete="fname"
+                    name="firstName"
+                    variant="outlined"
+                    margin="dense"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                    autoFocus
+                    onChange={handleFirstNameChange}
+                    helperText={formData.firstName.errorText}
+                    error={formData.firstName.errorText !== ""}
+                />
+                <StyledTextField
+                    variant="outlined"
+                    margin="dense"
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                    autoComplete="lname"
+                    onChange={handleLastNameChange}
+                    helperText={formData.lastName.errorText}
+                    error={formData.lastName.errorText !== ""}
+                />
+                <StyledTextField
+                    variant="outlined"
+                    margin="dense"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    onChange={handleEmailChange}
+                    helperText={formData.email.errorText}
+                    error={formData.email.errorText !== ""}
+                />
+                <StyledTextField
+                    variant="outlined"
+                    margin="dense"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    onChange={handlePasswordChange}
+                    helperText={formData.password.errorText}
+                    error={formData.password.errorText !== ""}
+                />
+                <StyledTextField
+                    variant="outlined"
+                    margin="dense"
+                    fullWidth
+                    name="phone"
+                    label="Phone"
+                    type="text"
+                    id="phone"
+                    autoComplete="phone"
+                    onChange={handlePhoneChange}
+                />
 
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className="btn-black-white"
-                margin="dense"
-              >
-                Sign Up
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="/" variant="body2">
-                    Home
-                  </Link>
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className="btn-black-white"
+                    margin="dense"
+                >
+                  Sign Up
+                </Button>
+                <Grid container>
+                  <Grid item xs>
+                    <Link href="/" variant="body2">
+                      Home
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Link href="/signin" variant="body2">
+                      Already have an account? Sign in
+                    </Link>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Link href="/signin" variant="body2">
-                    Already have an account? Sign in
-                  </Link>
-                </Grid>
-              </Grid>
-            </form>
-            {/*NEW FORM END*/}
-          </div>
+              </form>
+              {/*NEW FORM END*/}
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
-      <HomePageFooter />
-    </div>
+        <HomePageFooter />
+      </div>
   );
 }
