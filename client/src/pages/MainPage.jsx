@@ -84,7 +84,7 @@ export default function MainPage() {
                 style={{
                     display: "flex",
                     flexDirection: "column",
-                    height: "80vh",
+                    height: "86vh",
                     marginTop: 10,
                     marginBottom: 10,
                     alignItems: "center",
@@ -113,7 +113,7 @@ export default function MainPage() {
                         }}
                     >
                         <Grid item lg={6} md={12} alignContent="center" justify="center">
-                            <img src={chypeTransInverseLogo} alt="logoImg" height="40px" style={{margin:10}}/>
+                            <img src={chypeTransInverseLogo} alt="logoImg" height="30px" style={{margin:3}}/>
                         </Grid>
                         <Grid
                             item
@@ -156,10 +156,10 @@ export default function MainPage() {
                     {/*Bottom CAP*/}
                 </div>
 
-            </Container>
-            <Container>
                 <MainFooter/>
             </Container>
+            {/* <Container> */}
+            {/* </Container> */}
         </Fragment>
     );
 }

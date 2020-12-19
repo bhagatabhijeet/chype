@@ -75,8 +75,8 @@ const useStyles = makeStyles((theme) => ({
     avatar: {
         backgroundColor: '#2ba2ff',
         marginBottom: '0',
-        width: theme.spacing(5),
-        height: theme.spacing(5),
+        width: theme.spacing(4),
+        height: theme.spacing(4),
     },
     icon: {
         marginBottom: '0',
@@ -87,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
         color:'white',
         fontSmooth:12,
         fontWeight:600,
+        padding:0
     }
 }));
 
