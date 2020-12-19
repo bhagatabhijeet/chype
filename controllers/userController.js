@@ -9,6 +9,15 @@ const getUserByEmail = async (req, res) => {
   }
 };
 
+async function setSocketId(userId,socketId){
+  await User.findByIdAndUpdate(userId, {socketId});
+}
+
+async function getSocketId(userId){
+  const soc=await User.findById(userId).select("socketId -_id").exec();
+  return soc;
+}
+
 const updateUser = async (req, res) => {
   try {
     const { body, user } = req;
@@ -105,4 +114,6 @@ module.exports = {
   getUserById,
   updateUser,
   getFriends,
+  setSocketId,
+  getSocketId,
 };

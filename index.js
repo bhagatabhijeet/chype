@@ -6,6 +6,7 @@ const http = require('http');
 const routes = require('./routes');
 require('./services/passport');
 require('./db/mongoDBConnection');
+const {setSocketId,getSocketId} =require("./controllers/userController");
 
 const PORT = process.env.PORT||3001;
 
@@ -29,7 +30,20 @@ app.get("*", function(req, res) {
 
 
 io.on('connection', socket => {
-    console.log('Someone connected from the front end');
+    // console.log('Someone connected from the front end');
+    socket.on("USER_SOCKET_ID",payload =>{
+      setSocketId(payload.id,payload.socketId)
+      console.log(payload);
+    });
+
+    socket.on("PRIVATE_MESSAGE", async (payload) =>{
+      // socket.to(anotherSocketId).emit("private message",msg,user);
+
+      console.log(payload);
+      const anotherSocket= await getSocketId(payload.to);
+      console.log(anotherSocket.socketId);
+      socket.to(anotherSocket.socketId).emit("PRIVATE_MESSAGE",payload);
+    });
 
     socket.on('clientToServerMessage', ({user, message, friend, room}) => {
         console.log('hello world');

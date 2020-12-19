@@ -20,10 +20,14 @@ import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
 import SpeechToText from "speech-to-text";
 import {useSelector} from "react-redux";
 import axios from "axios";
+import {socket} from "../pages/MainPage";
+
+
 
 export default function ChatContainer() {
     const [lang, setLang] = useState([]);
     const [text, setText] = useState("");
+    const [chatMessage,setChatMessage] =useState("");
     const [listening,setListening] = useState(false);
     const ReduxUserState = useSelector(state=>state.user);
     const ReduxSelectedUserState = useSelector(state=>state.selectedUser);
@@ -39,6 +43,14 @@ export default function ChatContainer() {
         },
     };
 
+
+    useEffect(()=>{
+      socket.on("PRIVATE_MESSAGE",  (payload) =>{
+        // socket.to(anotherSocketId).emit("private message",msg,user);
+        setChatMessage(payload.message);
+        console.log(payload);  
+      });
+    },[]);
     // const onMessageSubmit = (e) => {
     //   e.preventDefault();
     //   const { user, message } = userData;
@@ -58,6 +70,16 @@ export default function ChatContainer() {
 
         setLang(selectedLanguage);
     };
+
+    const sendPrivateMessage=(event)=>{
+      event.preventDefault();
+      socket.emit("PRIVATE_MESSAGE",{
+        from:ReduxUserState.id,
+        to:ReduxSelectedUserState.id,
+        message:text
+      });
+      setText("");
+    }
 
     const handleSpeech = ()=>{
         setListening(!listening)
@@ -92,52 +114,10 @@ export default function ChatContainer() {
             <div id="chatContents" style={{ overflowY: "scroll",
                 boxSizing: "border-box",height:'90%',width:'100%',marginBottom:20}}
             >
-                {/* <DivBar text="Hello"/> */}
-
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
-                <div>Hello There</div>
+              {chatMessage}
+                
             </div>
-            {/* <div
-              style={{
-                position: "relative",
-                width: "100%",
-                height: 100,
-                top: "90%",
-                backgroundColor: "black",
-                color: "white",
-                display: "flex",
-                flexDirection: "row",
-              }}
-            > */}
+           
             <div>
                 <FormControl>
                     <Select
@@ -160,7 +140,7 @@ export default function ChatContainer() {
                     </Select>
                 </FormControl>
                 <span style={{fontSize:10,fontStyle:'italic'}}>{500-text.length} Characters Left</span>
-                <form onSubmit={()=>{}} style={{width:'100%',display:'flex',flexDirection:'row',justifyContent:'center',position:'relative',fontFamily:'inherit'}}>
+                <form onSubmit={sendPrivateMessage} style={{width:'100%',display:'flex',flexDirection:'row',justifyContent:'center',position:'relative',fontFamily:'inherit'}}>
                     {/**Talk Control */}
                     <IconButton
                         size='small'
