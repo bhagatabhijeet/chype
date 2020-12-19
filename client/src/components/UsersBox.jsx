@@ -1,10 +1,11 @@
-import {useState,useEffect} from "react";
+import React, {useState,useEffect} from "react";
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import { Grid, Box } from "@material-ui/core";
 import FriendUserCard from "../components/FriendUserCard";
+import ContactCard from "./ContactCard";
 import { makeStyles } from "@material-ui/core/styles";
 import "../assets/styles/common.css";
 import {useSelector} from "react-redux";
@@ -34,10 +35,12 @@ export default function UsersBox() {
     const ReduxUserState = useSelector(state=>state.user);
     const [search,setSearch] = useState('');
     const [searchResult,setSearchResult] = useState([]);
-
+    const [addingContact, setAddingContact] = useState();
+    const [contactList, setContactList] = useState([]);
 
     const handleSearch=(event)=>{
         setSearch(event.target.value);
+        console.log(contactList)
     }
 
     useEffect(()=>{
@@ -83,8 +86,17 @@ export default function UsersBox() {
                 }}
                 onChange={handleSearch}
             />
-            {searchResult.map(s=><FriendUserCard data={s}/>)}
-            <div>User Card 14</div>
+            {search ? searchResult.map(s=><FriendUserCard
+                data={s}
+                contactList = {contactList}
+                setContactList = {setContactList}
+            />) : null}
+            <div>
+                <h3>Contacts</h3>
+                {contactList ? contactList.map(s => <ContactCard
+                    data={s}
+                />) : null}
+            </div>
             <div>User Card 15</div>
             <div>User Card 16</div>
             <div>User Card 17</div>
