@@ -18,9 +18,11 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import DetailsIcon from '@material-ui/icons/Details';
 import Account from '../components/Account';
 import General from '../components/General'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import ChatIcon from '@material-ui/icons/Chat';
 import {useHistory} from "react-router-dom";
+import axios from "axios";
+import {setUser} from "../redux/UserReducer";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,11 +52,12 @@ const useStyles = makeStyles((theme) => ({
 function SettingsPage(props) {
     const classes = useStyles();
     const history = useHistory();
-    const userReduxState = useSelector(state=>state.user);
+    const dispatch = useDispatch();
+    const reduxUserState = useSelector(state=>state.user);
 
     const [open, setOpen] = React.useState(true);
 
-    if (!userReduxState.loggedIn) {
+    if (!reduxUserState.loggedIn) {
         return <Redirect to="/"/>;
     }
 
@@ -64,6 +67,21 @@ function SettingsPage(props) {
 
     const navigateToChat = () => {
         history.push('/main');
+    };
+
+    const signOut = async () => {
+        try {
+            await axios.patch(
+                encodeURI(`/api/user/${reduxUserState.id}`),
+                { "loggedIn.status": false, "loggedIn.token": "" },
+                { header: { authorization: `${reduxUserState.token}` } }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+        dispatch(setUser({}));
+        sessionStorage.removeItem("persist:root");
+        history.push("/");
     };
 
     return (
@@ -125,7 +143,7 @@ function SettingsPage(props) {
                             </Collapse>
                         </Link>
                         <Divider variant="inset" component="li"/>
-                        <Link to="/signout" className={classes.link}>
+                        <Link to="/signout" className={classes.link} onClick={signOut}>
                             <ListItem button>
                                 <ListItemIcon>
                                     <ExitToAppIcon/>
@@ -142,11 +160,6 @@ function SettingsPage(props) {
                     </Route>
                     <Route path="/general">
                         <General/>
-                    </Route>
-                    <Route path="/signout">
-                        <Typography variant="h3" gutterBottom>
-                            sign out
-                        </Typography>
                     </Route>
                 </Switch>
             </div>
