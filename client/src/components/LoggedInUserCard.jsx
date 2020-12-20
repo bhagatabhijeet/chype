@@ -111,9 +111,9 @@ export default function LoggedInUserCard() {
   const signOut = async () => {
     try {
       await axios.patch(
-        encodeURI(`/api/user/${ReduxUserState.id}`),
-        { "loggedIn.status": false, "loggedIn.token": "" },
-        { header: { authorization: `${ReduxUserState.token}` } }
+          encodeURI(`/api/user/${ReduxUserState.id}`),
+          { "loggedIn.status": false, "loggedIn.token": "" },
+          { header: { authorization: `${ReduxUserState.token}` } }
       );
     } catch (err) {
       console.log(err);
@@ -124,68 +124,68 @@ export default function LoggedInUserCard() {
   };
 
   return (
-    <div>
-      <Card style={{ paddingBottom: "1px" }} className={classes.root}>
-        <CardHeader
-          className={classes.header}
-          avatar={
-            <StyledBadge
-              overlap="circle"
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              variant="dot"
-            >
-              <Avatar aria-label="recipe" className={classes.avatar}>
-                {firstName.length > 0
-                  ? `${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`
-                  : null}
-              </Avatar>
-            </StyledBadge>
-          }
-          action={
-            <IconButton
-              aria-label="settings"
-              className={classes.icon}
-              onClick={handleClick}
-            >
-              <MoreVertIcon style={{ color: "white" }} />
-            </IconButton>
-          }
-          title={`${firstName} ${lastName}`}
-        />
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          <MenuItem>
-            <Link to="/settings" className={classes.link}>
-              <List component="div" disablePadding>
-                <ListItem button className={classes.nested}>
+      <div>
+        <Card style={{ paddingBottom: "1px" }} className={classes.root}>
+          <CardHeader
+              className={classes.header}
+              avatar={
+                <StyledBadge
+                    overlap="circle"
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "right",
+                    }}
+                    variant="dot"
+                >
+                  <Avatar aria-label="recipe" className={classes.avatar}>
+                    {firstName.length > 0
+                        ? `${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`
+                        : null}
+                  </Avatar>
+                </StyledBadge>
+              }
+              action={
+                <IconButton
+                    aria-label="settings"
+                    className={classes.icon}
+                    onClick={handleClick}
+                >
+                  <MoreVertIcon style={{ color: "white" }} />
+                </IconButton>
+              }
+              title={`${firstName} ${lastName}`}
+          />
+          <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+          >
+            <MenuItem>
+              <Link to="/settings" className={classes.link}>
+                <List component="div" disablePadding>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <SettingsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={"Settings"} />
+                  </ListItem>
+                </List>
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link to="/signout" className={classes.link} onClick={signOut}>
+                <ListItem button>
                   <ListItemIcon>
-                    <SettingsIcon />
+                    <ExitToAppIcon />
                   </ListItemIcon>
-                  <ListItemText primary={"Settings"} />
+                  <ListItemText primary={"Signout"}/>
                 </ListItem>
-              </List>
-            </Link>
-          </MenuItem>
-          <MenuItem>
-            <Link to="/signout" className={classes.link}>
-              <ListItem button>
-                <ListItemIcon>
-                  <ExitToAppIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Signout"} onClick={signOut} />
-              </ListItem>
-            </Link>
-          </MenuItem>
-        </Menu>
-      </Card>
-    </div>
+              </Link>
+            </MenuItem>
+          </Menu>
+        </Card>
+      </div>
   );
 }
