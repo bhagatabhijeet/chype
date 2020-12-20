@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     // position: "fixed",
     //   top: 100,
-    height: "100%",
+    maxHeight: "100%",
     // width:'20%',
     //   display: "flex",
     //   flexDirection: "column",
