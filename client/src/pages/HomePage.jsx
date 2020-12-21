@@ -1,49 +1,22 @@
 import React, { useState, useEffect } from "react";
-import chypeTransInverseLogo from "../assets/images/new_inverse_trans.png";
-import chypeTransLogo from "../assets/images/new_trans.png";
-import FunAnim from "../assets/images/fun_animation.gif";
 import Button from "@material-ui/core/Button";
 import "../assets/styles/common.css";
-// import Deck from "../components/animated/Deck";
 import AppsIcon from "@material-ui/icons/Apps";
-import FaceIcon from "@material-ui/icons/Face";
-import socketIcon from "../assets/images/Socket-IO-Logo.png";
-import MUIIcon from "../assets/images/mui-icon.png";
-import ReactIcon from "../assets/images/React-Logo.png";
-import MongoIcon from "../assets/images/mongo-logo.png";
 import GithubIcon from "@material-ui/icons/GitHub";
-import Tooltip from "@material-ui/core/Tooltip";
 import axios from "axios";
 import AccountTreeIcon from "@material-ui/icons/AccountTree";
 import Badge from "@material-ui/core/Badge";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
-
-// import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
 import IconButton from "@material-ui/core/IconButton";
 import Collapse from "@material-ui/core/Collapse";
-
 import { Link as Scroll } from "react-scroll";
 import AppBarMain from "../components/AppBarMain";
-
-import {
-  Typography,
-  Grid,
-  Avatar,
-  Divider,
-  Box,
-  Link,
-} from "@material-ui/core";
+import { Typography, Grid, Link } from "@material-ui/core";
 import HomePageFooter from "../components/HomePageFooter";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  useSpring,
-  animated,
-  config,
-  useTransition,
-  Spring,
-} from "react-spring";
+import { useSpring, animated, config } from "react-spring";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -82,9 +55,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "black",
     color: "white",
     borderRadius: "10px",
-    padding:'30px',
-    // width: '40px',
-    // heaight: '10px',
+    padding: "30px",
   },
   icon: {
     color: "#fff",
@@ -105,23 +76,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// function Copyright() {
-//   return (
-//     <Typography variant="body2" style={{ color: "#ffffff", margin: 10 }}>
-//       {"Copyright © "}
-//       <Link
-//         color="inherit"
-//         href="https://github.com/bhagatabhijeet/chype"
-//         target="_blank"
-//       >
-//         Chype Team
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
-
 export default function HomePage() {
   const [forks, setForks] = useState();
   const [stars, setStars] = useState();
@@ -130,7 +84,6 @@ export default function HomePage() {
     const { data } = await axios.get(
       `https://api.github.com/repos/bhagatabhijeet/chype`
     );
-    console.log(data);
     setForks(data.forks_count);
     setStars(data.stargazers_count);
   };
@@ -183,17 +136,11 @@ export default function HomePage() {
           <Card className={classes.root}>
             <Grid item xs={12} justify="center">
               <CardContent className={classes.footerBottom}>
-                <Typography
-                style={{fontSize: '30px',marginTop:'6px'}}
-                >
+                <Typography style={{ fontSize: "30px", marginTop: "6px" }}>
                   Our GitHub Stats
-
                 </Typography>
-                <Typography
-                variant="subtitle1"
-                >
+                <Typography variant="subtitle1">
                   Become a contributor
-
                 </Typography>
                 <Typography
                   variant="body2"
@@ -201,25 +148,27 @@ export default function HomePage() {
                   align="center"
                 >
                   <Link
-                  
-                  color="inherit"
-                  href="https://github.com/bhagatabhijeet/chype"
-                  target="_blank"
-                >
-                  <GithubIcon style={{ fontSize: 34, marginRight:'15px', marginTop:'6px' }} />
-                </Link>
-                  {/* GitHub {"  "} */}
+                    color="inherit"
+                    href="https://github.com/bhagatabhijeet/chype"
+                    target="_blank"
+                  >
+                    <GithubIcon
+                      style={{
+                        fontSize: 34,
+                        marginRight: "15px",
+                        marginTop: "6px",
+                      }}
+                    />
+                  </Link>
+
                   <Badge badgeContent={forks} color="primary">
-                     <AccountTreeIcon />
+                    <AccountTreeIcon />
                   </Badge>
                   {"  "}
                   <Badge badgeContent={stars} color="primary">
                     <StarBorderIcon />
                   </Badge>
-                  
                 </Typography>
-                {/* <Copyright /> */}
-                
               </CardContent>
             </Grid>
           </Card>

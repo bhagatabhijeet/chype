@@ -19,8 +19,6 @@ const useStyles = makeStyles((theme) => ({
     width: "28%",
     display: "flex",
     flexDirection: "column",
-    // borderTopLeftRadius:10,
-    // borderBottomLeftRadius:10,
     border: "1px solid black",
     margin: "0 0 10 10",
     boxSizing: "border-box",
@@ -39,8 +37,8 @@ export default function UsersContainer() {
   const [searchResult, setSearchResult] = useState([]);
   const [friendsList, setFriendsList] = useState([]);
   const [selectedUsr, setSelectedUsr] = useState({});
-  const [friendAdded,setFriendAdded] = useState(false);
-  const [friendRemoved,setFriendRemoved] = useState(false);
+  const [friendAdded, setFriendAdded] = useState(false);
+  const [friendRemoved, setFriendRemoved] = useState(false);
 
   const handleSearch = (event) => {
     setSearch(event.target.value);
@@ -55,7 +53,6 @@ export default function UsersContainer() {
           encodeURI(`/api/user?q=${search}&filterme=true`),
           { header: { authorization: `${ReduxUserState.token}` } }
         );
-        console.log("SEARCH", res.data);
         setSearchResult(res.data);
       }
     };
@@ -72,10 +69,6 @@ export default function UsersContainer() {
       })
     );
     const getFriends = async () => {
-      // if(search.trim()===""){
-      //   setSearchResult([]);
-      // }
-      // else{
       try {
         const res = await axios.get(`/api/user/${ReduxUserState.id}/friends`, {
           header: { authorization: `${ReduxUserState.token}` },
@@ -87,50 +80,36 @@ export default function UsersContainer() {
       }
     };
     getFriends();
-  }, [friendAdded,friendRemoved]);
+  }, [friendAdded, friendRemoved]);
 
-
-  const handleAddNewFriend = async (id)=>{
-    try{
-
+  const handleAddNewFriend = async (id) => {
+    try {
       await axios.post(
         encodeURI(`/api/user/${ReduxUserState.id}/friends`),
-        {friendId:id},
+        { friendId: id },
         { header: { authorization: `${ReduxUserState.token}` } }
       );
       setFriendAdded(true);
       setSearch("");
+    } catch (err) {
+      console.log("TRYING TO ADD", err);
     }
-    catch(err){
-      console.log("TRYING TO ADD",err);
+  };
 
-    }
-  }
-
- 
-  const handleFriendRemoval = async (id) =>{   
-    
-    try{      
+  const handleFriendRemoval = async (id) => {
+    try {
       await axios.patch(
         encodeURI(`/api/user/${ReduxUserState.id}/friends`),
-        {friendId:id},
+        { friendId: id },
         { header: { authorization: `${ReduxUserState.token}` } }
       );
-      setFriendRemoved(true);      
+      setFriendRemoved(true);
+    } catch (err) {
+      console.log("TRYING TO REMOVE", err);
     }
-    catch(err){
-      console.log("TRYING TO REMOVE",err);
-
-    }
-  }
+  };
 
   const handleSelectedUser = (data) => {
-    // const contacts = props.contactList;
-    // const existingContact = contacts.filter(entry => entry.email === props.data.email)
-    // if(existingContact.length === 0){
-    //     props.setContactList(contacts.concat(props.data));
-    // }
-    // alert(data.firstName);
     dispatch(
       setSelectedUser({
         firstName: data.firstName,
@@ -139,13 +118,11 @@ export default function UsersContainer() {
         id: data._id,
       })
     );
-    // setSelectedUsr(ReduxSelectedUserState);
   };
 
   return (
     <Box className={classes.root}>
       <TextField
-        // label="Search Users"
         placeholder="Search chypers"
         InputProps={{
           startAdornment: (
@@ -168,7 +145,9 @@ export default function UsersContainer() {
           size="small"
           style={{ fontSize: 10, width: 30, alignSelf: "center" }}
           className="btn-blue-black"
-          onClick={()=>{setSearch("")}}
+          onClick={() => {
+            setSearch("");
+          }}
         >
           Clear
         </Button>
@@ -176,15 +155,15 @@ export default function UsersContainer() {
 
       <div id="searchedUsers" style={{ maxHeight: "80%", overflowY: "scroll" }}>
         {searchResult.map((s) => (
-          <SearchedUserCard data={s} addFriendHandler={handleAddNewFriend}/>
+          <SearchedUserCard data={s} addFriendHandler={handleAddNewFriend} />
         ))}
       </div>
 
       <UsersBox
         friends={friendsList}
         selectedUserHandler={handleSelectedUser}
-        selected={ReduxSelectedUserState}    
-        removeHandler={handleFriendRemoval}    
+        selected={ReduxSelectedUserState}
+        removeHandler={handleFriendRemoval}
       />
     </Box>
   );
