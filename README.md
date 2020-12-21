@@ -5,15 +5,23 @@ A Global chat Application which translate the chat into user's locale built usin
 [![GitHub forks](https://img.shields.io/github/forks/bhagatabhijeet/chype)](https://github.com/bhagatabhijeet/chype/network)
 [![GitHub stars](https://img.shields.io/github/stars/bhagatabhijeet/chype)](https://github.com/bhagatabhijeet/chype/stargazers)
 
-<p align="center">
-<img src="https://github.com/bhagatabhijeet/chype/raw/main/client/src/assets/images/new_inverse.png"/>
- </p>
+<img align="left" src="https://github.com/bhagatabhijeet/chype/raw/main/client/src/assets/images/new_inverse.png"/>
+<img  align="right" src="https://github.com/bhagatabhijeet/chype/raw/main/client/src/assets/images/poweredBy.PNG"/>
+  
+  
+<div></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 
-<p align="center">
-<img src="https://github.com/bhagatabhijeet/chype/raw/main/client/src/assets/images/Team.png"/>
- </p>
- 
- 
+
+
+
  ## Table of Contents
 - [Description](#description)
 - [Team](#team)
@@ -27,7 +35,7 @@ A chat/messenger application which not only sends and receives messages but also
  
 ## Team
 <p align="center">
-<img src="https://github.com/bhagatabhijeet/chype/raw/main/client/src/assets/images/poweredBy.PNG"/>
+<img src="https://github.com/bhagatabhijeet/chype/raw/main/client/src/assets/images/Team.png"/>
  </p>
 
 ## Usage
