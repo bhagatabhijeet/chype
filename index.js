@@ -7,6 +7,7 @@ const routes = require('./routes');
 require('./services/passport');
 require('./db/mongoDBConnection');
 const {setSocketId,getSocketId} =require("./controllers/userController");
+const {translateMessage} = require("./controllers/messageController");
 
 const PORT = process.env.PORT||3001;
 
@@ -38,7 +39,8 @@ io.on('connection', socket => {
 
     socket.on("PRIVATE_MESSAGE", async (payload) =>{
       // socket.to(anotherSocketId).emit("private message",msg,user);
-
+      const transMessage=await translateMessage(payload.message,"hi");
+      console.log("TRANSMESAGE",transMessage);
       console.log(payload);
       const anotherSocket= await getSocketId(payload.to);
       console.log(anotherSocket.socketId);

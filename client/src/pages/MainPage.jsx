@@ -24,10 +24,10 @@ socket.on("connect", function () {
 });
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        // textAlign:"center"
-    },
+    // root: {
+    //     flexGrow: 1,
+        
+    // },
     paper: {
         padding: theme.spacing(0),
         textAlign: "center",
@@ -89,8 +89,8 @@ export default function MainPage() {
                 disableGutters
                 style={{
                     display: "flex",
-                    flexDirection: "column",
-                    height: "86vh",
+                    flexDirection: "column",                    
+                    height: "98vh",
                     marginTop: 10,
                     marginBottom: 10,
                     alignItems: "center",
@@ -143,6 +143,7 @@ export default function MainPage() {
                         flexDirection: "row",
                         height: "98%",
                         justifyContent: "center",
+                        position:'relative'
                     }}
                 >
                     <UsersContainer />

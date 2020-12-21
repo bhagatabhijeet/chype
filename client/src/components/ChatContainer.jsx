@@ -10,7 +10,8 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import SendIcon from '@material-ui/icons/Send';
 import TelegramIcon from '@material-ui/icons/Telegram';
-import DivBar from "./divBar/DivBar";
+import ChatDivFrom from "./divBar/ChatDivFrom";
+import ChatDivTo from "./divBar/ChatDivTo";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Input from "@material-ui/core/Input";
@@ -27,7 +28,7 @@ import {socket} from "../pages/MainPage";
 export default function ChatContainer() {
     const [lang, setLang] = useState([]);
     const [text, setText] = useState("");
-    const [chatMessage,setChatMessage] =useState("");
+    const [chatMessages,setChatMessages] =useState([]);
     const [listening,setListening] = useState(false);
     const ReduxUserState = useSelector(state=>state.user);
     const ReduxSelectedUserState = useSelector(state=>state.selectedUser);
@@ -47,10 +48,11 @@ export default function ChatContainer() {
     useEffect(()=>{
       socket.on("PRIVATE_MESSAGE",  (payload) =>{
         // socket.to(anotherSocketId).emit("private message",msg,user);
-        setChatMessage(payload.message);
+        console.log("COUNT",chatMessages.length);
+        setChatMessages([...chatMessages,payload]);
         console.log(payload);  
       });
-    },[]);
+    },[chatMessages]);
     // const onMessageSubmit = (e) => {
     //   e.preventDefault();
     //   const { user, message } = userData;
@@ -79,6 +81,11 @@ export default function ChatContainer() {
         message:text
       });
       setText("");
+      setChatMessages([...chatMessages,{
+        from:ReduxUserState.id,
+        to:ReduxSelectedUserState.id,
+        message:text
+      }]);
     }
 
     const handleSpeech = ()=>{
@@ -114,7 +121,7 @@ export default function ChatContainer() {
             <div id="chatContents" style={{ overflowY: "scroll",
                 boxSizing: "border-box",height:'90%',width:'100%',marginBottom:20}}
             >
-              {chatMessage}
+              {chatMessages.map((m,index)=>m.from !== ReduxUserState.id?<ChatDivFrom key={index} text={m.message}/>:<ChatDivTo key={index} text={m.message}/>)}
                 
             </div>
            

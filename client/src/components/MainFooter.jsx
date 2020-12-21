@@ -7,8 +7,8 @@ import Icon from "@material-ui/core/Icon";
 const useStyles = makeStyles((theme) => ({
   footerBottom: {
     color: "#096dba",
-    marginTop: 10,
-    fontSize: 15,
+    marginTop: 5,
+    fontSize: 12,
     fontFamily: "mono",
     fontWeight: 500,
   },

@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor:'transparent',
     color:'blue',
     boxSizing:'border-box',
-    padding:0
+    padding:0,    
   },
    
   icon: {
@@ -28,8 +28,8 @@ export default function SearchedUserCard(props) {
   
   const classes = useStyles();
   
-  const handleClick = (event) => {
-    // setAnchorEl(event.currentTarget);
+  const handleClick = (event) => {    
+    props.addFriendHandler(props.data._id);
   };
 
  
@@ -41,10 +41,14 @@ export default function SearchedUserCard(props) {
           className={classes.header}
           component="div"
           titleTypographyProps={{variant:'body2' }}
-          action={
-            <IconButton aria-label="settings" className={classes.icon}>
-              <AddCircleIcon onClick={handleClick} style={{color: 'blue'}}/>
-            </IconButton>
+          action={    
+            props.data.isFriend?     
+            <IconButton aria-label="settings" className={classes.icon} onClick={handleClick} disabled>             
+              <AddCircleIcon style={{color: 'grey'}}/>
+            </IconButton>:
+            <IconButton aria-label="settings" className={classes.icon} onClick={handleClick}>             
+            <AddCircleIcon style={{color: 'blue'}}/>
+          </IconButton>
 
           }
 
