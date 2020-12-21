@@ -22,10 +22,10 @@ export default function MainPage() {
     else{
       document.body.style.backgroundColor = "#d7d8f1";     
     }
-    // socket.on("connect",()=>{
-    //   socket.emit("USER_SOCKET_ID", {id:userReduxState.id,socketId:socket.id});
+    socket.on("connect",()=>{
+      socket.emit("USER_SOCKET_ID", {id:userReduxState.id,socketId:socket.id});
 
-    // });
+    });
   }, []);
 
   // useEffect(()=>{
