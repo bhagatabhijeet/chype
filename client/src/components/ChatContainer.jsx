@@ -66,9 +66,9 @@ export default function ChatContainer() {
     const handleLanguageChange = (event) => {
         const selectedLanguage = event.target.value;
 
-        axios.patch(encodeURI(`/api/user/${ReduxUserState.id}`), {
-            language: selectedLanguage
-        }, {header: {'authorization': `${ReduxUserState.token}`}});
+        // axios.patch(encodeURI(`/api/user/${ReduxUserState.id}`), {
+        //     language: selectedLanguage
+        // }, {header: {'authorization': `${ReduxUserState.token}`}});
 
         setLang(selectedLanguage);
     };
