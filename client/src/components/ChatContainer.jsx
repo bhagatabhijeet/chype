@@ -24,7 +24,7 @@ export default function ChatContainer() {
   const [listening, setListening] = useState(false);
   const ReduxUserState = useSelector((state) => state.user);
   const ReduxSelectedUserState = useSelector((state) => state.selectedUser);
-  console.log(ReduxSelectedUserState, "FROM REDUX");
+  // console.log(ReduxSelectedUserState, "FROM REDUX");
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {

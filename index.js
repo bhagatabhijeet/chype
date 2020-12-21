@@ -77,7 +77,7 @@ io.on('connection', socket => {
       console.log("TRANSMESAGE",transMessage);
       console.log(payload);
       // console.log(anotherSocket.socketId);
-      socket.to(anotherSocket.socketId).emit("PRIVATE_MESSAGE",payload);
+      socket.to(anotherSocket.socketId).emit("PRIVATE_MESSAGE",{...payload,translatedMessage:transMessage.translatedMessage});
     });
 
 //     socket.on('clientToServerMessage', ({user, message, friend, room}) => {
