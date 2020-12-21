@@ -18,19 +18,16 @@ export default function MainPage() {
   useEffect(() => {
     if (!userReduxState.loggedIn) {
       history.push("/signin");
+    } else {
+      document.body.style.backgroundColor = "#d7d8f1";
     }
-    else{
-      document.body.style.backgroundColor = "#d7d8f1";     
-    }
-    socket.on("connect",()=>{
-      socket.emit("USER_SOCKET_ID", {id:userReduxState.id,socketId:socket.id});
-
+    socket.on("connect", () => {
+      socket.emit("USER_SOCKET_ID", {
+        id: userReduxState.id,
+        socketId: socket.id,
+      });
     });
   }, []);
-
-  // useEffect(()=>{
-  //   socket.emit("USER_SOCKET_ID", {id:userReduxState.id,socketId:socket.id});
-  // });
 
   return (
     <Fragment>
