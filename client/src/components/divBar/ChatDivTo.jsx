@@ -1,6 +1,6 @@
 import './DivBar.css';
 
-const DivBar = (props) => {
+const ChatDivTo = (props) => {
 
     return (
         <>
@@ -13,16 +13,16 @@ const DivBar = (props) => {
                 </div>
             </div>
         {/* another user */}
-            <div className="messageContainer justifyStart">
+            {/* <div className="messageContainer justifyStart">
             <button className="btn"></button>
                 <div className="messageBox backgroundLight">
                     <p className="messageText colorDark"></p>
                 </div>
                 <p className="sentText pl-10 "></p>
-            </div>
+            </div> */}
         </>
     );
 }
 
-export default DivBar;
+export default ChatDivTo;
 
