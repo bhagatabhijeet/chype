@@ -1,8 +1,5 @@
 # chype
 A Global chat Application which translate the chat into user's locale built using socket.io, express and MongoDb
-<p align="center">
-<img src="https://github.com/bhagatabhijeet/chype/raw/main/client/src/assets/images/new_inverse.png"/>
- </p>
 
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bhagatabhijeet/chype)
 [![GitHub forks](https://img.shields.io/github/forks/bhagatabhijeet/chype)](https://github.com/bhagatabhijeet/chype/network)
@@ -10,6 +7,10 @@ A Global chat Application which translate the chat into user's locale built usin
 
 <p align="center">
 <img src="https://github.com/bhagatabhijeet/chype/raw/main/client/src/assets/images/new_inverse.png"/>
+ </p>
+
+<p align="center">
+<img src="https://github.com/bhagatabhijeet/chype/raw/main/client/src/assets/images/Team.png"/>
  </p>
  
  
