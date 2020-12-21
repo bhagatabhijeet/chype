@@ -34,8 +34,29 @@ io.on('connection', socket => {
     // console.log('Someone connected from the front end');
     socket.on("USER_SOCKET_ID",payload =>{
       setSocketId(payload.id,payload.socketId)
-      console.log(payload);
-    });
+      // console.log(payload);
+      io.emit("USER_SOCKET_ID",payload.id);
+    });  
+
+    socket.on("SIGN_OUT",payload =>{
+      console.log(payload.id + " " + payload.email + " signed out")
+      // setSocketId(payload.id,payload.socketId)
+      // console.log(payload);
+      io.emit("SIGN_OUT",{id:payload.id,email:payload.email});
+    });  
+
+    socket.on("SIGN_IN",payload =>{
+      console.log(payload.id + " " + payload.email + " signed in")
+      setSocketId(payload.id,payload.socketId)
+      // setSocketId(payload.id,payload.socketId)
+      // console.log(payload);
+      io.emit("SIGN_IN",{id:payload.id,email:payload.email});
+    });  
+
+    socket.on("disconnect",() =>{
+      console.log(socket.id + " is disconnecting...");
+    })
+
 
     socket.on("PRIVATE_MESSAGE", async (payload) =>{
       // socket.to(anotherSocketId).emit("private message",msg,user);
@@ -57,6 +78,10 @@ io.on('connection', socket => {
         io.emit("serverToClientMessage", {user, message});
     })
 });
+
+io.on("disconnect",socket =>{
+  console.log(socket.id + " is disconnecting...");
+})
 
 
 server.listen(PORT, () => {
