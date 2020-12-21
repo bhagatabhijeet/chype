@@ -20,8 +20,8 @@ module.exports = {
             res.json({error: "Encountered error"});
         }
     },
-    translateMessage: async (req, res) => {
-        const {message, language} = req.body;
+    translateMessage: async (message, language) => {
+        // const {message, language} = req.body;
         try {
             const apiRes = await axios.get(`https://translation.googleapis.com/language/translate/v2?target=${language}&q=${encodeURIComponent(message)}&key=${process.env.REACT_APP_API_KEY}`);
             const translation = apiRes.data.data.translations[0].translatedText;
@@ -29,7 +29,8 @@ module.exports = {
             newMessage.translatedMessage = translation;
             newMessage.originLanguage = apiRes.data.data.translations[0].detectedSourceLanguage;
             newMessage.targetLanguage = language;
-            return res.json(newMessage);
+            // return res.json(newMessage);
+            return newMessage;
         } catch (error) {
             throw error;
         }

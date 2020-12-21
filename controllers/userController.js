@@ -144,6 +144,23 @@ const addFriend = async(req,res) =>{
 
 }
 
+const removeFriend = async(req,res) =>{
+  const { id } = req.params;
+  const {friendId} = req.body;
+  try{
+
+    const updtUser = await User.findByIdAndUpdate(id,{$pull:{friends:friendId}}).exec();
+    const friends= await getFriendsForUser(id);
+    // console.log(done);
+    return res.status(200).json(friends);    
+
+  }
+  catch(err){
+    console.log(err);
+  }
+
+}
+
 module.exports = {
   getAllOrSearchUsers,
   getUserByEmail,
@@ -153,4 +170,5 @@ module.exports = {
   setSocketId,
   getSocketId,
   addFriend,
+  removeFriend
 };
