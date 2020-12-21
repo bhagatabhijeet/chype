@@ -144,7 +144,7 @@ export default function SignUp() {
         setIsLoading(false);
 
         const {user} = res.data;
-        const {firstName, lastName, email, loggedIn} = user;
+        const {firstName, lastName, email, loggedIn, _id} = user;
 
         dispatch(
             setUser({
@@ -153,7 +153,7 @@ export default function SignUp() {
               email,
               loggedIn: loggedIn.status,
               token: loggedIn.token,
-              id: res.data._id
+              id: _id
             })
         );
 
