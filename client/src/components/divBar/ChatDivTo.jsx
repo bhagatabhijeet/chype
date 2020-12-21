@@ -9,7 +9,8 @@ const ChatDivTo = (props) => {
                 <button className="btn"></button>
                 <p className="sentText pr-10"></p>
                 <div className="messageBox backgroundBlue">
-                    <p className="messageText colorWhite">{props.text}</p>
+                    <p className="messageText colorWhite">{`${props.messagePayload.message}`}</p>
+                    <p className="translatedMessageText colorWhite">{`Translation:[${props.messagePayload.translatedMessage}]`}</p>
                 </div>
             </div>
         {/* another user */}

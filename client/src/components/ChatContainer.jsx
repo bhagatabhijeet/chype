@@ -44,6 +44,21 @@ export default function ChatContainer() {
         },
     };
 
+    useEffect(()=>{
+      const getMessages = async () => {
+        try {
+          const res = await axios.get(`/api/message/${ReduxUserState.id}?from=${ReduxSelectedUserState.id}`, {
+            header: { authorization: `${ReduxUserState.token}` },
+          });
+  
+          setChatMessages(res.data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      getMessages();
+    },[ReduxSelectedUserState]);
+
 
     useEffect(()=>{
       socket.on("PRIVATE_MESSAGE",  (payload) =>{
@@ -121,7 +136,7 @@ export default function ChatContainer() {
             <div id="chatContents" style={{ overflowY: "scroll",
                 boxSizing: "border-box",height:'90%',width:'100%',marginBottom:20}}
             >
-              {chatMessages.map((m,index)=>m.from !== ReduxUserState.id?<ChatDivFrom key={index} text={m.message}/>:<ChatDivTo key={index} text={m.message}/>)}
+              {chatMessages.map((m,index)=>m.from !== ReduxUserState.id?<ChatDivFrom key={index} messagePayload={m}/>:<ChatDivTo key={index} messagePayload={m}/>)}
                 
             </div>
            
