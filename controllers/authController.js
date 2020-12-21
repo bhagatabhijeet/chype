@@ -15,8 +15,7 @@ function tokenForUser(user) {
 }
 
 module.exports = {
-  signUp: async (req, res) => {
-    console.log("i am here");
+  signUp: async (req, res) => {    
     const { email, password, firstName, lastName, language } = req.body;
     if (!firstName || !lastName) {
       return res.status(422).json({ error: 'You must provide a first and last name.' });
@@ -56,6 +55,17 @@ module.exports = {
     const currentUser = await User.findById(req.user._id).select('-password');
     res.json(currentUser);
   },
+
+  signOut: async (id) =>{
+    await User.findByIdAndUpdate(id, {
+      loggedIn: {
+        status: false,
+        token: ""
+      },
+      socketId:""
+  })
+},
+
   getUser: async(req, res) => {
     const currentUser = await User.findById(req.user._id).select('-password');
     res.json({ user: currentUser });

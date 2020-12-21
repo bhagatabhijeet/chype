@@ -16,9 +16,10 @@ const ChatDivFrom = (props) => {
             <div className="messageContainer justifyStart">
             <button className="btn"></button>
                 <div className="messageBox backgroundLight">
-                    <p className="messageText colorDark"></p>
+                    <p className="messageText colorDark">{`${props.messagePayload.message}`}</p>
+                    <p className="translatedMessageText colorDark">{`Translation:[${props.messagePayload.translatedMessage}]`}</p>
                 </div>
-                <p className="sentText pl-10 ">{props.text}</p>
+                {/* <p className="sentText pl-10 ">{props.text}</p> */}
             </div>
         </>
     );

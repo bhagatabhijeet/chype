@@ -22,6 +22,15 @@
     font-size: 1.1em;
     word-wrap: break-word;
   }
+
+  .translatedMessageText {
+    width: 100%;
+    letter-spacing: 0;
+    float: left;
+    font-size: 14px;
+    word-wrap: break-word;
+    font-style: oblique;
+  }
   .messageContainer {
     display: flex;
     justify-content: flex-end;
@@ -66,5 +75,5 @@
   }
   
   .backgroundLight {
-    background: #F3F3F3;
+    background: #a7c0d4;
   }
