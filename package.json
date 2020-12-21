@@ -1,57 +1,53 @@
 {
-  "name": "chype",
-  "version": "1.0.0",
-  "description": "A Global chat Application which translate the chat into user's locale built using socket.io, express and MongoDb",
-  "main": "index.js",
-  "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-    "start:prod": "node index.js",
-    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
-    "client": "cd client && npm run start",
-    "install": "cd client && npm install",
-    "build": "cd client && npm run build",
-    "heroku-postbuild": "npm run build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bhagatabhijeet/chype.git"
-  },
-  "keywords": [
-    "Chat",
-    "Translate",
-    "Chat-Rooms",
-    "Chat-App"
-  ],
-  "author": "Abhijeet, Setare, Son",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/bhagatabhijeet/chype/issues"
-  },
-  "homepage": "https://github.com/bhagatabhijeet/chype#readme",
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:3001/",
   "dependencies": {
-    "@google-cloud/translate": "^6.0.4",
-    "@sendgrid/mail": "^7.4.0",
-    "axios": "^0.21.0",
-    "bcryptjs": "^2.4.3",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "google-translate": "^3.0.0",
-    "http": "0.0.1-security",
-    "if-env": "^1.0.4",
-    "jwt-simple": "^0.5.6",
-    "mailer": "^0.6.7",
-    "moment": "^2.29.1",
-    "moment-timezone": "^0.5.32",
-    "mongoose": "^5.10.15",
-    "nodemon": "^2.0.6",
-    "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0",
-    "socket.io": "^3.0.3",
-    "validator": "^13.1.17"
+    "@material-ui/core": "^4.11.1",
+    "@material-ui/icons": "^4.9.1",
+    "@reduxjs/toolkit": "^1.5.0",
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.2.2",
+    "fontsource-roboto": "^3.0.3",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-intl-tel-input": "^8.0.4",
+    "react-redux": "^7.2.2",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.1",
+    "react-scroll": "^1.8.1",
+    "react-spring": "^8.0.27",
+    "redux-persist": "^6.0.0",
+    "socket.io-client": "^3.0.3",
+    "speech-to-text": "^2.9.1",
+    "textarea-caret": "^3.1.0",
+    "web-vitals": "^0.2.4"
   },
-  "devDependencies": {
-    "concurrently": "^5.3.0",
-    "if-env": "^1.0.4"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

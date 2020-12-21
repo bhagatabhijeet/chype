@@ -18,8 +18,7 @@ import Slide from "@material-ui/core/Slide";
 import {useHistory} from "react-router-dom";
 import {setUser} from "../redux/UserReducer";
 import {useDispatch} from "react-redux";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import LoadingOverlay from 'react-loading-overlay';
+import SignUpSpinner from "../components/SignUpSpinner";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -210,161 +209,152 @@ export default function SignUp() {
   };
 
   return (
-      <LoadingOverlay
-          active={isLoading}
-          spinner={<CircularProgress style={{width: '100px', height: '100px', position: 'relative', bottom: '40vh'}}/>}
-          styles={{
-            overlay: (base) => ({
-              ...base,
-              background: 'rgba(255, 255, 255, 0.8)'
-            })
-          }}>
-        <div
-            style={{
-              background:
-                  "linear-gradient(#ffffff 30%,#56b5ff 55%,#2ba2ff,#2ba2ff,#2ba2ff,#2ba2ff)",
-            }}
-        >
-          {isLoading ? <CircularProgress/> : null}
-          <AppBarMain home signin/>
-          <Grid container component="main" className={classes.root} spacing={0}>
-            <CssBaseline/>
-            <Grid item xs={false} sm={4} md={7} className={classes.image}>
-              <Paper
-                  elevation={20}
-                  style={{backgroundColor: "transparent"}}
-                  variant="outlined"
-              >
-                <Slide direction="left" in timeout={{appear: 500, enter: 1500}}>
-                  <Typography
-                      variant="h5"
-                      align="center"
-                      style={{
-                        color: "#fff",
-                        backgroundColor: "#2ba2ff",
-                        marginTop: 40,
-                        fontWeight: 400,
-                      }}
-                  >
-                    We are excited to see you onboard. Come on in!
-                  </Typography>
-                </Slide>
-              </Paper>
-            </Grid>
-            <Grid
-                item
-                xs={12}
-                sm={8}
-                md={5}
-                component={Paper}
-                elevation={0}
-                square
-                // direction="column"
-                // alignItems="center"
-                className={classes.gridItemBg}
+      <div
+          style={{
+            background:
+                "linear-gradient(#ffffff 30%,#56b5ff 55%,#2ba2ff,#2ba2ff,#2ba2ff,#2ba2ff)",
+          }}
+      >
+        <AppBarMain home signin/>
+        <Grid container component="main" className={classes.root} spacing={0}>
+          <CssBaseline/>
+          <Grid item xs={false} sm={4} md={7} className={classes.image}>
+            <Paper
+                elevation={20}
+                style={{backgroundColor: "transparent"}}
+                variant="outlined"
             >
-              <div className={classes.paper}>
-                <img src={ChypeLogoTrans} alt="LogoTransImage" height="75px"/>
-                <Typography component="h1" variant="h5">
-                  Sign up
+              <Slide direction="left" in timeout={{appear: 500, enter: 1500}}>
+                <Typography
+                    variant="h5"
+                    align="center"
+                    style={{
+                      color: "#fff",
+                      backgroundColor: "#2ba2ff",
+                      marginTop: 40,
+                      fontWeight: 400,
+                    }}
+                >
+                  We are excited to see you onboard. Come on in!
                 </Typography>
-                {/**NEW FORM */}
-                <form className={classes.form} noValidate onSubmit={handleSubmit}>
-                  <StyledTextField
-                      autoComplete="fname"
-                      name="firstName"
-                      variant="outlined"
-                      margin="dense"
-                      required
-                      fullWidth
-                      id="firstName"
-                      label="First Name"
-                      autoFocus
-                      onChange={handleFirstNameChange}
-                      helperText={formData.firstName.errorText}
-                      error={formData.firstName.errorText !== ""}
-                  />
-                  <StyledTextField
-                      variant="outlined"
-                      margin="dense"
-                      required
-                      fullWidth
-                      id="lastName"
-                      label="Last Name"
-                      name="lastName"
-                      autoComplete="lname"
-                      onChange={handleLastNameChange}
-                      helperText={formData.lastName.errorText}
-                      error={formData.lastName.errorText !== ""}
-                  />
-                  <StyledTextField
-                      variant="outlined"
-                      margin="dense"
-                      required
-                      fullWidth
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      autoComplete="email"
-                      onChange={handleEmailChange}
-                      helperText={formData.email.errorText}
-                      error={formData.email.errorText !== ""}
-                  />
-                  <StyledTextField
-                      variant="outlined"
-                      margin="dense"
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                      onChange={handlePasswordChange}
-                      helperText={formData.password.errorText}
-                      error={formData.password.errorText !== ""}
-                  />
-                  <StyledTextField
-                      variant="outlined"
-                      margin="dense"
-                      fullWidth
-                      name="phone"
-                      label="Phone"
-                      type="text"
-                      id="phone"
-                      autoComplete="phone"
-                      onChange={handlePhoneChange}
-                  />
-
-                  <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      className="btn-black-white"
-                      margin="dense"
-                  >
-                    Sign Up
-                  </Button>
-                  <Grid container>
-                    <Grid item xs>
-                      <Link href="/" variant="body2">
-                        Home
-                      </Link>
-                    </Grid>
-                    <Grid item>
-                      <Link href="/signin" variant="body2">
-                        Already have an account? Sign in
-                      </Link>
-                    </Grid>
-                  </Grid>
-                </form>
-                {/*NEW FORM END*/}
-              </div>
-            </Grid>
+              </Slide>
+            </Paper>
           </Grid>
-          <HomePageFooter/>
-        </div>
-      </LoadingOverlay>
+          <Grid
+              item
+              xs={12}
+              sm={8}
+              md={5}
+              component={Paper}
+              elevation={0}
+              square
+              className={classes.gridItemBg}
+          >
+            <div className={classes.paper}>
+              <img src={ChypeLogoTrans} alt="LogoTransImage" height="75px"/>
+              <Typography component="h1" variant="h5">
+                Sign up
+              </Typography>
+              {/**NEW FORM */}
+              <form className={classes.form} noValidate onSubmit={handleSubmit}>
+                <StyledTextField
+                    disabled={isLoading}
+                    autoComplete="fname"
+                    name="firstName"
+                    variant="outlined"
+                    margin="dense"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                    autoFocus
+                    onChange={handleFirstNameChange}
+                    helperText={formData.firstName.errorText}
+                    error={formData.firstName.errorText !== ""}
+                />
+                <StyledTextField
+                    disabled={isLoading}
+                    variant="outlined"
+                    margin="dense"
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                    autoComplete="lname"
+                    onChange={handleLastNameChange}
+                    helperText={formData.lastName.errorText}
+                    error={formData.lastName.errorText !== ""}
+                />
+                <StyledTextField
+                    disabled={isLoading}
+                    variant="outlined"
+                    margin="dense"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    onChange={handleEmailChange}
+                    helperText={formData.email.errorText}
+                    error={formData.email.errorText !== ""}
+                />
+                <StyledTextField
+                    disabled={isLoading}
+                    variant="outlined"
+                    margin="dense"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    onChange={handlePasswordChange}
+                    helperText={formData.password.errorText}
+                    error={formData.password.errorText !== ""}
+                />
+                <StyledTextField
+                    disabled={isLoading}
+                    variant="outlined"
+                    margin="dense"
+                    fullWidth
+                    name="phone"
+                    label="Phone"
+                    type="text"
+                    id="phone"
+                    autoComplete="phone"
+                    onChange={handlePhoneChange}
+                />
+                {isLoading ? <SignUpSpinner/> : <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className="btn-black-white"
+                    margin="dense"
+                >
+                  Sign Up
+                </Button>}
+                <Grid container>
+                  <Grid item xs>
+                    <Link href="/" variant="body2">
+                      Home
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Link href="/signin" variant="body2">
+                      Already have an account? Sign in
+                    </Link>
+                  </Grid>
+                </Grid>
+              </form>
+              {/*NEW FORM END*/}
+            </div>
+          </Grid>
+        </Grid>
+        <HomePageFooter/>
+      </div>
   );
 }
