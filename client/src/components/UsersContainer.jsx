@@ -39,7 +39,8 @@ export default function UsersContainer() {
   const [searchResult, setSearchResult] = useState([]);
   const [friendsList, setFriendsList] = useState([]);
   const [selectedUsr, setSelectedUsr] = useState({});
-  const [friendAddRemove,setFriendAddRemove] = useState(false);
+  const [friendAdded,setFriendAdded] = useState(false);
+  const [friendRemoved,setFriendRemoved] = useState(false);
 
   const handleSearch = (event) => {
     setSearch(event.target.value);
@@ -86,7 +87,7 @@ export default function UsersContainer() {
       }
     };
     getFriends();
-  }, [friendAddRemove]);
+  }, [friendAdded,friendRemoved]);
 
 
   const handleAddNewFriend = async (id)=>{
@@ -97,7 +98,7 @@ export default function UsersContainer() {
         {friendId:id},
         { header: { authorization: `${ReduxUserState.token}` } }
       );
-      setFriendAddRemove(true);
+      setFriendAdded(true);
       setSearch("");
     }
     catch(err){
@@ -115,7 +116,7 @@ export default function UsersContainer() {
         {friendId:id},
         { header: { authorization: `${ReduxUserState.token}` } }
       );
-      setFriendAddRemove(true);      
+      setFriendRemoved(true);      
     }
     catch(err){
       console.log("TRYING TO REMOVE",err);
