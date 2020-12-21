@@ -52,7 +52,7 @@ export default function ChatContainer() {
         setChatMessages([...chatMessages,payload]);
         console.log(payload);  
       });
-    },[]);
+    },[chatMessages]);
     // const onMessageSubmit = (e) => {
     //   e.preventDefault();
     //   const { user, message } = userData;
@@ -81,6 +81,11 @@ export default function ChatContainer() {
         message:text
       });
       setText("");
+      setChatMessages([...chatMessages,{
+        from:ReduxUserState.id,
+        to:ReduxSelectedUserState.id,
+        message:text
+      }]);
     }
 
     const handleSpeech = ()=>{
@@ -116,7 +121,7 @@ export default function ChatContainer() {
             <div id="chatContents" style={{ overflowY: "scroll",
                 boxSizing: "border-box",height:'90%',width:'100%',marginBottom:20}}
             >
-              {chatMessages.map(m=><ChatDivFrom text={m.message}/>)}
+              {chatMessages.map((m,index)=>m.from !== ReduxUserState.id?<ChatDivFrom key={index} text={m.message}/>:<ChatDivTo key={index} text={m.message}/>)}
                 
             </div>
            
