@@ -12,7 +12,7 @@ import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // position: "fixed",
+    position: "relative",
     //   top: 100,
     maxHeight: "100%",
     // width:'20%',
@@ -58,6 +58,7 @@ export default function UsersBox(props) {
           data={f}
           selectedUserHandler={props.selectedUserHandler}
           isSelected={f._id === props.selected.id?true:false}
+          removeHandler={props.removeHandler}
         />
       ))}
     </Box>

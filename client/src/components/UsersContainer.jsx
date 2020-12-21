@@ -39,7 +39,7 @@ export default function UsersContainer() {
   const [searchResult, setSearchResult] = useState([]);
   const [friendsList, setFriendsList] = useState([]);
   const [selectedUsr, setSelectedUsr] = useState({});
-  const [newFriendAdded,setNewFriendAdded] = useState(false);
+  const [friendAddRemove,setFriendAddRemove] = useState(false);
 
   const handleSearch = (event) => {
     setSearch(event.target.value);
@@ -86,7 +86,7 @@ export default function UsersContainer() {
       }
     };
     getFriends();
-  }, [newFriendAdded]);
+  }, [friendAddRemove]);
 
 
   const handleAddNewFriend = async (id)=>{
@@ -97,11 +97,28 @@ export default function UsersContainer() {
         {friendId:id},
         { header: { authorization: `${ReduxUserState.token}` } }
       );
-      setNewFriendAdded(true);
+      setFriendAddRemove(true);
       setSearch("");
     }
     catch(err){
       console.log("TRYING TO ADD",err);
+
+    }
+  }
+
+ 
+  const handleFriendRemoval = async (id) =>{   
+    
+    try{      
+      await axios.patch(
+        encodeURI(`/api/user/${ReduxUserState.id}/friends`),
+        {friendId:id},
+        { header: { authorization: `${ReduxUserState.token}` } }
+      );
+      setFriendAddRemove(true);      
+    }
+    catch(err){
+      console.log("TRYING TO REMOVE",err);
 
     }
   }
@@ -165,7 +182,8 @@ export default function UsersContainer() {
       <UsersBox
         friends={friendsList}
         selectedUserHandler={handleSelectedUser}
-        selected={ReduxSelectedUserState}
+        selected={ReduxSelectedUserState}    
+        removeHandler={handleFriendRemoval}    
       />
     </Box>
   );
