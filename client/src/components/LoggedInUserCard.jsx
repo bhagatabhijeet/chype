@@ -20,6 +20,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { setUser } from "../redux/UserReducer";
 import SettingsIcon from "@material-ui/icons/Settings";
 import axios from "axios";
+import {socket} from "../pages/MainPage";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -118,6 +119,7 @@ export default function LoggedInUserCard() {
     } catch (err) {
       console.log(err);
     }
+    socket.emit("SIGN_OUT",{id:ReduxUserState.id,email:ReduxUserState.email})
     dispatch(setUser({}));
     sessionStorage.removeItem("persist:root");
     history.push("/");
