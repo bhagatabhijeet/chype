@@ -93,22 +93,18 @@ export default function FriendUserCard(props) {
   useEffect(() => {
     socket.on("SIGN_IN", (payload) => {
       if (payload.id === props.data._id) {
-        setOnline(true);
-        console.log("signed in");
+        setOnline(true);        
       }
     });
     socket.on("SIGN_OUT", (payload) => {
       if (payload.id === props.data._id) {
-        setOnline(false);
-        console.log("signed out");
+        setOnline(false);        
       }
     });
     setOnline(props.data.loggedIn.status);
   }, []);
 
-  console.log("PROPS", props.data);
-  console.log(props.data.loggedIn.status);
-
+  
   const localSelectUserHandler = () => {
     props.selectedUserHandler(props.data);
   };
