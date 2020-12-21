@@ -45,6 +45,9 @@ io.on('connection', socket => {
       // setSocketId(payload.id,payload.socketId)
       // console.log(payload);
       io.emit("SIGN_OUT",{id:payload.id,email:payload.email});
+      socket.removeAllListeners("USER_SOCKET_ID");
+      socket.removeAllListeners("SIGN_IN");
+      socket.removeAllListeners("PRIVATE_MESSAGE");
     });  
 
     socket.on("SIGN_IN",payload =>{
