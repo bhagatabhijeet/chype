@@ -20,7 +20,6 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-scroll": "^1.8.1",
-    "react-scroll-to-bottom": "^4.0.0",
     "react-spring": "^8.0.27",
     "redux-persist": "^6.0.0",
     "socket.io-client": "^3.0.3",

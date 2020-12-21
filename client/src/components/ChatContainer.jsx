@@ -22,7 +22,7 @@ import SpeechToText from "speech-to-text";
 import {useSelector} from "react-redux";
 import axios from "axios";
 import {socket} from "../pages/MainPage";
-import ScrollToBottom from 'react-scroll-to-bottom';
+// import ScrollToBottom from 'react-scroll-to-bottom';
 
 
 export default function ChatContainer() {
@@ -136,9 +136,9 @@ export default function ChatContainer() {
             <div id="chatContents" style={{ overflowY: "scroll",
                 boxSizing: "border-box",height:'90%',width:'100%',marginBottom:20}}
             >
-              <ScrollToBottom>
+              {/* <ScrollToBottom> */}
               {chatMessages.map((m,index)=>m.from !== ReduxUserState.id?<ChatDivFrom key={index} messagePayload={m}/>:<ChatDivTo key={index} messagePayload={m}/>)}
-              </ScrollToBottom > 
+              {/* </ScrollToBottom >  */}
             </div>
            
             <div>
