@@ -65,7 +65,7 @@ const OfflineStyledBadge = withStyles((theme) => ({
           left: 0,
           width: '100%',
           height: '100%',
-          borderRadius: '50%',          
+          borderRadius: '50%',
           // border: '1px solid red',
           content: '""',
       },
@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
         display:'flex',
         flexDirection:'row',
         flexWrap:'wrap',
-        alignContent:'center',        
+        alignContent:'center',
         width:'100%',
         margin:0,
         "&:hover":{
@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor:'transparent',
         color:'white'
     },
-    
+
 
 }));
 
@@ -141,13 +141,13 @@ export default function FriendUserCard(props) {
       // setBgColor("#2ba2ff");
       props.selectedUserHandler(props.data)
     }
-    
+
 
     return (
         // <div >
         <div className={classes.root}  style={{backgroundColor:props.isSelected?"#2ba2ff":"#007acc"}} role="button" onClick={localSelectUserHandler}>
             {/* <CardContent> */}
-            
+
                 <Avatar aria-label="recipe" className={classes.avatar} component="span">
                     {`${props.data.firstName[0].toUpperCase()}${props.data.lastName[0].toUpperCase()}`}
                 </Avatar>
@@ -174,10 +174,8 @@ export default function FriendUserCard(props) {
                   <VerifiedUserIcon style={{fontSize:20}}/>
                   </OfflineStyledBadge>)
                 }
-                
-                
-               
-           
+
+
 
         </div>
 
