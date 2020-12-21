@@ -82,6 +82,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "black",
     color: "white",
     borderRadius: "10px",
+    padding:'30px',
+    // width: '40px',
+    // heaight: '10px',
   },
   icon: {
     color: "#fff",
@@ -102,22 +105,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Copyright() {
-  return (
-    <Typography variant="body2" style={{ color: "#ffffff", margin: 10 }}>
-      {"Copyright © "}
-      <Link
-        color="inherit"
-        href="https://github.com/bhagatabhijeet/chype"
-        target="_blank"
-      >
-        Chype Team
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+// function Copyright() {
+//   return (
+//     <Typography variant="body2" style={{ color: "#ffffff", margin: 10 }}>
+//       {"Copyright © "}
+//       <Link
+//         color="inherit"
+//         href="https://github.com/bhagatabhijeet/chype"
+//         target="_blank"
+//       >
+//         Chype Team
+//       </Link>{" "}
+//       {new Date().getFullYear()}
+//       {"."}
+//     </Typography>
+//   );
+// }
 
 export default function HomePage() {
   const [forks, setForks] = useState();
@@ -181,26 +184,42 @@ export default function HomePage() {
             <Grid item xs={12} justify="center">
               <CardContent className={classes.footerBottom}>
                 <Typography
+                style={{fontSize: '30px',marginTop:'6px'}}
+                >
+                  Our GitHub Stats
+
+                </Typography>
+                <Typography
+                variant="subtitle1"
+                >
+                  Become a contributor
+
+                </Typography>
+                <Typography
                   variant="body2"
                   style={{ color: "#ffffff", margin: 10 }}
+                  align="center"
                 >
-                  GitHub {"  "}
+                  <Link
+                  
+                  color="inherit"
+                  href="https://github.com/bhagatabhijeet/chype"
+                  target="_blank"
+                >
+                  <GithubIcon style={{ fontSize: 34, marginRight:'15px', marginTop:'6px' }} />
+                </Link>
+                  {/* GitHub {"  "} */}
                   <Badge badgeContent={forks} color="primary">
-                    <AccountTreeIcon />
+                     <AccountTreeIcon />
                   </Badge>
                   {"  "}
                   <Badge badgeContent={stars} color="primary">
                     <StarBorderIcon />
                   </Badge>
+                  
                 </Typography>
-                <Copyright />
-                <Link
-                  color="inherit"
-                  href="https://github.com/bhagatabhijeet/chype"
-                  target="_blank"
-                >
-                  <GithubIcon style={{ fontSize: 34 }} />
-                </Link>
+                {/* <Copyright /> */}
+                
               </CardContent>
             </Grid>
           </Card>
