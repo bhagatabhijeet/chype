@@ -14,9 +14,10 @@ import "react-intl-tel-input/dist/main.css";
 import { useState } from "react";
 import axios from "axios";
 import Parallax from "../components/animated/Parallax";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUser } from "../redux/UserReducer";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { socket } from "../pages/MainPage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,9 +87,9 @@ const StyledTextField = withStyles({
 })(TextField);
 
 export default function SignInNew() {
-  //Redux  
+  //Redux
   let history = useHistory();
-  const dispatch  = useDispatch();
+  const dispatch = useDispatch();
 
   const classes = useStyles();
   const [formData, setFormData] = useState({
@@ -112,7 +113,7 @@ export default function SignInNew() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+
     if (validations()) {
       const submit = async () => {
         const res = await axios.post("/auth/signin", {
@@ -120,7 +121,7 @@ export default function SignInNew() {
           password: formData.password.text,
         });
         console.log(res.data);
-        
+
         dispatch(
           setUser({
             firstName: res.data.firstName,
@@ -128,15 +129,18 @@ export default function SignInNew() {
             email: res.data.email,
             loggedIn: res.data.loggedIn.status,
             token: res.data.loggedIn.token,
-            id:res.data._id
+            id: res.data._id,
           })
         );
 
-        if(res.data.loggedIn.status){
-          console.log("going to main");
+        if (res.data.loggedIn.status) {
+          socket.emit("SIGN_IN", {
+            id: res.data._id,
+            email: res.data.email,
+            socketId: socket.id,
+          });
           history.push("/main");
         }
-
       };
       submit();
     }
@@ -168,7 +172,6 @@ export default function SignInNew() {
     >
       <AppBarMain home signup />
       <Grid container component="main" className={classes.root} spacing={0}>
-        {/* <CssBaseline /> */}
         <Grid item xs={false} sm={4} md={7}>
           <div className="container">
             <Parallax />
@@ -237,7 +240,7 @@ export default function SignInNew() {
                 </Grid>
                 <Grid item>
                   <Link href="/signup" variant="body2">
-                  Don't have an account? sign up
+                    Don't have an account? sign up
                   </Link>
                 </Grid>
               </Grid>
