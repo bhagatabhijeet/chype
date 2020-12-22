@@ -29,10 +29,10 @@ const useStyles = makeStyles((theme) => ({
 function General() {
    const classes = useStyles();
     return (
-        <div  className={classes.root}>
+        <div  >
             <ThemeProvider theme={theme}>
                 <Paper >
-            <Grid container spacing={24} >
+            <Grid container spacing={1} >
                 <Grid item xs={12}>
                     <ChooseLangu />
                 </Grid>

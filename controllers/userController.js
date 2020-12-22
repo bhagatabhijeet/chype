@@ -13,8 +13,8 @@ async function setSocketId(userId,socketId){
   await User.findByIdAndUpdate(userId, {socketId});
 }
 
-async function getSocketId(userId){
-  const soc=await User.findById(userId).select("socketId -_id").exec();
+async function getSocketIdAndLanguage(userId){
+  const soc=await User.findById(userId).select("socketId language -_id").exec();
   return soc;
 }
 
@@ -32,7 +32,7 @@ const updateUser = async (req, res) => {
 
 const getUserById = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+  // console.log(id);
   try {
     const user = await User.findById(id).select("-password");
     return res.status(200).json(user);
@@ -59,7 +59,7 @@ async function getFriendsForUser(id){
 //Here friends mean users with whom you have already had a chat
 const getFriends = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+  // console.log(id);
   try {
     const friendDetailsArray=await getFriendsForUser(id);
     return res.status(200).json(friendDetailsArray);
@@ -168,7 +168,7 @@ module.exports = {
   updateUser,
   getFriends,
   setSocketId,
-  getSocketId,
+  getSocketIdAndLanguage,
   addFriend,
   removeFriend
 };

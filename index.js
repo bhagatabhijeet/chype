@@ -6,8 +6,9 @@ const http = require('http');
 const routes = require('./routes');
 require('./services/passport');
 require('./db/mongoDBConnection');
-const {setSocketId,getSocketId} =require("./controllers/userController");
-const {translateMessage} = require("./controllers/messageController");
+const {setSocketId,getSocketIdAndLanguage} =require("./controllers/userController");
+const {signOut} =require("./controllers/authController");
+const {translateMessage,storeMessage} = require("./controllers/messageController");
 
 const PORT = process.env.PORT||3001;
 
@@ -31,32 +32,68 @@ app.get("*", function(req, res) {
 
 
 io.on('connection', socket => {
-    // console.log('Someone connected from the front end');
+    console.log('Someone connected from the front end',socket.id);
     socket.on("USER_SOCKET_ID",payload =>{
       setSocketId(payload.id,payload.socketId)
-      console.log(payload);
-    });
+      // console.log(payload);
+      io.emit("USER_SOCKET_ID",payload.id);
+    });  
+
+    socket.on("SIGN_OUT",payload =>{
+      console.log(payload.id + " " + payload.email + " signed out");
+      signOut(payload.id);
+      // setSocketId(payload.id,payload.socketId)
+      // console.log(payload);
+      io.emit("SIGN_OUT",{id:payload.id,email:payload.email});
+      socket.removeAllListeners("USER_SOCKET_ID");
+      socket.removeAllListeners("SIGN_IN");
+      socket.removeAllListeners("PRIVATE_MESSAGE");
+    });  
+
+    socket.on("SIGN_IN",payload =>{
+      console.log(payload.id + " " + payload.email + " signed in")
+      setSocketId(payload.id,payload.socketId)
+      // setSocketId(payload.id,payload.socketId)
+      // console.log(payload);
+      io.emit("SIGN_IN",{id:payload.id,email:payload.email});
+    });  
+
+    socket.on("disconnect",() =>{
+      console.log(socket.id + " is disconnecting...");
+    })
+
 
     socket.on("PRIVATE_MESSAGE", async (payload) =>{
+      if(payload.to === 0){
+        return
+      }
       // socket.to(anotherSocketId).emit("private message",msg,user);
-      const transMessage=await translateMessage(payload.message,"hi");
+      const anotherSocket= await getSocketIdAndLanguage(payload.to);
+      let transMessage="";
+      if(anotherSocket.language!==""){
+        transMessage=await translateMessage(payload.message,anotherSocket.language);
+      }
+      storeMessage(payload.from,payload.to,{message:payload.message,translatedMessage:transMessage.translatedMessage})
       console.log("TRANSMESAGE",transMessage);
       console.log(payload);
-      const anotherSocket= await getSocketId(payload.to);
-      console.log(anotherSocket.socketId);
-      socket.to(anotherSocket.socketId).emit("PRIVATE_MESSAGE",payload);
+      // console.log(anotherSocket.socketId);
+      socket.to(anotherSocket.socketId).emit("PRIVATE_MESSAGE",{...payload,translatedMessage:transMessage.translatedMessage});
     });
 
-    socket.on('clientToServerMessage', ({user, message, friend, room}) => {
-        console.log('hello world');
+//     socket.on('clientToServerMessage', ({user, message, friend, room}) => {
+//         console.log('hello world');
 
-        socket.join(room);
-        io.to(room).emit("serverToClientMessage", {user, message, friend});
+//         socket.join(room);
+//         io.to(room).emit("serverToClientMessage", {user, message, friend});
 
-        console.log(user, message);
-        io.emit("serverToClientMessage", {user, message});
-    })
+//         console.log(user, message);
+//         io.emit("serverToClientMessage", {user, message});
+//     })
 });
+
+io.on("disconnect",socket =>{
+  console.log(socket.id + " is disconnecting...");
+})
 
 
 server.listen(PORT, () => {

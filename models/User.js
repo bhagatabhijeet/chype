@@ -41,8 +41,12 @@ const UserSchema = new Schema({
     default: "",
   },
   messages: [{
-    type: Schema.Types.ObjectId,
-    ref: "Message",
+    // type: Schema.Types.ObjectId,
+    // ref: "Message",
+    from:String,
+    to:String,
+    message:String,
+    translatedMessage:String
   }],
   loggedIn:{
     status:Boolean,

@@ -30,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerPaper: {
         width: 'inherit',
+        backgroundColor:'#1e1e1e',
+        color:'#2ba2ff !important'
     },
     list: {
         marginTop: '20px',
@@ -42,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
     link: {
         textDecoration: 'none',
-        color: theme.palette.text.primary
+        color: "#2ba2ff" //theme.palette.text.primary
     },
     nested: {
         paddingLeft: theme.spacing(4),
@@ -97,7 +99,7 @@ function SettingsPage(props) {
                     <List className={classes.list}>
                         <Link to="/settings" className={classes.link}>
                             <ListItem button onClick={handleClick}>
-                                <ListItemIcon>
+                                <ListItemIcon style={{color:'#2ba2ff'}}>
                                     <SettingsIcon/>
                                 </ListItemIcon>
                                 <ListItemText primary={"Settings"}/>
@@ -107,7 +109,7 @@ function SettingsPage(props) {
                                 <Link to="/account" className={classes.link}>
                                     <List component="div" disablePadding>
                                         <ListItem button className={classes.nested}>
-                                            <ListItemIcon>
+                                            <ListItemIcon style={{color:'#2ba2ff'}}>
                                                 <AccountCircleIcon/>
                                             </ListItemIcon>
                                             <ListItemText primary="Account"/>
@@ -116,11 +118,11 @@ function SettingsPage(props) {
                                 </Link>
                             </Collapse>
                             <Divider variant="inset" component="li"/>
-                            <Collapse in={open} timeout="auto" unmountOnExit>
+                            {/* <Collapse in={open} timeout="auto" unmountOnExit>
                                 <Link to="/general" className={classes.link}>
                                     <List component="div" disablePadding>
                                         <ListItem button className={classes.nested}>
-                                            <ListItemIcon>
+                                            <ListItemIcon style={{color:'#2ba2ff'}}>
                                                 <DetailsIcon/>
                                             </ListItemIcon>
                                             <ListItemText primary="General"/>
@@ -128,12 +130,12 @@ function SettingsPage(props) {
                                     </List>
                                 </Link>
                             </Collapse>
-                            <Divider variant="inset" component="li"/>
+                            <Divider variant="inset" component="li"/> */}
                             <Collapse in={open} timeout="auto" unmountOnExit>
                                 <Link to="/main" className={classes.link}>
                                     <List component="div" disablePadding onClick={navigateToChat}>
                                         <ListItem button className={classes.nested}>
-                                            <ListItemIcon>
+                                            <ListItemIcon style={{color:'#2ba2ff'}}>
                                                 <ChatIcon/>
                                             </ListItemIcon>
                                             <ListItemText primary="Back to chat"/>
@@ -145,7 +147,7 @@ function SettingsPage(props) {
                         <Divider variant="inset" component="li"/>
                         <Link to="/signout" className={classes.link} onClick={signOut}>
                             <ListItem button>
-                                <ListItemIcon>
+                                <ListItemIcon style={{color:'#2ba2ff'}}>
                                     <ExitToAppIcon/>
                                 </ListItemIcon>
                                 <ListItemText primary={"Signout"}/>

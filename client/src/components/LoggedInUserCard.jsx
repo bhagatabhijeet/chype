@@ -20,6 +20,45 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { setUser } from "../redux/UserReducer";
 import SettingsIcon from "@material-ui/icons/Settings";
 import axios from "axios";
+import {socket} from "../pages/MainPage";
+
+
+const StyledMenu = withStyles({
+  paper: {
+    border: '1px solid #1e1e1e',
+  },
+})((props) => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'center',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'center',
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuItem = withStyles((theme) => ({
+  root: {
+    '&:focus': {
+      backgroundColor: "#007acc", //theme.palette.primary.main,
+      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+        color: theme.palette.common.white,
+      },     
+    },
+    '&:hover': {
+      backgroundColor: "#1e1e1e", //theme.palette.primary.main,
+      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+        color: theme.palette.common.white,
+      },
+  },
+}
+}))(MenuItem);
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -118,6 +157,7 @@ export default function LoggedInUserCard() {
     } catch (err) {
       console.log(err);
     }
+    socket.emit("SIGN_OUT",{id:ReduxUserState.id,email:ReduxUserState.email})
     dispatch(setUser({}));
     sessionStorage.removeItem("persist:root");
     history.push("/");
@@ -155,14 +195,14 @@ export default function LoggedInUserCard() {
               }
               title={`${firstName} ${lastName}`}
           />
-          <Menu
+          <StyledMenu
               id="simple-menu"
               anchorEl={anchorEl}
               keepMounted
               open={Boolean(anchorEl)}
               onClose={handleClose}
           >
-            <MenuItem>
+            <StyledMenuItem>
               <Link to="/settings" className={classes.link}>
                 <List component="div" disablePadding>
                   <ListItem button className={classes.nested}>
@@ -173,8 +213,8 @@ export default function LoggedInUserCard() {
                   </ListItem>
                 </List>
               </Link>
-            </MenuItem>
-            <MenuItem>
+            </StyledMenuItem>
+            <StyledMenuItem>
               <Link to="/signout" className={classes.link} onClick={signOut}>
                 <ListItem button>
                   <ListItemIcon>
@@ -183,8 +223,8 @@ export default function LoggedInUserCard() {
                   <ListItemText primary={"Signout"}/>
                 </ListItem>
               </Link>
-            </MenuItem>
-          </Menu>
+            </StyledMenuItem>
+          </StyledMenu>
         </Card>
       </div>
   );
