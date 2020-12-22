@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import "../assets/styles/common.css";
-import AppsIcon from "@material-ui/icons/Apps";
 import GithubIcon from "@material-ui/icons/GitHub";
 import axios from "axios";
 import AccountTreeIcon from "@material-ui/icons/AccountTree";
@@ -9,9 +8,7 @@ import Badge from "@material-ui/core/Badge";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
-import IconButton from "@material-ui/core/IconButton";
-import Collapse from "@material-ui/core/Collapse";
-import { Link as Scroll } from "react-scroll";
+// import { Link as Scroll } from "react-scroll";
 import AppBarMain from "../components/AppBarMain";
 import { Typography, Grid, Link } from "@material-ui/core";
 import HomePageFooter from "../components/HomePageFooter";
@@ -19,6 +16,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useSpring, animated, config } from "react-spring";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
+import balBakground from "../assets/images/ballonBackground.png";
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -32,11 +30,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "stretch",
-    textAlign: "center",
-    marginBottom: "0px",
-    borderRadius: "15px",
-    width: "1230px",
-    justifyContent: "center",
+    textAlign: "center", 
+    width: "100%",
+    justifyContent: "flex-end",
+    border: 0,
+    backgroundColor: "transparent",
+    elevation: 0,
   },
   footerBottom: {
     backgroundColor: "#1e1e1e",
@@ -50,10 +49,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "stretch",
   },
   chyper: {
-    marginBottom: "32px",
-    marginTop: "22px",
-    backgroundColor: "black",
-    color: "white",
+    margin: 10,
     borderRadius: "10px",
     padding: "30px",
   },
@@ -72,7 +68,26 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "4rem",
   },
   div: {
-    backgroundColor: "#bbdefb",
+    background:
+      "linear-gradient(#ffffff 30%,#56b5ff 55%,#2ba2ff,#2ba2ff,#2ba2ff,#2ba2ff)",
+  },
+  title: {
+    fontSize: 24,
+    textAlign: "center",
+    "&::before": {
+      content: "''", // ::before and ::after both require content
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: 600,
+      height: 600,
+      marginLeft: "auto",
+      marginRight: "auto",
+      backgroundImage: `url(${balBakground})`,
+      opacity: 0.3,      
+      backgroundRepeat: "no-repeat",      
+      backgroundPosition: "center",
+    },
   },
 }));
 
@@ -109,34 +124,40 @@ export default function HomePage() {
       <Grid container direction="column" justify="center" alignItems="center">
         <Grid item xs={12} spacing={0}>
           <Animdiv val="Hello there!" />
-          <Collapse
-            in={checked}
-            {...(checked ? { timeout: 1000 } : {})}
-            collapsedHeight={50}
-          >
-            <div className={classes.container}>
-              <h1 className={classes.title}>
-                Welcome to <br />
-                <span className={classes.colorText}>Chype.</span>
-              </h1>
-              <Scroll to="" smooth={true}>
-                <IconButton>
-                  <AppsIcon className={classes.goDown} />
-                </IconButton>
-              </Scroll>
+          <div className={classes.container}>
+            <div className={classes.title}>Welcome to Chype</div>
             </div>
-          </Collapse>
+          
         </Grid>
         <Grid item xs={12}>
-          <Button className={classes.chyper} href="/signup">
-            I want to be a 'Chyper'
+          <Button
+            className="btn-black-white"
+            style={{ margin: "50 80", padding: 25 }}
+            href="/signup"
+          >
+            Be a Chyper
           </Button>
         </Grid>
-        <Grid item container xs={8}>
-          <Card className={classes.root}>
+
+        <Grid item xs={12}>
+          <Card variant="outlined" elevation="0" style={{backgroundColor:'transparent'}}>
+            <Grid item xs={12} justify="center" alignContent="center">
+              <CardContent style={{ backgroundColor: "transparent" }}>
+                <Typography style={{ fontSize: 20, marginTop: 5,textAlign:"center",width:400 }}>
+                  Chype is a chat/messenger application.
+                  Chype not only sends and
+                  receives messages but also allows you to send messages
+                  transliterated and receive translated messages in your choice of language.
+                </Typography>
+              </CardContent>
+            </Grid>
+          </Card>
+        </Grid>
+        <Grid item container xs={12}>
+          <Card className={classes.root} variant="outlined">
             <Grid item xs={12} justify="center">
-              <CardContent className={classes.footerBottom}>
-                <Typography style={{ fontSize: "30px", marginTop: "6px" }}>
+              <CardContent style={{ backgroundColor: "transparent" }}>
+                <Typography style={{ fontSize: 30, marginTop: 5 }}>
                   Our GitHub Stats
                 </Typography>
                 <Typography variant="subtitle1">
@@ -144,7 +165,7 @@ export default function HomePage() {
                 </Typography>
                 <Typography
                   variant="body2"
-                  style={{ color: "#ffffff", margin: 10 }}
+                  style={{ margin: 10 }}
                   align="center"
                 >
                   <Link
